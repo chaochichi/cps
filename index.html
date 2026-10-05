@@ -1,0 +1,2195 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CHAO Prompt Studio | AI by CHAOCHAO</title>
+<meta name="description" content="คลัง Prompt ต้นแบบและเครื่องมือสร้าง Prompt สำหรับครีเอเตอร์ ครู และผู้ขายออนไลน์ กรอกข้อมูลของคุณ แล้วคัดลอกไปใช้กับ AI ได้ทันที">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%231E3A5F'/><path d='M18 22h28M18 32h18M18 42h24' stroke='%2314B8A6' stroke-width='6' stroke-linecap='round'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+<style>
+:root{
+  --navy:#1E3A5F; --navy-deep:#132840; --navy-panel:#24466F;
+  --teal:#14B8A6; --teal-ink:#0F6E56; --teal-dark:#04342C;
+  --amber:#F59E0B; --amber-ink:#412402;
+  --paper:#F8FAFC; --card:#FFFFFF; --ink:#1E293B; --muted:#5B6474; --line:#DCE3EC;
+  --mark:#D5F3EE; --warn-bg:#FEF3DC; --warn-ink:#7A4A06; --danger:#B42318;
+  --f-display:"Anuphan","IBM Plex Sans Thai",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans Thai",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono","IBM Plex Sans Thai",ui-monospace,monospace;
+  --r-sm:6px; --r-md:10px; --r-lg:18px;
+  --wrap:1160px;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0B1424; --card:#13213A; --ink:#E6EEF8; --muted:#9FB0C6; --line:#25395A;
+  --teal-ink:#5DCAA5; --mark:#123F3A; --navy-deep:#0A1A2D; --warn-bg:#3A2A0C; --warn-ink:#F7C873; --danger:#F29C94;
+}}
+:root[data-theme="dark"]{
+  --paper:#0B1424; --card:#13213A; --ink:#E6EEF8; --muted:#9FB0C6; --line:#25395A;
+  --teal-ink:#5DCAA5; --mark:#123F3A; --navy-deep:#0A1A2D; --warn-bg:#3A2A0C; --warn-ink:#F7C873; --danger:#F29C94;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(72px + env(safe-area-inset-top,0px))}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--f-display);line-height:1.3;margin:0;letter-spacing:-.01em}
+p{margin:0}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px;border-radius:4px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 20px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--navy);color:#fff;border-bottom:1px solid #2B4C75}
+.top .wrap{display:flex;align-items:center;gap:16px;min-height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
+.brand svg{flex:none}
+.brand b{font-family:var(--f-display);font-weight:700;font-size:18px;letter-spacing:.01em;white-space:nowrap;line-height:1.3}
+@media (max-width:420px){.brand b{font-size:16px}.brand svg{width:30px;height:30px}}
+.brand small{display:block;font-size:12px;color:#B5D4F4;line-height:1.2}
+.nav{display:flex;gap:4px;align-items:center}
+.nav a{text-decoration:none;font-size:15px;color:#DCE8F6;padding:8px 12px;border-radius:var(--r-sm);white-space:nowrap}
+.nav a:hover{background:#ffffff14;color:#fff}
+.nav a[aria-current="page"]{color:#fff;box-shadow:inset 0 -2px 0 var(--teal)}
+.nav .tag{font-size:11px;background:var(--amber);color:var(--amber-ink);padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:1px;font-weight:600}
+.icon-btn{flex:none;background:transparent;border:1px solid #ffffff33;color:#fff;width:40px;height:40px;border-radius:var(--r-sm);display:grid;place-items:center;cursor:pointer}
+.icon-btn:hover{background:#ffffff14}
+.menu-btn{display:none}
+@media (max-width:1060px){
+  .menu-btn{display:grid}
+  .nav{position:absolute;left:0;right:0;top:100%;background:var(--navy);flex-direction:column;align-items:stretch;padding:8px 20px 16px;border-bottom:1px solid #2B4C75;display:none}
+  .nav.open{display:flex}
+  .nav a{padding:12px}
+}
+
+/* views */
+.view{display:none}
+.view.active{display:block}
+
+/* hero */
+.hero{position:relative;background:var(--navy);color:#fff;padding:56px 0 72px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(560px circle at var(--hx,72%) var(--hy,35%),#14B8A630,transparent 65%)}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(#FFFFFF14 1px,transparent 1px);background-size:22px 22px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 60%);mask-image:linear-gradient(90deg,transparent,#000 60%)}
+.hero .wrap{position:relative;z-index:1}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:48px;align-items:center}
+.hero h1{font-size:clamp(34px,5vw,56px);font-weight:700;line-height:1.2}
+.hero .lead{color:#C9DCF2;font-size:18px;margin-top:18px;max-width:34em}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr;gap:36px}.hero{padding:40px 0 56px}}
+
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:var(--r-md);padding:11px 18px;font-weight:600;font-size:15px;cursor:pointer;text-decoration:none;border:1px solid transparent;transition:transform .12s ease,background .15s ease}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--teal);color:var(--teal-dark)}
+.btn-primary:hover{background:#2CC7B6}
+.btn-ghost{border-color:#85B7EB;color:#E6F1FB;background:transparent}
+.btn-ghost:hover{background:#ffffff12}
+.btn-line{border-color:var(--line);background:var(--card);color:var(--ink)}
+.btn-line:hover{border-color:var(--teal-ink)}
+.btn-sm{padding:7px 12px;font-size:14px}
+
+/* assembler — the signature element */
+.asm{background:var(--navy-panel);border:1px solid #3A5F8C;border-radius:var(--r-lg);padding:22px 22px 18px}
+.asm-head{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#B5D4F4;margin-bottom:14px}
+.asm-head .dots{display:flex;gap:6px}
+.asm-head .dots i{width:10px;height:10px;border-radius:50%;background:#3A5F8C;display:block}
+.asm-text{font-family:var(--f-mono);font-size:clamp(17px,2.1vw,21px);line-height:2.1;color:#F1F6FC;min-height:7.2em}
+.slot{display:inline-block;border:1.5px dashed #5DCAA5;color:#9FE1CB;background:#14B8A61A;border-radius:8px;padding:0 10px;margin:0 2px;cursor:pointer;font:inherit;line-height:1.55;transition:background .15s ease,transform .15s ease}
+.slot:hover{background:#14B8A633}
+.slot.filled{border-style:solid;border-color:var(--teal);color:#fff;background:#14B8A640}
+.slot.pop{animation:pop .35s ease}
+@keyframes pop{0%{transform:scale(.92)}60%{transform:scale(1.05)}100%{transform:scale(1)}}
+.asm-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid #3A5F8C}
+.asm-foot p{font-size:13px;color:#B5D4F4}
+.caret{display:inline-block;width:2px;height:1.1em;background:var(--teal);vertical-align:-3px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* sections */
+.sec{padding:72px 0}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+.sec-head h2{font-size:clamp(26px,3vw,34px);font-weight:700}
+.sec-head p{color:var(--muted);max-width:36em;margin-top:8px}
+.link{color:var(--teal-ink);font-weight:600;text-decoration:none}
+.link:hover{text-decoration:underline}
+
+/* featured tool */
+.feature{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--card)}
+.feature .copy{padding:36px}
+.feature .copy h3{font-size:28px;font-weight:700;margin:10px 0 12px}
+.feature .copy p{color:var(--muted)}
+.feature ul{margin:18px 0 26px;padding:0;list-style:none;display:grid;gap:8px}
+.feature li{padding-left:26px;position:relative}
+.feature li::before{content:"";position:absolute;left:0;top:.62em;width:14px;height:8px;border-left:2.5px solid var(--teal-ink);border-bottom:2.5px solid var(--teal-ink);transform:rotate(-45deg)}
+.flow{background:var(--navy-deep);color:#DCE8F6;padding:32px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.flow-step{display:flex;gap:14px;align-items:center;background:#ffffff0d;border:1px solid #ffffff1a;border-radius:var(--r-md);padding:14px 16px}
+.flow-step b{font-family:var(--f-display);font-size:22px;color:var(--teal);width:28px;flex:none}
+.flow-step span{font-size:15px}
+.flow-arrow{width:2px;height:14px;background:#3A5F8C;margin-left:29px}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--warn-bg);color:var(--warn-ink)}
+@media (max-width:860px){.feature{grid-template-columns:1fr}.feature .copy{padding:26px}}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
+.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:border-color .2s ease,box-shadow .25s ease,transform .25s ease;will-change:transform}
+.card:hover{border-color:var(--teal-ink);box-shadow:0 18px 34px -22px #1E3A5FAA}
+.card::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),#14B8A61f,transparent 62%);opacity:0;transition:opacity .25s ease}
+.card:hover::after{opacity:1}
+.card.tilting{transition:border-color .2s ease,box-shadow .25s ease}
+.card-open{all:unset;box-sizing:border-box;display:flex;flex-direction:column;width:100%;height:100%;cursor:pointer;text-align:left}
+.card-open:focus-visible{outline:3px solid var(--teal);outline-offset:-3px;border-radius:var(--r-md)}
+.cover{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--navy)}
+.cover svg,.cover img{width:100%;height:100%;display:block;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.card:hover .cover svg,.card:hover .cover img{transform:scale(1.05)}
+.kind-badge{position:absolute;left:12px;top:12px;font-size:12px;font-weight:600;background:#FFFFFFE8;color:#1E3A5F;padding:3px 10px;border-radius:999px;z-index:1}
+.kind-badge.tool{background:#F59E0B;color:#412402}
+.peek{position:absolute;inset:0;background:#132840F2;color:#DCE8F6;font-family:var(--f-mono);font-size:12.5px;line-height:1.75;padding:14px 16px;transform:translateY(101%);transition:transform .38s cubic-bezier(.2,.7,.2,1);overflow:hidden;z-index:1}
+.peek b{display:block;font-family:var(--f-body);font-size:12px;font-weight:600;color:#5DCAA5;margin-bottom:6px}
+.peek mark{background:#14B8A633;color:#9FE1CB;border-radius:4px;padding:0 3px}
+.card:hover .peek,.card-open:focus-visible .peek{transform:none}
+@media (hover:none){.peek{display:none}}
+.card .body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card .meta{font-size:13px;color:var(--teal-ink);font-weight:600}
+.card h3{font-size:19px;font-weight:600}
+.card p{color:var(--muted);font-size:15px;line-height:1.6}
+.fav{position:absolute;top:10px;right:10px;width:36px;height:36px;border-radius:50%;border:none;background:#FFFFFFE8;color:#1E3A5F;display:grid;place-items:center;cursor:pointer;z-index:3;transition:transform .15s ease}
+.fav:hover{transform:scale(1.08)}
+.fav[aria-pressed="true"]{color:#E11D48}
+.fav[aria-pressed="true"] svg{fill:currentColor}
+.fav.pop svg{animation:pop .4s ease}
+.card.shuffle{border-color:var(--teal);box-shadow:0 0 0 3px #14B8A655}
+.card.picked{border-color:var(--amber);box-shadow:0 0 0 4px #F59E0B66}
+
+/* library */
+.tools-bar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:22px}
+.search{flex:1 1 280px;position:relative}
+.search input{width:100%;height:46px;border:1px solid var(--line);background:var(--card);border-radius:var(--r-md);padding:0 16px 0 42px}
+.search input:focus{outline:none;border-color:var(--teal-ink);box-shadow:0 0 0 3px #14B8A633}
+.search svg{position:absolute;left:14px;top:14px;color:var(--muted)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;font-size:14px;cursor:pointer}
+.chip:hover{border-color:var(--teal-ink)}
+.chip[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.count{color:var(--muted);font-size:14px;margin-bottom:14px}
+.empty{border:1px dashed var(--line);border-radius:var(--r-md);padding:40px;text-align:center;color:var(--muted)}
+
+/* modal */
+dialog{border:none;padding:0;border-radius:var(--r-lg);background:var(--card);color:var(--ink);width:min(980px,calc(100vw - 24px));max-height:calc(100dvh - 24px)}
+dialog::backdrop{background:#0B1424b3}
+dialog[open]{animation:rise .22s ease}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.m-head{display:flex;justify-content:space-between;gap:16px;align-items:start;padding:22px 24px;border-bottom:1px solid var(--line)}
+.m-head h2{font-size:24px;font-weight:700}
+.m-head p{color:var(--muted);font-size:15px;margin-top:4px}
+.m-close{background:transparent;border:1px solid var(--line);border-radius:var(--r-sm);width:38px;height:38px;cursor:pointer;flex:none;display:grid;place-items:center}
+.m-body{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);max-height:calc(100dvh - 130px);overflow:auto}
+.m-form{padding:22px 24px;border-right:1px solid var(--line)}
+.m-out{padding:22px 24px;display:flex;flex-direction:column;gap:12px}
+@media (max-width:820px){.m-body{grid-template-columns:1fr}.m-form{border-right:none;border-bottom:1px solid var(--line)}}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:14px;font-weight:600;margin-bottom:6px}
+.field label .req{color:var(--danger);margin-left:3px}
+.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:var(--paper);border-radius:var(--r-sm);padding:9px 12px}
+.field textarea{min-height:88px;resize:vertical;line-height:1.6}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--teal-ink);box-shadow:0 0 0 3px #14B8A633}
+.hint{font-size:13px;color:var(--muted);margin-top:4px}
+.err{font-size:13px;color:var(--danger);margin-top:4px}
+.out-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.out-head b{font-size:15px}
+.progress{height:6px;background:var(--line);border-radius:99px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--teal);width:0;transition:width .25s ease}
+.prompt-box{font-family:var(--f-mono);font-size:14px;line-height:1.85;white-space:pre-wrap;word-break:break-word;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:16px;min-height:220px;overflow:auto}
+.prompt-box .v{background:var(--mark);color:var(--teal-ink);border-radius:4px;padding:0 3px;font-weight:500}
+.prompt-box .v.empty{background:transparent;border:1px dashed var(--teal-ink);color:var(--muted);font-weight:400}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.note{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* trend studio */
+.page-hero{background:var(--navy);color:#fff;padding:44px 0 40px}
+.page-hero h1{font-size:clamp(30px,4vw,44px);font-weight:700}
+.page-hero p{color:#C9DCF2;margin-top:10px;max-width:40em}
+.stepper{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:28px;border:1px solid #3A5F8C;border-radius:var(--r-md);overflow:hidden}
+.stepper button{background:transparent;border:none;border-right:1px solid #3A5F8C;color:#B5D4F4;padding:14px 16px;text-align:left;cursor:pointer;display:flex;gap:12px;align-items:center}
+.stepper button:last-child{border-right:none}
+.stepper b{font-family:var(--f-display);font-size:22px;width:24px}
+.stepper span{font-size:15px;line-height:1.35}
+.stepper button[aria-current="step"]{background:var(--navy-panel);color:#fff}
+.stepper button[aria-current="step"] b{color:var(--teal)}
+.stepper button.done b{color:var(--teal)}
+@media (max-width:640px){.stepper span small{display:none}.stepper button{padding:12px 10px;gap:8px}}
+.panel{display:none}
+.panel.active{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;animation:rise .25s ease}
+@media (max-width:900px){.panel.active{grid-template-columns:1fr}}
+.box{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:24px}
+.box h2{font-size:22px;font-weight:700;margin-bottom:6px}
+.box > p{color:var(--muted);margin-bottom:16px}
+.alert{border-radius:var(--r-md);padding:12px 14px;font-size:14px;line-height:1.6;background:var(--warn-bg);color:var(--warn-ink);margin-bottom:14px}
+.facts{display:grid;gap:12px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:1px solid var(--line);background:var(--paper);border-radius:var(--r-sm);padding:7px 12px;font-size:14px;cursor:pointer}
+.opt:hover{border-color:var(--teal-ink)}
+.opt[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:var(--teal-dark);font-weight:600}
+.group{margin-bottom:18px}
+.group > b{display:block;font-size:14px;margin-bottom:8px}
+.principles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:40px}
+.principles div{border-top:3px solid var(--teal);padding-top:12px}
+.principles b{display:block;font-family:var(--f-display);font-size:17px}
+.principles p{color:var(--muted);font-size:15px;margin-top:4px}
+
+/* how & about */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;counter-reset:s}
+.steps div{position:relative;padding-top:56px}
+.steps div::before{counter-increment:s;content:counter(s);position:absolute;top:0;left:0;font-family:var(--f-display);font-size:44px;font-weight:700;color:var(--teal-ink);line-height:1}
+.steps h3{font-size:20px;font-weight:600;margin-bottom:6px}
+.steps p{color:var(--muted)}
+.about{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:40px;align-items:start}
+.about p{margin-bottom:14px}
+.about aside{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px}
+.about aside b{display:block;margin-bottom:6px}
+.about aside p{color:var(--muted);font-size:15px}
+@media (max-width:820px){.about{grid-template-columns:1fr}}
+
+/* skill page */
+.meta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.meta-row span{font-size:13px;border:1px solid #3A5F8C;color:#DCE8F6;border-radius:999px;padding:4px 12px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:18px}
+.tabs button{background:transparent;border:none;border-bottom:3px solid transparent;padding:10px 14px;cursor:pointer;color:var(--muted);font-weight:600;font-size:15px;margin-bottom:-1px}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--teal)}
+.tabpanel{display:none}
+.tabpanel.active{display:block;animation:rise .2s ease}
+.tabpanel ol{margin:0 0 16px;padding-left:22px}
+.tabpanel li{margin-bottom:6px}
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.checks label{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);background:var(--paper);border-radius:var(--r-sm);padding:9px 12px;font-size:14px;font-weight:500;cursor:pointer;margin:0}
+.checks input{width:18px;height:18px;margin-top:3px;accent-color:var(--teal-ink);flex:none}
+.cmds{display:grid;gap:10px}
+.cmd{display:flex;justify-content:space-between;align-items:center;gap:14px;text-align:left;width:100%;background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:14px 16px;cursor:pointer;font-size:15px;line-height:1.6}
+.cmd:hover{border-color:var(--teal-ink)}
+.cmd small{display:block;color:var(--muted);font-size:13px}
+.cmd .c{flex:none;font-size:13px;font-weight:600;color:var(--teal-ink)}
+details.preview{margin-top:18px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--card)}
+details.preview summary{cursor:pointer;padding:12px 16px;font-weight:600}
+details.preview pre{margin:0;border-top:1px solid var(--line);padding:16px;max-height:420px;overflow:auto;font-family:var(--f-mono);font-size:13px;line-height:1.8;white-space:pre-wrap;word-break:break-word;color:var(--muted)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px}
+@media (max-width:900px){.two{grid-template-columns:1fr}}
+.sub{font-size:24px;font-weight:700;margin-bottom:6px}
+.sub-note{color:var(--muted);margin-bottom:20px;max-width:44em}
+
+/* tools & report studio */
+.tool-strip{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;text-decoration:none;border:1px solid var(--line);background:var(--card);border-radius:var(--r-lg);padding:20px 24px}
+.tool-strip:hover{border-color:var(--teal-ink)}
+.tool-strip b{display:block;font-family:var(--f-display);font-size:20px}
+.tool-strip > span > span{color:var(--muted);font-size:15px}
+.rp{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:28px;align-items:start}
+.rp-side{position:sticky;top:calc(80px + env(safe-area-inset-top,0px));display:grid;gap:16px;max-height:calc(100dvh - 100px);overflow:auto;padding-bottom:4px}
+@media (max-width:980px){.rp{grid-template-columns:1fr}.rp-side{position:static}}
+.rp .box{margin-bottom:18px}
+.rp .box h2{font-size:19px}
+.inline{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.toggle{display:flex;gap:10px;align-items:center;font-size:15px;font-weight:500;cursor:pointer;margin:4px 0 12px}
+.toggle input{width:18px;height:18px;accent-color:var(--teal-ink)}
+.topic{border:1px solid var(--line);border-radius:var(--r-md);padding:14px;margin-bottom:12px;background:var(--paper)}
+.topic-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.topic-head b{display:flex;gap:8px;align-items:center;font-size:15px}
+.dot{width:24px;height:24px;border-radius:50%;display:inline-grid;place-items:center;color:#fff;font-size:13px;font-weight:700;flex:none}
+.rm{background:transparent;border:1px solid var(--line);border-radius:var(--r-sm);padding:3px 10px;font-size:13px;cursor:pointer;color:var(--muted)}
+.rm:hover{border-color:var(--danger);color:var(--danger)}
+.cc{font-size:12px;color:var(--muted);text-align:right;margin-top:2px}
+.sheet-wrap{display:flex;justify-content:center;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:14px;min-height:200px}
+.sheet{position:relative;background:#FBF6EA;box-shadow:0 1px 0 #0000000d,0 8px 24px #1E3A5F26;border-radius:3px;display:flex;overflow:hidden;transition:aspect-ratio .25s ease,width .25s ease}
+.sheet .bind{flex:none;width:12%;background:repeating-linear-gradient(-45deg,#E9DFC8 0 4px,#F4ECDA 4px 8px);border-right:1px dashed #C9B48A}
+.sheet .area{flex:1;padding:5%;display:flex;flex-direction:column;gap:4%;min-width:0}
+.sheet .ttl{background:#1E3A5F;color:#fff;border-radius:2px;padding:3% 4%;font-family:var(--f-display);font-weight:700;font-size:clamp(8px,1.4vw,13px);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sheet .mid{display:flex;gap:5%;flex:1;min-height:0}
+.sheet .tops{flex:1;display:flex;flex-direction:column;gap:5px;min-width:0}
+.sheet .tp{display:flex;gap:5px;align-items:flex-start}
+.sheet .tp i{width:10px;height:10px;border-radius:50%;flex:none;margin-top:1px}
+.sheet .tp span{flex:1;display:grid;gap:3px}
+.sheet .tp span em{display:block;height:3px;background:#C9BBA0;border-radius:2px}
+.sheet .tp span em:first-child{background:#8A7550;width:60%}
+.sheet .tp span.blank em{background:transparent;border:1px dashed #B7A27A;height:9px}
+.sheet .tp span.blank em:first-child{background:#8A7550;border:none;height:3px}
+.sheet .person{width:34%;flex:none;display:flex;align-items:flex-end;justify-content:center}
+.sheet .person svg{width:100%;height:auto;max-height:100%}
+.sheet .frames{display:grid;gap:5px}
+.sheet .frames i{aspect-ratio:4/3;background:#E8E2D6;border:1px solid #B9AE98;display:block}
+.sheet .sign{align-self:flex-end;width:46%;display:grid;gap:3px;justify-items:center}
+.sheet .sign em{display:block;height:3px;background:#C9BBA0;border-radius:2px;width:100%}
+.sheet .sign em:nth-child(2){width:70%;background:#8A7550}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:10px}
+.legend span{display:flex;gap:6px;align-items:center}
+.legend i{width:12px;height:12px;display:inline-block;border-radius:2px}
+
+/* fx */
+.view.active{animation:viewIn .32s ease}
+@keyframes viewIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.spark{position:fixed;width:7px;height:7px;border-radius:2px;pointer-events:none;z-index:80;animation:spark .7s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes spark{to{transform:translate(var(--dx),var(--dy)) rotate(var(--rot));opacity:0}}
+.btn.copied{background:var(--teal-ink);color:#fff;border-color:var(--teal-ink)}
+.kbd{font-family:var(--f-mono);font-size:11px;border:1px solid #ffffff40;border-radius:4px;padding:1px 5px;margin-left:8px;color:#B5D4F4}
+@media (max-width:1060px){.kbd{display:none}}
+.cmd-btn{width:auto;padding:0 12px;gap:6px;display:flex;align-items:center;font-size:14px;color:#DCE8F6}
+.cmd-btn span.l{display:inline}
+@media (max-width:600px){.cmd-btn span.l{display:none}.cmd-btn{width:40px;padding:0;justify-content:center}}
+dialog.cmdk{width:min(640px,calc(100vw - 24px));align-self:start;margin-top:12vh}
+.cmdk-in{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.cmdk-in input{flex:1;border:none;background:transparent;font-size:17px;outline:none;padding:6px 0}
+.cmdk ul{list-style:none;margin:0;padding:8px;max-height:min(420px,60dvh);overflow:auto}
+.cmdk li button{all:unset;box-sizing:border-box;display:flex;justify-content:space-between;gap:12px;width:100%;padding:10px 12px;border-radius:var(--r-sm);cursor:pointer}
+.cmdk li button small{color:var(--muted);font-size:13px;flex:none}
+.cmdk li button[aria-selected="true"]{background:var(--mark)}
+.cmdk .foot{padding:10px 18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.dice{display:inline-block}
+.dice.roll{animation:roll .6s ease}
+@keyframes roll{to{transform:rotate(360deg)}}
+
+footer{border-top:1px solid var(--line);padding:28px 0 36px;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--navy);color:#fff;padding:12px 18px;border-radius:var(--r-md);font-size:15px;opacity:0;pointer-events:none;transition:all .2s ease;z-index:60;border:1px solid #3A5F8C}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#home" aria-label="CHAO Prompt Studio หน้าแรก">
+      <svg width="34" height="34" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#24466F"/><path d="M18 22h28M18 32h18M18 42h24" stroke="#14B8A6" stroke-width="6" stroke-linecap="round"/></svg>
+      <span><b>CHAO Prompt Studio</b><small>AI by CHAOCHAO</small></span>
+    </a>
+    <nav class="nav" id="nav" aria-label="เมนูหลัก">
+      <a href="#home">หน้าแรก</a>
+      <a href="#library">คลัง Prompt</a>
+      <a href="#skills">Skill</a>
+      <a href="#tools">เครื่องมือ<span class="tag">ใหม่</span></a>
+      <a href="#how">วิธีใช้งาน</a>
+      <a href="#about">เกี่ยวกับ</a>
+    </nav>
+    <button class="icon-btn cmd-btn" id="cmdBtn" aria-label="ค้นหาด่วน" aria-keyshortcuts="Control+K">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="l">ค้นหา</span><span class="kbd" aria-hidden="true">Ctrl K</span>
+    </button>
+    <button class="icon-btn" id="themeBtn" aria-label="สลับโหมดสว่างหรือมืด">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="เปิดเมนู" aria-expanded="false" aria-controls="nav">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+<!-- ================= HOME ================= -->
+<section class="view" data-view="home" aria-label="หน้าแรก">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <h1>เปลี่ยนไอเดียของคุณ<br>ให้เป็น <span style="white-space:nowrap">Prompt ที่พร้อมใช้</span></h1>
+        <p class="lead">คลัง Prompt ต้นแบบจากการใช้งานจริง เลือกแบบที่ตรงกับงาน กรอกข้อมูลของคุณ แล้วคัดลอกไปใช้กับ Claude, ChatGPT หรือ Gemini ได้ทันที</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#library">เปิดคลัง Prompt</a>
+          <button class="btn btn-ghost" data-surprise><svg class="dice" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><circle cx="8.5" cy="8.5" r="1.3" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/></svg>สุ่มไอเดีย</button>
+        </div>
+      </div>
+      <div class="asm" aria-label="ตัวอย่างการประกอบ Prompt แบบโต้ตอบ">
+        <div class="asm-head"><span>แตะคำในกรอบเพื่อเปลี่ยนข้อมูล</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="asm-text" id="asmText" aria-live="polite"></div>
+        <div class="asm-foot">
+          <p>นี่คือหลักการของทุก Prompt ในเว็บนี้</p>
+          <button class="btn btn-primary btn-sm" id="asmUse">ใช้ Prompt นี้</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="wrap">
+      <div class="feature">
+        <div class="copy">
+          <span class="pill">เครื่องมือแนะนำ</span>
+          <h3>Trend Prompt Studio</h3>
+          <p>เปลี่ยนกระแสที่กำลังได้รับความสนใจ ให้เป็นคลิปสั้นที่มีสาระและถูกต้อง โดยไม่แต่งข่าว ไม่เติมตัวเลข และไม่สร้างคำพูดของบุคคลขึ้นเอง</p>
+          <ul>
+            <li>สกัดข้อเท็จจริงจากข่าวก่อนเขียนบท</li>
+            <li>เลือกกลุ่มผู้ชม มุมเล่า และโทนของคุณเอง</li>
+            <li>ได้บทคลิป 20 วินาที พร้อม Image และ Motion Prompt รายฉาก</li>
+          </ul>
+          <a class="btn btn-primary" href="#trend">เริ่มใช้งาน</a>
+        </div>
+        <div class="flow" aria-label="ขั้นตอนของ Trend Prompt Studio">
+          <div class="flow-step"><b>1</b><span>วางเนื้อหาข่าว แล้วคัดลอก Prompt สกัดข้อเท็จจริงไปใช้กับ AI</span></div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-step"><b>2</b><span>นำคำตอบกลับมาวาง ตรวจและแก้ข้อเท็จจริงทีละหัวข้อ</span></div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-step"><b>3</b><span>เลือกแนวทางการเล่า แล้วรับ Master Prompt สำหรับผลิตคลิป</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec" style="padding-top:0">
+    <div class="wrap">
+      <a class="tool-strip" href="#report">
+        <span><b>Report Prompt Studio</b><span>สร้าง Prompt หน้ารายงานผลการปฏิบัติงานพร้อมภาพบุคคลและกรอบภาพกิจกรรม เห็นผังหน้ากระดาษก่อนคัดลอก</span></span>
+        <span class="btn btn-line btn-sm">เปิดเครื่องมือ</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="sec" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2>Prompt แนะนำ</h2><p>ทุกชุดเป็นจุดเริ่มต้น ปรับแก้ให้ตรงกับงาน สินค้า และเครื่องมือของคุณได้</p></div>
+        <a class="link" href="#library">ดูทั้งหมดในคลัง</a>
+      </div>
+      <div class="grid" id="homeGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LIBRARY ================= -->
+<section class="view" data-view="library" aria-label="คลัง Prompt">
+  <div class="page-hero"><div class="wrap">
+    <h1>คลัง Prompt</h1>
+    <p>ค้นหาตามชื่อหรือหมวดหมู่ เปิดการ์ดเพื่อกรอกข้อมูลของคุณ ระบบจะประกอบ Prompt ให้ทันทีขณะพิมพ์</p>
+  </div></div>
+  <div class="sec" style="padding-top:36px">
+    <div class="wrap">
+      <div class="tools-bar">
+        <div class="search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <label class="sr-only" for="q">ค้นหา Prompt</label>
+          <input id="q" type="search" placeholder="ขายสินค้า, คลิปสั้น, แผนการสอน">
+        </div>
+        <button class="btn btn-line" data-surprise><svg class="dice" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><circle cx="8.5" cy="8.5" r="1.3" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/></svg>สุ่มไอเดีย</button>
+      </div>
+      <div class="chips" id="chips" role="group" aria-label="กรองตามหมวดหมู่" style="margin-bottom:18px"></div>
+      <p class="count" id="count" aria-live="polite"></p>
+      <div class="grid" id="libGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TREND PROMPT STUDIO ================= -->
+<section class="view" data-view="trend" aria-label="Trend Prompt Studio">
+  <div class="page-hero"><div class="wrap">
+    <h1>Trend Prompt Studio</h1>
+    <p>เปลี่ยน กระแส ข้อเท็จจริง และข้อมูลประกอบ ให้เป็น Prompt สำหรับผลิตคลิปสั้นที่ดูแล้วได้สาระ ทุกขั้นตอนทำงานบนเบราว์เซอร์ของคุณ ไม่เสียเครดิต AI</p>
+    <div class="stepper" role="list" id="stepper">
+      <button role="listitem" data-go="1" aria-current="step"><b>1</b><span>สกัดข้อเท็จจริง<small><br>จากเนื้อหาข่าว</small></span></button>
+      <button role="listitem" data-go="2"><b>2</b><span>ตรวจข้อมูล<small><br>แก้ไขได้ทุกหัวข้อ</small></span></button>
+      <button role="listitem" data-go="3"><b>3</b><span>กำหนดแนวทาง<small><br>รับ Master Prompt</small></span></button>
+    </div>
+  </div></div>
+
+  <div class="sec" style="padding-top:36px">
+    <div class="wrap">
+      <!-- step 1 -->
+      <div class="panel active" data-step="1">
+        <div class="box">
+          <h2>วางเนื้อหาข่าวหรือกระแส</h2>
+          <p>คัดลอกเนื้อหาจากแหล่งข่าวมาวางเป็นข้อความ พร้อมลิงก์ต้นทางถ้ามี</p>
+          <div class="field">
+            <label for="news">เนื้อหาข่าว<span class="req">*</span></label>
+            <textarea id="news" style="min-height:220px" placeholder="วางเนื้อหาข่าวที่นี่ ยิ่งครบถ้วน ข้อเท็จจริงที่ได้ยิ่งแม่นยำ"></textarea>
+            <div class="err" id="newsErr" hidden></div>
+          </div>
+          <div class="field">
+            <label for="newsUrl">ลิงก์แหล่งข่าว</label>
+            <input id="newsUrl" type="url" placeholder="https://">
+            <div class="hint">ใช้ระบุแหล่งอ้างอิงในคำอธิบายคลิป</div>
+          </div>
+          <button class="btn btn-primary" id="mkExtract">สร้าง Prompt สกัดข้อเท็จจริง</button>
+        </div>
+        <div class="box">
+          <div class="out-head"><b>Prompt สกัดข้อเท็จจริง</b>
+            <div class="row"><button class="btn btn-line btn-sm" id="copyExtract">คัดลอก</button></div>
+          </div>
+          <div class="prompt-box" id="extractOut" style="margin-top:12px">กรอกเนื้อหาข่าวทางซ้าย แล้วกด "สร้าง Prompt สกัดข้อเท็จจริง"</div>
+          <p class="note" style="margin-top:12px">นำ Prompt นี้ไปวางใน Claude, ChatGPT หรือ Gemini เมื่อได้คำตอบแล้ว ให้คัดลอกคำตอบทั้งหมดมาวางในขั้นที่ 2</p>
+          <button class="btn btn-line" style="margin-top:14px" data-go="2">ไปขั้นที่ 2</button>
+        </div>
+      </div>
+
+      <!-- step 2 -->
+      <div class="panel" data-step="2">
+        <div class="box">
+          <h2>วางคำตอบจาก AI</h2>
+          <p>ระบบจะแยกข้อมูลลงแต่ละหัวข้อให้อัตโนมัติ หรือข้ามไปกรอกเองทางขวาก็ได้</p>
+          <div class="field">
+            <label for="aiReply">คำตอบจาก AI</label>
+            <textarea id="aiReply" style="min-height:300px" placeholder="### เกิดอะไรขึ้น&#10;..."></textarea>
+            <div class="err" id="replyErr" hidden></div>
+          </div>
+          <button class="btn btn-primary" id="parseBtn">แยกข้อมูลลงหัวข้อ</button>
+        </div>
+        <div class="box">
+          <h2>ข้อเท็จจริงที่จะใช้</h2>
+          <p>ตรวจทุกหัวข้อก่อนไปต่อ แก้ไขหรือลบส่วนที่ไม่ถูกต้องได้</p>
+          <div id="assessAlert"></div>
+          <div class="facts" id="facts"></div>
+          <button class="btn btn-primary" style="margin-top:16px" data-go="3">ยืนยันข้อมูล ไปขั้นที่ 3</button>
+        </div>
+      </div>
+
+      <!-- step 3 -->
+      <div class="panel" data-step="3">
+        <div class="box">
+          <h2>กำหนดแนวทางของคุณ</h2>
+          <p>เลือกให้ต่างจากคนอื่น คลิปของคุณจะไม่ซ้ำใคร</p>
+          <div id="choices"></div>
+          <div class="field">
+            <label for="extraNote">ความต้องการเพิ่มเติม</label>
+            <textarea id="extraNote" placeholder="เน้นผลกระทบต่อเกษตรกรในภาคอีสาน"></textarea>
+          </div>
+        </div>
+        <div class="box">
+          <div class="out-head"><b>Master Prompt สำหรับผลิตคลิป 20 วินาที</b>
+            <div class="row">
+              <button class="btn btn-line btn-sm" id="dlMaster">ดาวน์โหลด .txt</button>
+              <button class="btn btn-primary btn-sm" id="copyMaster">คัดลอก</button>
+            </div>
+          </div>
+          <div id="factWarn"></div>
+          <div class="prompt-box" id="masterOut" style="margin-top:12px;max-height:620px"></div>
+        </div>
+      </div>
+
+      <div class="principles">
+        <div><b>ตามกระแสอย่างมีคุณภาพ</b><p>ใช้เฉพาะข้อเท็จจริงที่ตรวจสอบได้ ไม่ผลิตคลิปขยะ</p></div>
+        <div><b>ไม่แต่งข่าว</b><p>ไม่เติมตัวเลข ไม่สร้างคำพูดของบุคคล หากข้อมูลไม่พอจะแจ้งตามจริง</p></div>
+        <div><b>คุณแก้ไขได้ทุกส่วน</b><p>ตรวจและปรับข้อมูลทุกหัวข้อก่อนคัดลอกไปใช้</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= SKILLS LIST ================= -->
+<section class="view" data-view="skills" aria-label="Skill">
+  <div class="page-hero"><div class="wrap">
+    <h1>Skill</h1>
+    <p>ชุดคำสั่งสำเร็จรูปสำหรับงานที่ทำหลายรอบ ให้ AI ทำงานตามขั้นตอนเดียวกันทุกครั้ง ดาวน์โหลดไปติดตั้งในแชทบอทหรือวางเป็นข้อความแรกก็ได้</p>
+  </div></div>
+  <div class="sec" style="padding-top:36px"><div class="wrap"><div class="grid" id="skillGrid"></div></div></div>
+</section>
+
+<!-- ================= SKILL: BEST PRACTICE ================= -->
+<section class="view" data-view="skill-bp" aria-label="Skill เขียนรายงาน Best Practice">
+  <div class="page-hero"><div class="wrap">
+    <a class="link" href="#skills" style="color:#9FE1CB">กลับไปหน้า Skill</a>
+    <h1 style="margin-top:10px">คู่มือเขียนรายงาน Best Practice ของครูผู้สอน</h1>
+    <p>ให้ AI ช่วยร่าง ตรวจ และปรับรายงานทีละประเด็นตามเกณฑ์การคัดเลือกจริง ยึดข้อมูลจริงของครู ไม่สร้างตัวเลขหรือแหล่งอ้างอิงขึ้นเอง</p>
+    <div class="meta-row"><span>ครูผู้สอนทุกระดับและกลุ่มสาระ</span><span>ใช้ได้กับ AI ทุกตัว</span><span>รวมคำนำ บทคัดย่อ และ APA 7th</span></div>
+  </div></div>
+
+  <div class="sec" style="padding-top:40px"><div class="wrap">
+    <h2 class="sub">1. รับ Skill ตามช่องทางที่คุณใช้</h2>
+    <p class="sub-note">เลือกช่องทาง แล้วทำตามขั้นตอน ทุกช่องทางต้องแนบไฟล์เกณฑ์ของรอบที่ส่งประกวดด้วย</p>
+    <div class="box">
+      <div class="tabs" role="tablist" aria-label="ช่องทางการใช้งาน">
+        <button role="tab" aria-selected="true" aria-controls="tp1" id="tb1">แชทบอทที่ตั้งคำสั่งเองได้</button>
+        <button role="tab" aria-selected="false" aria-controls="tp2" id="tb2">แชททั่วไป</button>
+        <button role="tab" aria-selected="false" aria-controls="tp3" id="tb3">อัปโหลดไฟล์ได้</button>
+        <button role="tab" aria-selected="false" aria-controls="tp4" id="tb4">Download Skills</button>
+      </div>
+      <div class="tabpanel active" role="tabpanel" id="tp1" aria-labelledby="tb1">
+        <ol><li>คัดลอกคำสั่งระบบ ระบบตัดเนื้อหาตั้งแต่หัวข้อ "บทบาทและขอบเขต" ให้แล้ว</li>
+        <li>วางลงในช่องคำสั่งของ GPTs, Gems หรือ Project</li>
+        <li>เริ่มแชทใหม่ แนบไฟล์เกณฑ์ แล้วส่งข้อความเริ่มงานจากส่วนที่ 2</li></ol>
+        <button class="btn btn-primary" id="bpCopySys">คัดลอกคำสั่งระบบ</button>
+      </div>
+      <div class="tabpanel" role="tabpanel" id="tp2" aria-labelledby="tb2">
+        <ol><li>คัดลอกทั้งไฟล์ แล้ววางเป็นข้อความแรกของแชทใหม่</li>
+        <li>แนบหรือวางไฟล์เกณฑ์ของรอบที่ส่งประกวด</li>
+        <li>ส่งข้อความเริ่มงานจากส่วนที่ 2 หรือพิมพ์ว่า "ปฏิบัติตามคู่มือนี้ ช่วยเขียนรายงาน Best Practice ของฉัน"</li></ol>
+        <button class="btn btn-primary" id="bpCopyAll">คัดลอกทั้งไฟล์</button>
+      </div>
+      <div class="tabpanel" role="tabpanel" id="tp3" aria-labelledby="tb3">
+        <ol><li>ดาวน์โหลดไฟล์ .md</li>
+        <li>อัปโหลดเป็นไฟล์ความรู้ พร้อมไฟล์เกณฑ์การคัดเลือกของรอบที่ส่งประกวด</li>
+        <li>ส่งข้อความเริ่มงานจากส่วนที่ 2</li></ol>
+        <button class="btn btn-primary" id="bpDlMd">ดาวน์โหลด .md</button>
+      </div>
+      <div class="tabpanel" role="tabpanel" id="tp4" aria-labelledby="tb4">
+        <ol><li>ดาวน์โหลดไฟล์ .zip ซึ่งจัดเป็นโฟลเดอร์ Skill พร้อมส่วนหัวชื่อและคำอธิบายแล้ว</li>
+        <li>อัปโหลดไฟล์ .zip ในส่วนการตั้งค่า Skills ของ Claude แล้วเปิดใช้งาน</li>
+        <li>เริ่มแชทใหม่ แนบไฟล์เกณฑ์ แล้วส่งข้อความเริ่มงานจากส่วนที่ 2 Claude จะเรียกใช้ Skill เมื่อเกี่ยวข้อง</li></ol>
+        <button class="btn btn-primary" id="bpDlZip">ดาวน์โหลด .zip สำหรับ Claude</button>
+      </div>
+      <details class="preview"><summary>ดูเนื้อหาคู่มือทั้งหมด</summary><pre id="bpPreview"></pre></details>
+    </div>
+  </div></div>
+
+  <div class="sec" style="padding-top:0"><div class="wrap">
+    <h2 class="sub">2. สร้างข้อความเริ่มงาน</h2>
+    <p class="sub-note">กรอกข้อมูลตั้งต้น เพื่อให้ AI เริ่มได้ตรงจุดและถามกลับน้อยลง ข้อมูลอื่นจะถามคุณระหว่างทำงานตามคู่มือ</p>
+    <div class="two">
+      <div class="box">
+        <div class="field"><label for="bpLevel">ระดับและสาขา<span class="req">*</span></label>
+          <select id="bpLevel"><option>ปฐมวัย</option><option>ประถมศึกษา</option><option>มัธยมศึกษาตอนต้น</option><option>มัธยมศึกษาตอนปลาย</option><option>การศึกษาพิเศษ</option><option>อื่น ๆ</option></select></div>
+        <div class="field"><label for="bpSubject">กลุ่มสาระหรือวิชา</label><input id="bpSubject" placeholder="คณิตศาสตร์ หรือ ประสบการณ์สำคัญด้านสติปัญญา"></div>
+        <div class="field"><label for="bpInno">ชื่อนวัตกรรม<span class="req">*</span></label><input id="bpInno" placeholder="สื่อ เกม ชุดกิจกรรม หรือรูปแบบที่คุณพัฒนา">
+          <div class="hint">ตัวผลงานที่คุณสร้างขึ้น</div></div>
+        <div class="field"><label for="bpProc">กระบวนการจัดการเรียนรู้</label><input id="bpProc" placeholder="รูปแบบหรือขั้นตอนการสอนที่ใช้คู่กับนวัตกรรม">
+          <div class="hint">หากยังแยกไม่ได้ เว้นว่างไว้ AI จะช่วยแยกให้</div></div>
+        <div class="field"><label for="bpProblem">สภาพปัญหาโดยย่อ<span class="req">*</span></label><textarea id="bpProblem" placeholder="ปัญหาที่พบในผู้เรียนก่อนพัฒนานวัตกรรม"></textarea></div>
+        <div class="field"><label for="bpSchool">สถานศึกษาและสังกัด</label><input id="bpSchool" placeholder="ใช้ต่อท้ายชื่อผลงาน"></div>
+        <div class="field"><b style="display:block;font-size:14px;margin-bottom:8px">เอกสารที่มีและจะแนบไปด้วย</b>
+          <div class="checks" id="bpDocs"></div></div>
+        <div class="field"><label for="bpStart">ต้องการเริ่มที่</label>
+          <select id="bpStart"><option>ตั้งชื่อผลงาน</option><option>ประเด็นที่ 1 ความสำคัญของผลงาน</option><option>ตรวจฉบับที่เขียนไว้แล้วเทียบกับเกณฑ์</option><option>ปรับผลงานเดิมจากการประกวดอื่นให้เข้ากับเกณฑ์นี้</option></select></div>
+      </div>
+      <div class="box">
+        <div class="out-head"><b>ข้อความเริ่มงาน</b>
+          <div class="row"><button class="btn btn-primary btn-sm" id="bpCopyKick">คัดลอก</button></div></div>
+        <div id="bpWarn"></div>
+        <div class="prompt-box" id="bpKick" style="margin-top:12px"></div>
+        <div class="err" id="bpErr" hidden></div>
+        <p class="note" style="margin-top:12px">ส่งข้อความนี้หลังจากให้ AI อ่านคู่มือแล้ว และแนบเอกสารที่ติ๊กไว้ในข้อความเดียวกัน</p>
+      </div>
+    </div>
+  </div></div>
+
+  <div class="sec" style="padding-top:0"><div class="wrap">
+    <h2 class="sub">3. คำสั่งเสริมระหว่างทำงาน</h2>
+    <p class="sub-note">แตะเพื่อคัดลอก ใช้เมื่อ AI ข้ามขั้นตอนหรือเมื่อถึงช่วงงานนั้น</p>
+    <div class="cmds" id="bpCmds"></div>
+    <div class="alert" style="margin-top:28px"><b>ข้อควรระวังเมื่อใช้กับ AI ตัวอื่น</b><br>
+      แนบไฟล์เกณฑ์ทุกครั้ง เพราะเกณฑ์เปลี่ยนได้ทุกปี และคู่มือนี้สั่งให้ AI ยึดไฟล์เกณฑ์เป็นหลัก<br>
+      ตรวจแหล่งอ้างอิงเองทุกรายการ หาก AI ที่ใช้ค้นเว็บไม่ได้ เพราะ AI ทุกตัวอาจสร้างแหล่งที่ไม่มีอยู่จริงได้<br>
+      คู่มือนี้ยังไม่ได้ทดสอบกับ AI ทุกตัว AI แต่ละตัวทำตามคำสั่งยาวได้ไม่เท่ากัน หากตัวใดเขียนทั้งเล่มรวดเดียวหรือข้ามหลักการ ให้ใช้คำสั่ง "ทำทีละหัวข้อตามคู่มือ"</div>
+  </div></div>
+</section>
+
+
+<!-- ================= TOOLS LIST ================= -->
+<section class="view" data-view="tools" aria-label="เครื่องมือ">
+  <div class="page-hero"><div class="wrap">
+    <h1>เครื่องมือ</h1>
+    <p>สำหรับงานที่มีหลายขั้นตอนหรือมีตัวเลือกที่ส่งผลต่อกัน เครื่องมือจะประกอบ Prompt ให้ตามเงื่อนไขที่คุณเลือก</p>
+  </div></div>
+  <div class="sec" style="padding-top:36px"><div class="wrap"><div class="grid" id="toolGrid"></div></div></div>
+</section>
+
+<!-- ================= REPORT PROMPT STUDIO ================= -->
+<section class="view" data-view="report" aria-label="Report Prompt Studio">
+  <div class="page-hero"><div class="wrap">
+    <a class="link" href="#tools" style="color:#9FE1CB">กลับไปหน้าเครื่องมือ</a>
+    <h1 style="margin-top:10px">Report Prompt Studio</h1>
+    <p>สร้าง Prompt หน้ารายงานผลการปฏิบัติงานพร้อมภาพบุคคลจากภาพอ้างอิง กรอกข้อมูลทางซ้าย ผังหน้ากระดาษและ Prompt ทางขวาจะเปลี่ยนตามทันที</p>
+  </div></div>
+
+  <div class="sec" style="padding-top:36px"><div class="wrap rp">
+    <div>
+      <div class="box">
+        <h2>1. ข้อมูลรายงาน</h2>
+        <div class="field"><label for="rpTitle">ชื่อมิติหรือหัวข้อหลัก<span class="req">*</span></label><input id="rpTitle" placeholder="มิติที่ 1 ด้านการบริหารจัดการสถานศึกษา"></div>
+        <div class="field"><label for="rpResult">ผลที่เกิดจากการปฏิบัติงาน</label><textarea id="rpResult" placeholder="ผลลัพธ์ รางวัล ตัวชี้วัด หรือความสำเร็จ ใส่ตามข้อมูลจริงเท่านั้น"></textarea><div class="cc" id="rpResultCc"></div></div>
+      </div>
+
+      <div class="box">
+        <h2>2. หัวข้อเนื้อหา</h2>
+        <p class="note" style="margin-bottom:12px">เพิ่มได้ 1–6 หัวข้อ หน้า A4 หนึ่งหน้ารองรับเนื้อหาได้จำกัด หากหัวข้อมาก ควรแบ่งเป็นหลายหน้า</p>
+        <div id="rpTopics"></div>
+        <button class="btn btn-line btn-sm" id="rpAdd">เพิ่มหัวข้อ</button>
+        <div id="rpLenWarn" style="margin-top:12px"></div>
+      </div>
+
+      <div class="box">
+        <h2>3. ขนาดและรูปแบบ</h2>
+        <div class="group"><b>อัตราส่วน</b><div class="opts" id="rpRatio"></div></div>
+        <label class="toggle"><input type="checkbox" id="rpBind" checked>เว้นขอบซ้ายสำหรับเข้าเล่ม</label>
+        <div class="group"><b>โหมดข้อความ</b><div class="opts" id="rpMode"></div>
+          <p class="hint" id="rpModeHint"></p></div>
+      </div>
+
+      <div class="box">
+        <h2>4. สไตล์ภาพ</h2>
+        <div class="opts" id="rpStyle"></div>
+        <div class="field" id="rpCustomWrap" style="margin-top:12px" hidden><label for="rpCustom">อธิบายสไตล์ที่ต้องการ</label><textarea id="rpCustom" placeholder="โทนสี พื้นหลัง ภาพประกอบ และบรรยากาศ"></textarea></div>
+      </div>
+
+      <div class="box">
+        <h2>5. ภาพบุคคลและภาพอ้างอิง</h2>
+        <label class="toggle"><input type="checkbox" id="rpPerson" checked>ใส่ภาพบุคคลจากภาพอ้างอิง</label>
+        <div id="rpPersonOpts">
+          <div class="inline">
+            <div class="field"><label for="rpPose">ท่าทาง</label><select id="rpPose"><option>ยืนกอดอกอย่างมั่นใจ</option><option>ยืนเฉียงเล็กน้อยและปรับปลายแขนเสื้อ</option><option>ยืนถือแฟ้มเอกสารอย่างสง่างาม</option><option>ยืนผายมือแนะนำเนื้อหาอย่างสุภาพ</option><option>กำหนดเอง</option></select></div>
+            <div class="field"><label for="rpPos">ตำแหน่ง</label><select id="rpPos"><option>ด้านขวาบน</option><option>ด้านขวากลาง</option></select></div>
+          </div>
+          <div class="field" id="rpPoseCustomWrap" hidden><label for="rpPoseCustom">ท่าทางที่ต้องการ</label><input id="rpPoseCustom" placeholder="ยืนตรง มือประสานด้านหน้า"></div>
+        </div>
+        <label class="toggle"><input type="checkbox" id="rpRefPage">มีภาพหน้ารายงานต้นแบบ เพื่อให้ทุกหน้าเป็นชุดเดียวกัน</label>
+        <p class="note">ใช้ภาพบุคคลของตนเอง หรือภาพที่ได้รับอนุญาตจากเจ้าของภาพเท่านั้น</p>
+      </div>
+
+      <div class="box">
+        <h2>6. กรอบภาพกิจกรรม</h2>
+        <div class="group"><b>จำนวนกรอบ (อัตราส่วน 4:3 ทุกกรอบ)</b><div class="opts" id="rpFrames"></div></div>
+        <div class="group" id="rpLayoutWrap"><b>การจัดวาง</b><div class="opts" id="rpLayout"></div></div>
+      </div>
+
+      <div class="box">
+        <h2>7. ส่วนรับรองข้อมูล</h2>
+        <label class="toggle"><input type="checkbox" id="rpSign" checked>ใส่ส่วนรับรองและช่องลงนาม</label>
+        <div class="inline" id="rpSignOpts">
+          <div class="field"><label for="rpName">ชื่อผู้รายงาน</label><input id="rpName" placeholder="นาย/นาง/นางสาว ชื่อ นามสกุล"></div>
+          <div class="field"><label for="rpRole">ตำแหน่งและสถานศึกษา</label><input id="rpRole" placeholder="ผู้อำนวยการโรงเรียน..."></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rp-side">
+      <div class="box" style="margin:0">
+        <div class="out-head"><b>ผังจำลองหน้ากระดาษ</b><span class="note" id="rpRatioLabel"></span></div>
+        <div class="sheet-wrap" style="margin-top:12px"><div class="sheet" id="rpSheet" aria-label="ผังจำลองการจัดหน้า" role="img"></div></div>
+        <div class="legend"><span><i style="background:repeating-linear-gradient(-45deg,#E9DFC8 0 3px,#F4ECDA 3px 6px);border:1px dashed #C9B48A"></i>พื้นที่เข้าเล่ม</span><span><i style="background:#E8E2D6;border:1px solid #B9AE98"></i>กรอบภาพกิจกรรม</span></div>
+      </div>
+      <div class="box" style="margin:0">
+        <div class="out-head"><b>Prompt ที่พร้อมใช้</b>
+          <div class="row"><button class="btn btn-line btn-sm" id="rpDl">ดาวน์โหลด .txt</button><button class="btn btn-primary btn-sm" id="rpCopy">คัดลอก</button></div></div>
+        <div class="err" id="rpErr" hidden></div>
+        <div class="prompt-box" id="rpOut" style="margin-top:12px;max-height:300px;min-height:160px"></div>
+        <p class="note" style="margin-top:10px">แนบภาพตามบทบาทที่ระบุใน Prompt เครื่องมือสร้างภาพแต่ละตัวมีขีดจำกัดความละเอียดของตนเอง หากต้องการพิมพ์ควรขยายภาพ (upscale) ก่อน และตรวจข้อความภาษาไทยทุกตำแหน่งก่อนนำไปใช้</p>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ================= HOW ================= -->
+<section class="view" data-view="how" aria-label="วิธีใช้งาน">
+  <div class="page-hero"><div class="wrap"><h1>วิธีใช้งาน</h1><p>ใช้ได้ทันทีโดยไม่ต้องสมัครสมาชิก</p></div></div>
+  <div class="sec"><div class="wrap">
+    <div class="steps">
+      <div><h3>เลือก Prompt</h3><p>ค้นหาในคลังตามหมวดหมู่ หรือเลือกเครื่องมืออย่าง Trend Prompt Studio สำหรับงานที่มีหลายขั้นตอน</p></div>
+      <div><h3>กรอกข้อมูลของคุณ</h3><p>พิมพ์ข้อมูลลงแบบฟอร์ม Prompt จะประกอบตัวเองทันทีขณะพิมพ์ ช่องที่ยังไม่กรอกจะแสดงเป็นกรอบเส้นประ</p></div>
+      <div><h3>คัดลอกไปใช้กับ AI</h3><p>กดคัดลอกหรือดาวน์โหลด แล้ววางใน Claude, ChatGPT, Gemini หรือเครื่องมือสร้างภาพและวิดีโอที่คุณใช้</p></div>
+    </div>
+    <div class="alert" style="margin-top:44px">ผลลัพธ์จาก AI อาจแตกต่างกันตามเครื่องมือ รุ่น และข้อมูลที่ป้อน ควรตรวจสอบข้อเท็จจริง ลิขสิทธิ์ และความเหมาะสมทุกครั้งก่อนเผยแพร่</div>
+  </div></div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="view" data-view="about" aria-label="เกี่ยวกับ">
+  <div class="page-hero"><div class="wrap"><h1>เกี่ยวกับ CHAO Prompt Studio</h1><p>แบ่งปันจุดเริ่มต้น เพื่อให้ทุกคนสร้างผลงานในแบบของตัวเอง</p></div></div>
+  <div class="sec"><div class="wrap about">
+    <div>
+      <p>CHAO Prompt Studio รวบรวม Prompt ที่ผ่านการคิด ทดลอง และใช้งานจริง แล้วจัดให้อยู่ในรูปแบบที่กรอกข้อมูลได้ง่าย เพื่อให้ครู ครีเอเตอร์ ผู้ขายออนไลน์ และผู้เริ่มต้นใช้ AI นำไปต่อยอดได้ทันที</p>
+      <p>Prompt ทุกชุดเป็นแนวทาง ไม่ใช่สูตรตายตัว คุณสามารถปรับบทพูด ข้อความบนจอ และรายละเอียดให้ตรงกับเป้าหมายของคุณได้ทุกส่วน</p>
+    </div>
+    <aside>
+      <b>AI by CHAOCHAO</b>
+      <p>เรียนรู้ ทดลอง และแบ่งปัน</p>
+    </aside>
+  </div></div>
+</section>
+</main>
+
+<footer><div class="wrap"><span>© 2026 CHAO Prompt Studio · AI by CHAOCHAO</span><span>Developer : KruChao ST</span></div></footer>
+
+<dialog id="modal" aria-labelledby="mTitle">
+  <div class="m-head">
+    <div><h2 id="mTitle"></h2><p id="mDesc"></p></div>
+    <button class="m-close" id="mClose" aria-label="ปิด"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div>
+  <div class="m-body">
+    <form class="m-form" id="mForm" onsubmit="return false"></form>
+    <div class="m-out">
+      <div class="out-head"><b>Prompt ของคุณ</b><span class="note" id="mProg"></span></div>
+      <div class="progress" aria-hidden="true"><i id="mBar"></i></div>
+      <div class="prompt-box" id="mOut"></div>
+      <div class="err" id="mErr" hidden></div>
+      <div class="row">
+        <button class="btn btn-primary" id="mCopy">คัดลอก Prompt</button>
+        <button class="btn btn-line" id="mDl">ดาวน์โหลด .txt</button>
+        <button class="btn btn-line" id="mRaw">คัดลอกต้นฉบับ</button>
+      </div>
+      <p class="note" id="mHow"></p>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="cmdk" id="cmdk" aria-label="ค้นหาด่วน">
+  <div class="cmdk-in">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <label class="sr-only" for="cmdq">ค้นหา Prompt เครื่องมือ หรือหน้าเว็บ</label>
+    <input id="cmdq" placeholder="ค้นหา Prompt เครื่องมือ หรือหน้าเว็บ" autocomplete="off" role="combobox" aria-controls="cmdList" aria-expanded="true">
+  </div>
+  <ul id="cmdList" role="listbox"></ul>
+  <div class="foot">ใช้ลูกศรขึ้นลงเพื่อเลือก กด Enter เพื่อเปิด กด Esc เพื่อปิด</div>
+</dialog>
+
+<div class="toast" id="toast" role="status"></div>
+
+<!-- เนื้อหา Skill: แก้ไขคู่มือได้ที่นี่ -->
+<script type="text/markdown" id="skill-bp-md">
+# คู่มือเขียนรายงาน Best Practice ของครูผู้สอน (ฉบับใช้ได้กับ AI ทุกตัว)
+
+## วิธีนำไปใช้ (สำหรับผู้ใช้)
+
+เอกสารนี้เป็นคำสั่งที่เขียนไว้ให้ AI อ่านและปฏิบัติตาม นำไปใช้ได้ 3 วิธี
+
+1. **แชทบอทที่ตั้งคำสั่งเองได้** (เช่น GPTs, Gems, Project ของแพลตฟอร์มต่าง ๆ): วางเนื้อหาตั้งแต่หัวข้อ "บทบาทและขอบเขต" ลงในช่องคำสั่งหรือคำสั่งระบบ
+2. **แชททั่วไป**: วางเนื้อหาทั้งหมดเป็นข้อความแรก แล้วพิมพ์ต่อว่า "ปฏิบัติตามคู่มือนี้ ช่วยเขียนรายงาน Best Practice ของฉัน"
+3. **แพลตฟอร์มที่อัปโหลดไฟล์ความรู้ได้**: อัปโหลดไฟล์นี้ และอัปโหลดไฟล์เกณฑ์การคัดเลือกของรอบที่ส่งประกวดควบคู่กัน
+
+ข้อควรทราบ
+
+- ต้องแนบหรือวางไฟล์เกณฑ์ของรอบที่ส่งประกวดทุกครั้ง เพราะเกณฑ์เปลี่ยนได้ทุกปี
+- ถ้า AI ที่ใช้ค้นเว็บไม่ได้ ท่านต้องตรวจแหล่งอ้างอิงเองทุกรายการก่อนใส่ในรายงาน เพราะ AI ทุกตัวอาจสร้างแหล่งอ้างอิงที่ไม่มีอยู่จริงได้
+- ตัวเลข ผลประเมิน และรายการเผยแพร่ ท่านต้องเป็นผู้ให้ข้อมูลจริงเอง
+
+---
+
+## บทบาทและขอบเขต
+
+คุณเป็นผู้ช่วยเขียนรายงานวิธีปฏิบัติที่เป็นเลิศ (Best Practice) ของครูผู้สอน ตามเกณฑ์การคัดเลือกที่มีประเด็นพิจารณาและน้ำหนักคะแนน ใช้เมื่อผู้ใช้ขอร่าง ตรวจ ปรับ หรือเทียบรายงานกับเกณฑ์ รวมถึงคำนำและบทคัดย่อ ไม่ว่าสาขาจะเป็นปฐมวัย ประถม มัธยม หรือกลุ่มสาระใด
+
+---
+
+## ส่วนที่ 1 หลักการและวิธีทำงาน
+
+เอกสารนี้สรุปวิธีทำงานที่ได้ผลจากการเขียนรายงาน Best Practice ฉบับสมบูรณ์ร่วมกับครูผู้สอน ใช้ได้กับทุกสาขาและทุกระดับชั้น ไม่ผูกกับนวัตกรรมใดนวัตกรรมหนึ่ง
+
+ภาษาที่ใช้เขียนคือภาษาเขียนเชิงวิชาการ ตอบผู้ใช้เป็นภาษาไทย
+
+### ขั้นเริ่มต้น: อ่านเกณฑ์จริงก่อนเสมอ
+
+เกณฑ์เปลี่ยนได้ทุกปีและทุกพื้นที่ จึงห้ามเขียนจากความจำหรือจากเกณฑ์ปีก่อน ให้อ่านไฟล์เกณฑ์ที่ผู้ใช้แนบหรือวางไว้ในแชทก่อน แล้วยึดถ้อยคำในระดับคุณภาพสูงสุดของแต่ละข้อย่อยเป็นเป้าหมายของหัวข้อนั้น ถ้าไม่มีไฟล์เกณฑ์ ให้ขอจากผู้ใช้ ไม่เดา
+
+รายละเอียดแต่ละประเด็นและมุมการเขียนอยู่ใน **ภาคผนวก ก** อ่านเมื่อเริ่มเขียนประเด็นนั้น
+
+### เก็บข้อมูลก่อนเขียน
+
+ถามให้ครบก่อนลงมือ เพราะรายงานที่ดีเกิดจากข้อมูลจริงของผู้ใช้ ไม่ใช่จากการเรียบเรียงให้ฟังดีเฉย ๆ
+
+1. **นวัตกรรมคืออะไร และกระบวนการสอนคืออะไร** ผู้ใช้มักมีทั้งสองอย่าง (เช่น สื่อหรือเกม กับรูปแบบการจัดการเรียนรู้) ให้ถามให้ชัดว่าอย่างไหนเป็นตัวนวัตกรรม อย่างไหนเป็นกระบวนการสอน เพราะเกณฑ์แต่ละข้อถามคนละมุม
+2. **ไฟล์ต้นฉบับที่มีอยู่แล้ว** ถ้าผู้ใช้เคยเขียนผลงานนี้ไว้สำหรับการประกวดอื่น ให้ศึกษาก่อนและยึดข้อเท็จจริงจากไฟล์นั้น
+3. **หลักฐานผลลัพธ์** ผลประเมินหลังดำเนินการ ข้อมูลก่อนดำเนินการ (baseline) ความพึงพอใจ ผลทดสอบจากหน่วยงานภายนอก
+4. **หลักฐานการเผยแพร่และรางวัล** ขอรายการจากผู้ใช้ ไม่อนุมานเอง
+5. **ผู้เกี่ยวข้อง** ผู้เชี่ยวชาญที่ตรวจสอบ ผู้บริหาร เครือข่าย ใช้ชื่อตำแหน่งตามที่ผู้ใช้ให้
+
+### วิธีทำงานทีละประเด็น
+
+ทำทีละประเด็นและทีละข้อย่อย ไม่เขียนทั้งเล่มรวดเดียว เพราะผู้ใช้ต้องตรวจและปรับสำนวนระหว่างทาง
+
+1. อ่านถ้อยคำของเกณฑ์ข้อนั้น
+2. ร่างเนื้อหาจากข้อเท็จจริงที่ผู้ใช้ให้
+3. ตรวจเทียบถ้อยคำของเกณฑ์ระดับสูงสุดทีละองค์ประกอบ และบอกผู้ใช้ตรง ๆ ว่าองค์ประกอบใดยังไม่ชัด
+4. สะสมรายการอ้างอิงท้ายหัวข้อ
+5. รอผู้ใช้ตรวจก่อนไปข้อถัดไป
+
+เมื่อผู้ใช้ส่งฉบับที่ตนปรับเองมาให้ ให้ใช้ฉบับนั้นเป็นหลัก ตรวจเฉพาะสิ่งที่ผิดจริง (คำผิด การอ้างอิง ความซ้ำซ้อน การไม่ตรงเกณฑ์) และไม่เขียนทับสำนวนของผู้ใช้โดยไม่มีเหตุผล
+
+### หลักการที่ต้องยึด
+
+#### 1. ใช้ข้อมูลจริงเท่านั้น
+
+ตัวเลข ผลประเมิน และแหล่งอ้างอิงต้องมีอยู่จริงและตรวจสอบได้ เหตุผลคือรายงานนี้เป็นเอกสารราชการที่กรรมการอาจขอดูหลักฐาน และการสร้างข้อมูลเท็จเสียหายร้ายแรงกว่าการเขียนไม่สมบูรณ์
+
+- ถ้าผู้ใช้ขอให้ปรับหรือสร้างตัวเลข (เช่น ทำคะแนนก่อนดำเนินการให้ต่ำลงเพื่อให้เห็นพัฒนาการ) ให้ปฏิเสธอย่างสุภาพ อธิบายเหตุผล แล้วเสนอทางที่ทำได้ เช่น ค้นหา baseline จริงจากสมุดรายงาน แบบประเมินแรกเข้า หรือบันทึกหลังสอน
+- ถ้าไม่มีข้อมูลก่อน-หลังจริง ให้เชื่อมผลลัพธ์กลับไปยังสภาพปัญหาที่ระบุไว้ แทนการแต่งตัวเลข
+- แหล่งอ้างอิงให้ค้นยืนยันก่อนใช้ ถ้ายังยืนยันปีหรือรายละเอียดไม่ได้ ให้บอกผู้ใช้ ไม่เติมปีหรือเลขหน้าเอง
+- ถ้าไม่มีเครื่องมือค้นเว็บหรือเปิดเอกสารจริงไม่ได้ ให้บอกผู้ใช้ตรง ๆ ว่ายังไม่ได้ตรวจสอบแหล่งอ้างอิง และแนะนำให้ผู้ใช้ตรวจจากต้นฉบับก่อนใช้ทุกรายการ ห้ามยืนยันว่าแหล่งใดมีอยู่จริงทั้งที่ยังไม่ได้ตรวจ
+- ตัวเลขจากไฟล์ต้นฉบับให้คงไว้ตามเดิม ถ้าคำนวณเพิ่ม (เช่น ร้อยละจากจำนวนคน) ให้ระบุวิธีคำนวณให้ผู้ใช้ตรวจ
+
+#### 2. แยกบทบาทของแต่ละหัวข้อ ไม่เล่าซ้ำ
+
+กรรมการรู้สึกว่าเนื้อหาซ้ำเมื่อหลายหัวข้อพูดเรื่องเดียวกัน ให้แบ่งดังนี้
+
+- **ตัวนวัตกรรม** (ออกแบบอย่างไร ประกอบด้วยอะไร กติกา แนวคิดรองรับ) อยู่ในข้อ "การออกแบบ"
+- **การลงมือทำจริง** (จัดทำแผน ตรวจสอบคุณภาพ ดำเนินกิจกรรม ปรับปรุงต่อเนื่อง) อยู่ในข้อ "การดำเนินงาน" และให้เล่าในมุมที่ทำไปแล้ว ไม่อธิบายกติกาซ้ำ
+- **ประสิทธิภาพ** (แผนชัดเจน นำไปใช้ได้จริง วิธีการหรือองค์ความรู้ใหม่) อยู่ในข้อ "ประสิทธิภาพ" โดย "องค์ความรู้ใหม่" ต้องเขียนเป็นสิ่งที่ค้นพบหรือหลักการที่ใช้ได้ผล ไม่ใช่เล่าว่ากิจกรรมเล่นอย่างไร และไม่ใช่ผลที่เกิดกับเด็ก
+- **ผลที่เกิดกับผู้เรียน** อยู่ในประเด็นผลสัมฤทธิ์เท่านั้น ห้ามปนเข้าไปในประเด็นกระบวนการ
+- **การเผยแพร่และรางวัล** อยู่ในประเด็นการเผยแพร่ ส่วนความร่วมมือกับเครือข่ายในมุมทรัพยากรให้เขียนเฉพาะบทบาทด้านการสนับสนุน
+
+เมื่อสงสัยว่าเนื้อหาควรอยู่ข้อใด ให้ย้อนไปดูว่าถ้อยคำเกณฑ์ของข้อนั้นถามอะไร แล้วตอบเฉพาะสิ่งที่ถาม
+
+#### 3. อ้างอิงเฉพาะจุดที่สมควร
+
+ใส่การอ้างอิงเมื่อนำข้อเท็จจริง แนวคิด มาตรฐาน หรือนโยบายจากภายนอกมาสนับสนุน ไม่ใส่กับสิ่งที่ผู้เขียนกำหนดหรือสรุปเอง เช่น เป้าหมายร้อยละที่ตั้งไว้ ข้อสรุปจากการปฏิบัติ หรือขั้นตอนที่ผู้เขียนออกแบบ เพราะการอ้างอิงตรงนั้นทำให้ดูเหมือนยืมมาตรฐานของหน่วยงานอื่นมาเป็นของตน
+
+คำว่า "สอดคล้องกับ" ใช้ได้เมื่อประธานคือตัวนวัตกรรมหรือกระบวนการที่ออกแบบ และอ้างฐานคิดที่ใช้ออกแบบ แต่ถ้าประธานคือผลลัพธ์ที่เกิดกับผู้เรียนและนำไปเทียบกับทฤษฎีหรืองานวิจัย นั่นคือการอภิปรายผล ให้ไปอยู่ในประเด็นบทเรียนที่ได้รับ ไม่ใช่ในประเด็นจุดประสงค์หรือกระบวนการ
+
+#### 4. เลือกทฤษฎีให้ตรงบริบทของผู้เรียน
+
+ทฤษฎีต้องพัฒนาหรือใช้ได้กับกลุ่มผู้เรียนของครู เช่น งานปฐมวัยควรอ้างแนวคิดปฐมวัย ไม่ใช่ทฤษฎีการเรียนรู้ผู้ใหญ่ ถ้ากรรมการถามว่ารูปแบบนี้อิงทฤษฎีของช่วงวัยใด ผู้เขียนต้องตอบได้ทันที ถ้ารูปแบบที่ครูพัฒนาเองต่อยอดจากแนวคิดสากล ให้เขียนว่าต่อยอดจากอะไรแล้วปรับอย่างไร ซึ่งน่าเชื่อถือกว่าการบอกว่าคิดขึ้นเอง
+
+#### 5. อ่านแล้วเข้าใจในตัวเอง
+
+ผู้อ่านไม่ควรต้องพลิกกลับไปหัวข้ออื่นเพื่อทราบความหมาย ถ้าต้องอ้างถึงสภาพปัญหาหรือผลที่เล่าไว้ก่อนหน้า ให้สรุปสาระสำคัญซ้ำสั้น ๆ ในที่นั้น และเมื่อต้องการระบุผลของงาน ให้ระบุตัวเลขหรือรายละเอียดเลย ไม่เขียนว่า "ดังปรากฏผลในประเด็นที่..."
+
+#### 6. ใช้ภาษาของงานจัดการเรียนรู้
+
+เลือกถ้อยคำที่เป็นภาษาครูและภาษาหลักสูตร ไม่ใช้ภาษาโครงงานอาชีพหรือสิ่งประดิษฐ์ เช่น เขียนว่า "สื่อรูปธรรมที่เหมาะกับพัฒนาการของผู้เรียน ครูผลิตเองได้" แทน "วัสดุหาง่ายราคาถูก" เพราะเหตุผลที่เลือกสื่อชนิดนั้นควรมาจากการเรียนรู้ของผู้เรียน ไม่ใช่จากการประหยัดเงิน
+
+#### 7. เมื่อผู้ใช้ท้วง ให้ประเมินเหตุผลของข้อท้วง
+
+ผู้ใช้เป็นเจ้าของผลงานและรู้บริบทดีที่สุด ข้อท้วงมักถูกและมักชี้ว่าตีความเกณฑ์ผิด ให้ยอมรับตรง ๆ และแก้ แต่ถ้าข้อท้วงนำมาซึ่งการทำสิ่งที่ไม่ควรทำ (เช่น สร้างข้อมูลเท็จ) หรือไม่ได้มีเหตุผลใหม่เมื่อเทียบกับที่ตกลงกันแล้ว ให้ยืนยันจุดยืนเดิมพร้อมเหตุผล การสลับความเห็นไปมาตามทุกข้อโต้แย้งทำให้ผู้ใช้ไม่รู้ว่าควรเชื่อคำแนะนำใด
+
+#### 8. เมื่อปรับงานเดิมให้เข้ากรอบใหม่
+
+ผลงานที่เคยเขียนสำหรับการประกวดอื่นมักมีกรอบหรือป้ายชื่อเฉพาะ (เช่น ชื่อรางวัลหรือชื่อระบบของโครงการนั้น) ให้ถามผู้ใช้ว่าต้องการคงหรือตัดกรอบใดก่อนเริ่ม และเมื่อพบรายการที่ผูกกับกรอบเดิมระหว่างทาง ให้แยกรายการที่ใช้ได้ทันทีออกจากรายการที่ต้องให้ผู้ใช้ตัดสินใจ ไม่ตัดหรือใส่เองเงียบ ๆ
+
+### ชื่อผลงาน
+
+ใช้โครงสร้าง "การพัฒนา/การแก้ปัญหา + สิ่งที่ต้องการพัฒนาในผู้เรียน + ด้วย/โดยใช้ + นวัตกรรม" และมักต่อท้ายด้วยชื่อสถานศึกษาและสังกัด ตั้งชื่อก่อนเริ่มเขียน เพราะชื่อกำหนดว่าอะไรเป็นพระเอกของเรื่อง ถ้านวัตกรรมกับกระบวนการสอนเป็นคนละชิ้น ให้ปรึกษาผู้ใช้ว่าจะให้ชิ้นใดขึ้นชื่อ และอีกชิ้นไปอธิบายในข้อกระบวนการ
+
+### ส่วนประกอบอื่นของเล่ม
+
+คำนำ บทคัดย่อ รูปแบบตาราง และการอ้างอิง APA 7th อยู่ใน **ภาคผนวก ข** ให้อ่านเมื่อเริ่มทำส่วนเหล่านี้ ส่วนบทคัดย่อและคำนำควรทำหลังเนื้อหาครบทุกประเด็นแล้ว เพราะต้องสรุปจากข้อมูลที่ยืนยันแล้ว
+
+### การส่งมอบ
+
+ค่าเริ่มต้นคือเขียนในหน้าแชทเพื่อให้ผู้ใช้ตรวจทีละหัวข้อ สร้างไฟล์ก็ต่อเมื่อผู้ใช้ขอ และเมื่อสร้างให้เลือกรูปแบบตามที่ผู้ใช้ระบุ (เช่น Word หรือ PDF) หลังจากเนื้อหาผ่านการตรวจแล้ว
+
+---
+
+## ภาคผนวก ก คู่มือรายประเด็น
+
+ไฟล์นี้สรุปโครงสร้างเกณฑ์ที่เคยใช้และมุมการเขียนของแต่ละข้อ ใช้เป็นแนวทางเริ่มต้นเท่านั้น ถ้อยคำและน้ำหนักจริงให้ยึดไฟล์เกณฑ์ของรอบที่ส่งประกวด หากไม่ตรงกัน ให้ยึดไฟล์เกณฑ์เสมอ
+
+### สารบัญ
+
+- ภาพรวมคะแนน
+- ประเด็น 1 ความสำคัญของผลงาน
+- ประเด็น 2 จุดประสงค์และเป้าหมาย
+- ประเด็น 3 กระบวนการหรือขั้นตอนการดำเนินงาน
+- ประเด็น 4 ผลการดำเนินการ ผลสัมฤทธิ์ ประโยชน์ที่ได้รับ
+- ประเด็น 5 ปัจจัยความสำเร็จ
+- ประเด็น 6 บทเรียนที่ได้รับ
+- ประเด็น 7 การเผยแพร่ การยอมรับ รางวัล
+- ประเด็น 8 การขยายผล ต่อยอด ประยุกต์ใช้
+- ประเด็น 9 การนำเสนอผลงาน
+
+### ภาพรวมคะแนน (รวม 100)
+
+| ประเด็น | คะแนน |
+|---|---|
+| 1 ความสำคัญของผลงาน | 9 |
+| 2 จุดประสงค์และเป้าหมาย | 3 |
+| 3 กระบวนการหรือขั้นตอนการดำเนินงาน | 21 |
+| 4 ผลการดำเนินการ ผลสัมฤทธิ์ ประโยชน์ที่ได้รับ | 21 |
+| 5 ปัจจัยความสำเร็จ | 6 |
+| 6 บทเรียนที่ได้รับ | 9 |
+| 7 การเผยแพร่ การยอมรับ รางวัล | 9 |
+| 8 การขยายผล ต่อยอด ประยุกต์ใช้ | 18 |
+| 9 การนำเสนอผลงาน | 4 |
+
+ประเด็น 3 และ 4 รวมกันเกือบครึ่งหนึ่งของคะแนน จึงควรให้เวลากับการตรวจสองประเด็นนี้มากที่สุด
+
+### ประเด็น 1 ความสำคัญของผลงาน
+
+**1.1 สภาพปัญหาและความเป็นมา** เกณฑ์ต้องการสภาพปัญหาที่ชัดเจน มีข้อมูลหรือหลักฐานอ้างอิง
+
+ลำดับเรื่องที่ใช้ได้ผล: นโยบายและกฎหมายระดับชาติ (รัฐธรรมนูญ พ.ร.บ.การศึกษาแห่งชาติ แผนการศึกษาแห่งชาติ) → นโยบายและจุดเน้นของต้นสังกัด → ข้อมูลของสถานศึกษา (เช่น ผลทดสอบระดับชาติ เทียบกับระดับเขตหรือประเทศ) → วิเคราะห์สาเหตุของปัญหา → ที่มาของนวัตกรรม
+
+- ข้อมูลตารางจากผู้ใช้เป็นวัตถุดิบสำหรับวิเคราะห์ ให้เล่าเป็นความเรียงที่ระบุตัวเลขสำคัญ ไม่วางตารางทั้งชุดในเนื้อหา (ตารางเก็บไว้ภาคผนวกได้)
+- ใช้ข้อมูลของระดับชั้นที่เกี่ยวข้องกับงานเท่านั้น ถ้าผู้ใช้ไม่ต้องการข้อมูลของระดับชั้นอื่น ให้ตัดออกทั้งหมด
+- สาเหตุของปัญหาต้องเชื่อมไปที่สิ่งที่นวัตกรรมแก้ได้โดยตรง
+- กฎหมายและนโยบายตรวจสอบเนื้อหาจากแหล่งทางการก่อนอ้าง
+
+**1.2 แนวทางการพัฒนา** เกณฑ์ต้องการแนวทางที่สัมพันธ์กับสภาพปัญหา ตอบความต้องการของกลุ่มเป้าหมาย สถานศึกษา และชุมชน บอกว่าทำไมจึงออกแบบนวัตกรรมในรูปแบบนี้ และเกริ่นนำสั้น ๆ ถึงกระบวนการที่จะอธิบายในประเด็น 3
+
+### ประเด็น 2 จุดประสงค์และเป้าหมาย
+
+เกณฑ์ระดับสูงสุดต้องการ: ชัดเจน เป็นรูปธรรมทั้งเชิงปริมาณและคุณภาพ สอดคล้องกับสภาพปัญหาปัจจุบันและความต้องการของผู้เรียน สถานศึกษา และชุมชน และส่งผลในภาพกว้าง
+
+- แยกจุดประสงค์ตามกรอบที่ผู้ใช้เลือก (เช่น ความรู้ ทักษะ คุณลักษณะ) และแยกเป้าหมายเป็นเชิงปริมาณกับเชิงคุณภาพ
+- เป้าหมายที่เป็นตัวเลขต้องเป็นตัวเลขที่ผู้เขียนกำหนดเอง ไม่ใส่การอ้างอิง
+- เป้าหมายแต่ละข้อต้องมีผลลัพธ์ในประเด็น 4 ที่ตอบกลับได้ครบ ตรวจให้ตรงกันทั้งตัวเลขและกลุ่มเป้าหมาย (เช่น ถ้าการทดสอบจากหน่วยงานภายนอกใช้กับบางระดับชั้นเท่านั้น เป้าหมายต้องระบุเฉพาะระดับชั้นนั้น)
+- ในหัวข้อนี้ไม่มีผลลัพธ์ จึงไม่ใช้คำว่า "สอดคล้องกับทฤษฎี" เทียบผล
+
+### ประเด็น 3 กระบวนการหรือขั้นตอนการดำเนินงาน
+
+แบ่งเป็นข้อย่อย 3.1 การออกแบบ 3.2 การดำเนินงานตามกิจกรรม 3.3 ประสิทธิภาพ 3.4 การใช้ทรัพยากร ซึ่งแต่ละข้อถามคนละเรื่อง (ดูหลักการแยกบทบาทในส่วนที่ 1)
+
+**3.1 การออกแบบ** เกณฑ์ต้องการ: ออกแบบสอดคล้องกับจุดประสงค์และเป้าหมาย มีแนวคิดสำคัญรองรับอย่างสมเหตุสมผลและอ้างอิงได้ นำมาเป็นพื้นฐานการออกแบบกิจกรรม และทุกกิจกรรมเชื่อมโยงสอดคล้องกัน
+- ลำดับที่ใช้ได้: ศึกษาทฤษฎีและแนวคิด → ออกแบบตัวนวัตกรรม (องค์ประกอบ) → ออกแบบกิจกรรม (กติกา รูปแบบ ลำดับความยาก)
+- อธิบายเฉพาะตัวนวัตกรรม ไม่อธิบายกระบวนการสอนในข้อนี้ถ้าแยกไว้เป็นอีกส่วน
+- ทฤษฎีที่อ้างต้องเชื่อมถึงการตัดสินใจออกแบบจริง ไม่ใช่ใส่ชื่อทฤษฎีลอย ๆ
+
+**3.2 การดำเนินงาน** เกณฑ์ต้องการ: ดำเนินการตามกิจกรรมที่ออกแบบไว้ทุกขั้นตอน และมีการปรับปรุงพัฒนาอย่างต่อเนื่อง
+- ลำดับที่ใช้ได้: จัดทำแผน → ตรวจสอบคุณภาพโดยผู้เชี่ยวชาญ → ดำเนินกิจกรรม → ปรับปรุงต่อเนื่อง
+- ข้อจัดทำแผน: ระบุองค์ประกอบของแผน และอธิบายขั้นตอนการสอนที่ใช้พร้อมทฤษฎีหรืองานวิจัยรองรับแต่ละขั้น ห้ามแต่งทฤษฎีขึ้น ถ้ารูปแบบที่ครูพัฒนาเองไม่มีทฤษฎีรองรับ ให้ค้นแนวคิดที่ตรงกับบริบทของผู้เรียนมาจับคู่ แล้วบอกผู้ใช้ว่าจับคู่อย่างไร
+- ข้อดำเนินกิจกรรม: เล่าลำดับที่จัดจริง ไม่คัดลอกกติกาจากข้อออกแบบ
+- ข้อปรับปรุง: แบ่งตามแหล่งที่มาของการปรับปรุง ได้แก่ ข้อเสนอแนะของผู้เชี่ยวชาญ (ก่อนใช้) บันทึกหลังการจัดประสบการณ์ (ระหว่างใช้) และการนิเทศหรือ PLC (ตลอดปี) และอย่าเล่าซ้ำเรื่องการตรวจสอบโดยผู้เชี่ยวชาญที่เขียนไปแล้ว ให้เขียนว่าได้รับข้อเสนอแนะอะไรและแก้อย่างไร
+- ถ้ารายละเอียดของข้อเสนอแนะจริงไม่มี ให้ขอผู้ใช้ ไม่แต่งเอง
+
+**3.3 ประสิทธิภาพ** เกณฑ์ต้องการ: แผนและกิจกรรมปรากฏชัดเจนเป็นลำดับขั้นตอน นำไปปฏิบัติได้จริง มีวิธีการหรือองค์ความรู้ใหม่ที่ส่งผลต่อเป้าหมาย
+- ข้อแผนการจัดประสบการณ์ ข้อนำนวัตกรรมไปใช้ และข้อวิธีการและองค์ความรู้ใหม่ เป็นโครงที่ใช้ได้ผล
+- ข้อ "นำไปใช้" ตอบคำว่า "ปฏิบัติได้จริง" ด้วยความเป็นไปได้ในการนำไปใช้ เช่น ครูผลิตสื่อเองได้ ไม่ต้องใช้งบเพิ่ม ปรับระดับความยากได้ ใช้ได้ในบริบทของสถานศึกษา ขยายประโยคเรื่องการจัดชั้นเรียนให้เห็นว่าตอบบริบทของสถานศึกษาอย่างไร ไม่เขียนเป็นการบรรยายคุณสมบัติของนวัตกรรม
+- ข้อ "วิธีการและองค์ความรู้ใหม่" เขียนเป็นสิ่งที่ค้นพบ (เช่น หลักการที่ว่าเนื้อหาควรเป็นเป้าหมายของภารกิจแทนการท่องจำ) และตรวจว่าไม่ใช่การเล่ากิจกรรมซ้ำหรือรายงานผลที่เกิดกับผู้เรียน
+- คุณภาพของผู้เรียนไม่ปนในข้อนี้ คุณภาพที่พูดถึงในข้อนี้คือคุณภาพของนวัตกรรมและแผน
+
+**3.4 การใช้ทรัพยากร** เกณฑ์ต้องการ: ประยุกต์ใช้ทรัพยากรและแหล่งเรียนรู้ที่มีอย่างเหมาะสมและคุ้มค่า สอดคล้องกับบริบทของสถานศึกษา ต้นสังกัด และเครือข่ายร่วมพัฒนา
+- เล่าเป็นเหตุเป็นผล: วิเคราะห์นโยบาย หลักสูตร และงบประมาณก่อน แล้วออกแบบให้สอดคล้อง โดยคำนึงถึงความประหยัดและคุ้มค่า
+- ครอบคลุมแหล่งเรียนรู้ (เช่น มุมความรู้ในห้องเรียน) และการสร้างเครือข่ายภายในกับภายนอก
+- ไม่ต้องอ้างระเบียบพัสดุหรือกฎหมายการเงินในระดับเทคนิค ใช้ภาษาที่ผู้อ่านทั่วไปเข้าใจ
+- วันที่และกิจกรรมเครือข่ายใช้ตามที่ผู้ใช้ให้เท่านั้น
+
+### ประเด็น 4 ผลการดำเนินการ ผลสัมฤทธิ์ ประโยชน์ที่ได้รับ
+
+เริ่มด้วยย่อหน้าเกริ่นสั้น ๆ ว่านวัตกรรมมีวัตถุประสงค์อะไร ใช้จัดการเรียนรู้แบบไหน แล้วนำไปสู่ผลอย่างไร
+
+**4.1 ผลที่เกิดตามจุดประสงค์** ต้องครอบคลุมทุกจุดประสงค์ มีหลักฐานหรือข้อมูลประกอบ ใช้ตารางสรุปผลตามจุดประสงค์ และบอกจำนวนคนควบคู่ร้อยละ เทียบกับเป้าหมายที่ตั้งไว้ในประเด็น 2
+
+**4.2 ผลสัมฤทธิ์** เกณฑ์ต้องการข้อมูลที่แสดงการเปลี่ยนแปลง ใช้ตารางก่อน-หลังภายในกลุ่มเดียวกันเมื่อผู้ใช้มีข้อมูลก่อนดำเนินการจริง ถ้าข้อมูลของหน่วยงานภายนอกเพิ่งเริ่มปีนี้และยังเทียบข้ามปีไม่ได้ ให้บอกตามจริง และใช้เป็นหลักฐานยืนยันผลเท่านั้น ในเนื้อหาต้องสรุปสภาพปัญหาสั้น ๆ ไว้ในที่นั้นด้วย เพื่อให้เห็นว่าอะไรเปลี่ยนไป
+
+**4.3 ประโยชน์** เกณฑ์ต้องการการเรียนรู้ร่วมกันของผู้เกี่ยวข้อง แบ่งเป็นผู้เรียน ครู ผู้ปกครอง ใช้ผลความพึงพอใจที่มีจริง ส่วนการแลกเปลี่ยนกับเครือข่ายภายนอกถ้าซ้ำกับประเด็น 7 ให้ย้ายไปประเด็น 7
+
+### ประเด็น 5 ปัจจัยความสำเร็จ
+
+เกริ่นนำที่ระบุปัจจัยเฉพาะเจาะจงจากการออกแบบจนถึงผลสำเร็จ และระบุผลสำเร็จเป็นตัวเลขเลย เกณฑ์ต้องการปัจจัยที่เป็นผลมาจากการมีส่วนร่วมของผู้เกี่ยวข้อง ส่งผลต่อการวางแผนพัฒนาต่อเนื่องและยั่งยืน ปัจจัยที่พบบ่อยคือผู้บริหาร ผู้เชี่ยวชาญ เพื่อนครูและ PLC ผู้ปกครอง และตัวนวัตกรรมกับกระบวนการ ปรับตามความจริงของผู้ใช้
+
+### ประเด็น 6 บทเรียนที่ได้รับ
+
+เกณฑ์ต้องการ: ข้อสรุปที่เป็นหลักการ ข้อสังเกต ข้อเสนอแนะ ข้อควรระวัง และแนวทางพัฒนาเพิ่มเติม ที่สอดคล้องกับผลงานที่นำเสนอ
+
+- นี่คือที่ที่ผลลัพธ์ของผู้เรียนถูกนำไปเทียบกับทฤษฎีหรืองานวิจัยได้ ("ผลที่ได้สอดคล้องกับแนวคิดของ...")
+- ข้อสังเกตต้องมาจากสิ่งที่ผู้ใช้สังเกตจริง ถ้าร่างขึ้นจากข้อมูลในไฟล์ ให้ให้ผู้ใช้ยืนยัน
+- ข้อควรระวังเขียนเป็นสิ่งที่ครูท่านอื่นควรระวังเมื่อนำไปใช้
+
+### ประเด็น 7 การเผยแพร่ การยอมรับ รางวัล
+
+เกณฑ์แบ่งเป็นร่องรอยหลักฐานการเผยแพร่ (ยิ่งใช้นอกกลุ่มเป้าหมายและสื่อหลากหลายยิ่งดี) และระดับการยอมรับ (โรงเรียน เขตพื้นที่หรือจังหวัด ภาคหรือประเทศ) ขอรายการจากผู้ใช้ทั้งหมด และถ้ามีรายการที่ผูกกับกรอบเดิมของงาน ให้ถามผู้ใช้ก่อนว่าจะคงหรือตัด ผู้ใช้อาจเขียนส่วนนี้เองพร้อมภาพหลักฐาน ซึ่งเป็นเรื่องปกติ
+
+### ประเด็น 8 การขยายผล ต่อยอด ประยุกต์ใช้
+
+**8.1 ถอดบทเรียน** เกณฑ์ต้องการ 3 ชั้น: ถอดบทเรียนทั้งความสำเร็จและอุปสรรคร่วมกัน (Capture and Learn) → เข้าใจปัจจัยที่ส่งผล → สืบเสาะและสังเคราะห์ข้อมูลจากแหล่งภายนอกเพิ่ม เพื่อขยายผลหรือสร้างสิ่งใหม่ ข้อสุดท้ายควรระบุแหล่งความรู้ที่ใช้จริง (ที่ปรากฏในเล่มแล้ว) ไม่ยกแหล่งใหม่ที่ไม่ได้ใช้
+
+**8.2 เรียนรู้เพื่อต่อยอดและขยายผล** เกณฑ์ต้องการ 3 ชั้น: เรียนรู้ร่วมกัน → สร้างความรู้ยกระดับ → นำไปประยุกต์ใช้ทั้งในและนอกสถานศึกษา โดยปรับให้เหมาะกับบริบทของตน ระบุการปรับใช้ในบริบทอื่นให้ชัด (เช่น คำแนะนำเรื่องขนาดชั้นเรียนและทรัพยากร) และใช้เฉพาะเหตุการณ์ที่ผู้ใช้ยืนยันว่าเกิดขึ้นจริง
+
+### ประเด็น 9 การนำเสนอผลงาน
+
+โดยทั่วไปเป็นวีดิทัศน์ความยาวตามเกณฑ์ ผู้ใช้มักทำเอง ให้ช่วยเมื่อผู้ใช้ขอ เช่น บทบรรยายหรือ storyboard ที่เรียงตามลำดับของ 8 ประเด็นและตอบเกณฑ์ได้ครบภายในเวลาที่กำหนด
+
+---
+
+## ภาคผนวก ข คำนำ บทคัดย่อ รูปแบบเอกสาร และการอ้างอิง
+
+### สารบัญ
+
+- ลำดับการทำงานของส่วนหน้าเล่ม
+- บทคัดย่อ
+- คำนำ
+- ตารางและหลักฐาน
+- การอ้างอิง APA 7th Edition
+- รูปแบบเล่ม
+
+### ลำดับการทำงานของส่วนหน้าเล่ม
+
+ทำคำนำและบทคัดย่อหลังจากเนื้อหาทุกประเด็นผ่านการตรวจแล้ว เพราะทั้งสองส่วนสรุปจากข้อมูลที่ยืนยันแล้ว ถ้าทำก่อน ตัวเลขหรือชื่อผลงานอาจเปลี่ยนภายหลังและต้องแก้ซ้ำ
+
+ถ้าผู้ใช้ส่งเนื้อหาฉบับที่ตนปรับเองมาให้ ให้สรุปจากฉบับนั้น ไม่ใช่จากร่างที่เคยเขียนในแชท
+
+### บทคัดย่อ
+
+ยาวไม่เกินประมาณหนึ่งหน้า เรียงลำดับดังนี้ และทุกตัวเลขต้องตรงกับในเนื้อหา
+
+1. ชื่อผลงาน ชื่อผู้จัดทำ ตำแหน่ง สถานศึกษา สังกัด
+2. ความเป็นมา: สภาพปัญหาที่พบ พร้อมข้อมูลสำคัญหนึ่งหรือสองตัว และสาเหตุที่วิเคราะห์ได้
+3. จุดประสงค์ ย่อให้สั้น
+4. วิธีดำเนินการ: นวัตกรรมคืออะไร จัดกระบวนการอย่างไร ใช้กับใคร กี่คน ปีการศึกษาใด ผ่านการตรวจสอบคุณภาพอย่างไร
+5. ผลการดำเนินงาน: ตัวเลขก่อน-หลัง ผลทดสอบภายนอก ความพึงพอใจ
+6. การเผยแพร่และการยอมรับ: เฉพาะรายการที่ผู้ใช้ยืนยันและตรงกับประเด็น 7 ที่ผู้ใช้ปรับแล้ว
+7. ข้อสรุป: คุณค่าและความเหมาะสมกับบริบท การขยายผล
+
+### คำนำ
+
+ประกอบด้วย 4 ส่วน ได้แก่ ที่มาของรายงานและชื่อผลงาน ขอบเขตเนื้อหาของรายงาน (ประเด็นที่นำเสนอ) คำขอบคุณ และความหวังว่ารายงานจะเป็นประโยชน์ ปิดด้วยชื่อและตำแหน่งผู้จัดทำ
+
+คำขอบคุณใช้เฉพาะผู้ที่มีบทบาทจริงตามที่ปรากฏในรายงาน เช่น ผู้บริหาร ผู้เชี่ยวชาญ เพื่อนครูและเครือข่าย ผู้ปกครองและผู้เรียน ชื่อและตำแหน่งของบุคคลให้ใช้ตามที่ผู้ใช้ให้ ถ้ายังไม่มีให้เว้นไว้ให้ผู้ใช้เติมและบอกผู้ใช้ ห้ามเดาชื่อ
+
+### ตารางและหลักฐาน
+
+- ตารางที่ควรมี: ผลตามจุดประสงค์ (ประเด็น 4.1) ผลก่อนดำเนินการ ตารางเปรียบเทียบก่อน-หลัง (4.2) ความพึงพอใจของผู้เรียนและผู้ปกครอง (4.3)
+- ใส่หมายเลขและชื่อตารางเหนือตาราง และมีย่อหน้าอ่านผลตารางต่อท้าย (จากตารางที่ ... พบว่า ...) เพราะเกณฑ์ข้อผลลัพธ์ต้องการหลักฐานหรือข้อมูลประกอบ
+- ระบุจำนวนคนพร้อมร้อยละ เพราะกลุ่มเล็กทำให้ร้อยละอย่างเดียวชวนให้เข้าใจผิดได้
+- การคำนวณร้อยละให้ตรวจซ้ำและบอกผู้ใช้ว่าใช้ฐานใด (เช่น จำนวนคนทั้งกลุ่ม)
+- ภาพหลักฐาน ผลทดสอบจากหน่วยงานภายนอก และแบบประเมิน ใส่ไว้ในภาคผนวกหรือในตำแหน่งที่ผู้ใช้กำหนด ผู้ใช้มักจัดภาพเอง
+
+### การอ้างอิง APA 7th Edition
+
+ในเนื้อหาใช้รูปแบบ (ผู้แต่ง, ปี) รายการท้ายเล่มเรียงตามตัวอักษร ภาษาไทยก่อนแล้วตามด้วยภาษาอังกฤษ และทำให้ชื่อเรื่องเป็นตัวเอียงในเอกสารจริง
+
+หลักที่พบบ่อยและพลาดบ่อย
+
+- ถ้าผู้แต่งกับผู้จัดพิมพ์เป็นหน่วยงานเดียวกัน ให้ตัดชื่อผู้จัดพิมพ์ออก
+- เอกสารภายในที่ไม่ได้เผยแพร่ ให้ใส่ [เอกสารไม่ตีพิมพ์] ต่อท้ายชื่อเรื่อง
+- กฎหมายและรัฐธรรมนูญอ้างอิงชื่อกฎหมายโดยตรงได้ โดยไม่ต้องใช้เว็บไซต์ติวสอบหรือเว็บรองเป็นแหล่ง และถ้ายังไม่มีเล่ม ตอน วันที่ในราชกิจจานุเบกษาที่แน่นอน ให้บอกผู้ใช้ให้เติม ห้ามเดาตัวเลข
+- ผลงานที่อ้างถึงจากแหล่งรอง ให้ระบุว่า "อ้างถึงใน"
+- ทุกรายการในเนื้อหาต้องมีในรายการท้ายเล่ม และทุกรายการท้ายเล่มต้องถูกอ้างในเนื้อหา เมื่อตัดเนื้อหาหรือเปลี่ยนแหล่ง ให้ตัดรายการที่ไม่ได้ใช้ออกด้วย
+- สะสมรายการอ้างอิงท้ายแต่ละหัวข้อระหว่างเขียน เพื่อให้ผู้ใช้เห็นว่าหัวข้อนั้นใช้แหล่งใด และรวมเป็นบรรณานุกรมครั้งเดียวตอนท้ายเล่ม
+- ใส่การอ้างอิงเฉพาะที่ควร ตามหลักการข้อ 3 ในส่วนที่ 1
+
+แหล่งที่เป็นเอกสารเผยแพร่ระดับสถานศึกษาหรือเว็บไซต์ทั่วไปมีน้ำหนักน้อยกว่าข้อมูลราชการหรือวารสารวิชาการ ให้บอกผู้ใช้ตรง ๆ และใช้เป็นข้อมูลสนับสนุน ไม่ใช่หลักฐานหลัก
+
+### รูปแบบเล่ม
+
+ข้อกำหนดเหล่านี้มาจากเกณฑ์รอบที่ผ่านมา ให้ตรวจกับไฟล์เกณฑ์ของรอบนั้นก่อนใช้
+
+- เล่มรายงานไม่เกินจำนวนหน้าที่กำหนด (รอบที่ผ่านมาไม่เกิน 50 หน้ารวมปก)
+- ฟอนต์และขนาดตามที่กำหนด (รอบที่ผ่านมาใช้ TH SarabunIT9 ขนาด 16)
+- โครงสร้างโดยทั่วไป: ส่วนที่ 1 บทสรุปหรือบทคัดย่อ ส่วนที่ 2 เนื้อหาตามประเด็นเป็นความเรียง ส่วนที่ 3 ภาคผนวกและหลักฐาน
+- ประเด็นการนำเสนอผลงานเป็นวีดิทัศน์ ซึ่งแยกจากเล่มรายงาน
+
+ค่าเริ่มต้นของการส่งมอบคือเขียนในแชทให้ตรวจทีละหัวข้อ เมื่อผู้ใช้ขอไฟล์เล่มสมบูรณ์ ให้สร้างตามรูปแบบไฟล์ที่ผู้ใช้ระบุ (เช่น Word หรือ PDF) และตรวจจำนวนหน้ากับเกณฑ์ก่อนส่ง
+
+</script>
+
+<script>
+/* =========================================================
+   ข้อมูล Prompt — เพิ่ม/แก้ไขได้ที่นี่
+   เขียนตัวแปรใน content ด้วย {ชื่อตัวแปร}
+   fields ใช้กำหนดชนิดช่อง (text / textarea / select)
+   ตัวแปรที่ไม่ได้กำหนดใน fields จะได้ช่องข้อความอัตโนมัติ
+   ========================================================= */
+const PROMPTS = [
+  { id:"trend", type:"tool", category:"คอนเทนต์", title:"Trend Prompt Studio",
+    desc:"เปลี่ยนกระแสและข้อเท็จจริง ให้เป็นบทคลิป 20 วินาที พร้อม Image และ Motion Prompt รายฉาก",
+    content:"กระแส + ข้อเท็จจริง + ข้อมูลประกอบ → {บทคลิป 2 ฉาก} → {Image Prompt} → {Motion Prompt}" },
+
+  { id:"report", type:"tool", route:"report", category:"งานเอกสาร", title:"Report Prompt Studio",
+    desc:"สร้าง Prompt หน้ารายงานผลการปฏิบัติงาน เลือกอัตราส่วน สไตล์ จำนวนหัวข้อ และกรอบภาพได้เอง พร้อมผังจำลองหน้ากระดาษ",
+    tags:"รายงานผลการปฏิบัติงาน ภาพรายงาน A4 ปก ผู้บริหาร ครู",
+    content:"หน้ารายงาน {ชื่อหัวข้อหลัก} + {ภาพบุคคล} + {หัวข้อ 1–6} + {กรอบภาพ 4:3} + {ส่วนรับรอง}" },
+
+  { id:"bp-skill", type:"skill", route:"skill-bp", category:"การศึกษา", title:"เขียนรายงาน Best Practice ของครู",
+    desc:"AI ช่วยร่างและตรวจรายงานทีละประเด็นตามเกณฑ์จริง ไม่สร้างตัวเลขหรือแหล่งอ้างอิงเอง",
+    tags:"best practice วิธีปฏิบัติที่เป็นเลิศ ประกวด ครู รายงาน skill",
+    content:"## บทบาทและขอบเขต\nคุณเป็นผู้ช่วยเขียนรายงาน {Best Practice} ของครูผู้สอน ตามเกณฑ์ที่มี {ประเด็นพิจารณา} และ {น้ำหนักคะแนน}" },
+
+  { id:"sale-post", type:"prompt", category:"การตลาดและการขาย", title:"โพสต์ขายสินค้าแบบเล่าเรื่อง",
+    desc:"เปิดด้วยปัญหาของลูกค้า ไม่ขายตรง ไม่กล่าวอ้างเกินจริง ได้ 3 เวอร์ชันให้เลือก",
+    tools:"Claude, ChatGPT, Gemini", tags:"ขายของ ออนไลน์ แม่ค้า โพสต์",
+    how:"กรอกเฉพาะข้อมูลสินค้าที่เป็นจริง AI จะไม่เติมสรรพคุณนอกเหนือจากที่คุณให้",
+    fields:[
+      {key:"ชื่อสินค้า",type:"text",ph:"น้ำพริกแม่ศรี",req:true},
+      {key:"จุดเด่น",type:"textarea",ph:"ทำสดทุกวัน ไม่ใส่สารกันบูด",req:true},
+      {key:"กลุ่มลูกค้า",type:"text",ph:"คนทำงานที่ไม่มีเวลาทำอาหาร",req:true},
+      {key:"ราคาและโปรโมชัน",type:"text",ph:"ระบุตามจริง หรือเว้นว่าง"},
+      {key:"น้ำเสียง",type:"select",options:["เป็นกันเอง","มืออาชีพ","ตลกขบขัน","อบอุ่นจริงใจ"]},
+      {key:"แพลตฟอร์ม",type:"select",options:["Facebook","TikTok","LINE OA","Instagram"]}
+    ],
+    content:`คุณคือนักเขียนคอนเทนต์ขายสินค้าออนไลน์ที่เชี่ยวชาญการเล่าเรื่อง
+เขียนโพสต์ขาย {ชื่อสินค้า} สำหรับ {แพลตฟอร์ม}
+
+ข้อมูลสินค้า
+- จุดเด่น: {จุดเด่น}
+- กลุ่มลูกค้า: {กลุ่มลูกค้า}
+- ราคาและโปรโมชัน: {ราคาและโปรโมชัน}
+
+เงื่อนไข
+1. เปิดด้วยสถานการณ์หรือปัญหาที่กลุ่มลูกค้าพบจริง ไม่เปิดด้วยการขายตรง
+2. ใช้น้ำเสียง{น้ำเสียง} ภาษาเข้าใจง่าย
+3. ใช้เฉพาะข้อมูลที่ให้ไว้ ห้ามกล่าวอ้างสรรพคุณเกินจริง และห้ามเพิ่มตัวเลขที่ไม่มีในข้อมูล
+4. หากไม่ได้ระบุราคา ห้ามกำหนดราคาขึ้นเอง
+5. ปิดท้ายด้วยคำชวนสั่งซื้อที่ชัดเจนหนึ่งประโยค
+
+ส่งผลลัพธ์ 3 เวอร์ชัน ได้แก่ แบบสั้นไม่เกิน 3 บรรทัด แบบปานกลาง และแบบเล่าเรื่อง พร้อมแฮชแท็กที่เกี่ยวข้อง 5 คำ` },
+
+  { id:"shorts", type:"prompt", category:"คอนเทนต์", title:"สคริปต์คลิปสั้น Hook–สาระ–สรุป",
+    desc:"วางโครงคลิปแนวตั้งให้กระชับ ดูต่อจนจบ พร้อมข้อความบนจอทุกช่วง",
+    tools:"Claude, ChatGPT, Gemini", tags:"youtube shorts reels tiktok สคริปต์",
+    how:"ใส่ข้อมูลสำคัญที่ตรวจสอบแล้ว ยิ่งเจาะจง สคริปต์ยิ่งมีสาระ",
+    fields:[
+      {key:"หัวข้อ",type:"text",ph:"วิธีเลือกซื้อผลไม้ให้หวาน",req:true},
+      {key:"กลุ่มผู้ชม",type:"text",ph:"พ่อแม่ที่ซื้อของเข้าบ้าน",req:true},
+      {key:"ข้อมูลสำคัญ",type:"textarea",ph:"ประเด็นหรือข้อเท็จจริงที่ต้องการสื่อ",req:true},
+      {key:"ความยาว",type:"select",options:["15 วินาที","30 วินาที","45 วินาที","60 วินาที"]},
+      {key:"แพลตฟอร์ม",type:"select",options:["YouTube Shorts","TikTok","Facebook Reels","Instagram Reels"]}
+    ],
+    content:`คุณคือผู้เขียนบทคลิปสั้นแนวสาระ
+เขียนสคริปต์คลิปแนวตั้งความยาว {ความยาว} สำหรับ {แพลตฟอร์ม}
+หัวข้อ: {หัวข้อ}
+กลุ่มผู้ชม: {กลุ่มผู้ชม}
+ข้อมูลที่ต้องใช้:
+{ข้อมูลสำคัญ}
+
+โครงสร้าง
+1. Hook ใน 3 วินาทีแรก ตั้งคำถามหรือภาพที่ทำให้หยุดดู
+2. สาระสำคัญ เรียงลำดับให้เข้าใจง่าย ใช้เฉพาะข้อมูลที่ให้ไว้
+3. สรุปหนึ่งประโยค และคำชวนติดตามที่ไม่ยัดเยียด
+
+ส่งผลลัพธ์เป็นตาราง ได้แก่ ช่วงเวลา / บทพูด / ข้อความบนจอ / ภาพที่ควรใช้
+บทพูดต้องอ่านทันในเวลาที่กำหนด หากข้อมูลไม่เพียงพอให้แจ้งว่าต้องการข้อมูลใดเพิ่ม` },
+
+  { id:"portrait", type:"prompt", category:"สร้างภาพ", title:"ภาพบุคคลมืออาชีพ 9:16",
+    desc:"ภาพบุคคลที่ดูเป็นธรรมชาติ ควบคุมบุคลิก เสื้อผ้า ฉาก แสง และมุมกล้อง",
+    tools:"Gemini, ChatGPT, Midjourney", tags:"โปรไฟล์ โปสเตอร์ หน้าปก ภาพคน",
+    how:"หากแนบภาพใบหน้าอ้างอิง ให้ใช้เฉพาะภาพของตนเองหรือได้รับอนุญาตจากเจ้าของภาพ",
+    fields:[
+      {key:"บุคคล",type:"text",ph:"ครูผู้หญิงวัย 40 ปี",req:true},
+      {key:"บุคลิก",type:"text",ph:"ยิ้มอบอุ่น มั่นใจ",req:true},
+      {key:"เสื้อผ้า",type:"text",ph:"เสื้อผ้าไหมสีกรมท่า",req:true},
+      {key:"ฉากหลัง",type:"text",ph:"ห้องสมุดโรงเรียนเบลอเล็กน้อย",req:true},
+      {key:"แสง",type:"select",options:["แสงธรรมชาติจากหน้าต่าง","แสงสตูดิโอนุ่ม","แสงยามเย็นโทนทอง","แสงสว่างสะอาดแบบองค์กร"]}
+    ],
+    content:`ภาพถ่ายบุคคลแนวตั้งอัตราส่วน 9:16 ระดับมืออาชีพ
+บุคคล: {บุคคล}
+บุคลิกและสีหน้า: {บุคลิก}
+เสื้อผ้า: {เสื้อผ้า}
+ฉากหลัง: {ฉากหลัง}
+แสง: {แสง}
+กล้อง: เลนส์ 85mm ระดับสายตา ระยะครึ่งตัว ฉากหลังละลายเล็กน้อย
+ผิวและรายละเอียดเป็นธรรมชาติ ไม่ปรับแต่งจนดูเป็นพลาสติก
+ไม่มีตัวอักษร ไม่มีลายน้ำ ไม่มีโลโก้` },
+
+  { id:"video10", type:"prompt", category:"สร้างวิดีโอ", title:"วิดีโอแนวตั้ง 10 วินาที",
+    desc:"Motion Prompt ฉบับเดียว รวมภาพ การเคลื่อนไหว กล้อง เสียง และข้อความบนจอ",
+    tools:"Gemini (Veo), Sora, Kling", tags:"motion prompt วิดีโอ ai แนวตั้ง",
+    how:"บทบรรยาย 10 วินาทีควรสั้นและกระชับ ทดลองอ่านออกเสียงจับเวลาก่อนใช้",
+    fields:[
+      {key:"ฉาก",type:"text",ph:"ตลาดเช้าริมทาง แสงแดดอ่อน",req:true},
+      {key:"ตัวหลัก",type:"text",ph:"แม่ค้าวัยกลางคนกับกระจาดผัก",req:true},
+      {key:"การกระทำ",type:"textarea",ph:"จัดผักใส่ถุงแล้วยื่นให้ลูกค้าพร้อมรอยยิ้ม",req:true},
+      {key:"บทบรรยาย",type:"textarea",ph:"บทพูดภาษาไทยสั้น ๆ",req:true},
+      {key:"ข้อความบนจอ",type:"text",ph:"ผักสดจากสวน ทุกเช้า"},
+      {key:"สไตล์ภาพ",type:"select",options:["ภาพสมจริงแนวสารคดี","ภาพยนตร์โทนอบอุ่น","แอนิเมชัน 3D","ภาพวาดดิจิทัล"]}
+    ],
+    content:`สร้างวิดีโอแนวตั้ง 9:16 ความยาว 10 วินาที สไตล์{สไตล์ภาพ}
+ฉาก: {ฉาก}
+ตัวหลัก: {ตัวหลัก}
+
+0–2 วินาที: เปิดภาพกว้างให้เห็นบรรยากาศของฉาก กล้องเคลื่อนเข้าช้า ๆ
+2–7 วินาที: {การกระทำ} กล้องระดับสายตา เคลื่อนตามตัวหลักอย่างนุ่มนวล
+7–10 วินาที: ภาพใกล้ปิดท้าย แสดงข้อความบนจอ
+
+VOICEOVER (ภาษาไทย น้ำเสียงเป็นธรรมชาติ): "{บทบรรยาย}"
+ข้อความบนจอ (ภาษาไทย สะกดถูกต้อง อ่านง่าย): "{ข้อความบนจอ}"
+เสียงประกอบ: เสียงบรรยากาศของฉากเบา ๆ ไม่กลบเสียงบรรยาย
+ห้ามมีลายน้ำ ห้ามมีข้อความอื่นนอกจากที่กำหนด` },
+
+  { id:"lesson", type:"prompt", category:"การศึกษา", title:"ออกแบบกิจกรรมการเรียนรู้",
+    desc:"เชื่อมจุดประสงค์ กระบวนการ สื่อ และการประเมินให้สอดคล้องกัน",
+    tools:"Claude, ChatGPT, Gemini", tags:"แผนการสอน ครู active learning",
+    how:"ระบุสื่อที่มีอยู่จริงในห้องเรียน กิจกรรมจะนำไปใช้ได้ทันที",
+    fields:[
+      {key:"ระดับชั้น",type:"text",ph:"ประถมศึกษาปีที่ 4",req:true},
+      {key:"วิชาและเรื่อง",type:"text",ph:"วิทยาศาสตร์ เรื่องวงจรไฟฟ้าอย่างง่าย",req:true},
+      {key:"จุดประสงค์",type:"textarea",ph:"นักเรียนต่อวงจรไฟฟ้าให้หลอดไฟสว่างได้",req:true},
+      {key:"เวลา",type:"select",options:["50 นาที","60 นาที","2 คาบ (100 นาที)"]},
+      {key:"สื่อที่มี",type:"text",ph:"ถ่านไฟฉาย สายไฟ หลอดไฟ"}
+    ],
+    content:`คุณคือผู้เชี่ยวชาญด้านการออกแบบการเรียนรู้เชิงรุก
+ออกแบบกิจกรรมการเรียนรู้สำหรับ {ระดับชั้น}
+วิชาและเรื่อง: {วิชาและเรื่อง}
+จุดประสงค์การเรียนรู้: {จุดประสงค์}
+เวลา: {เวลา}
+สื่อที่มี: {สื่อที่มี}
+
+ให้ระบุ
+1. ขั้นนำ ขั้นสอน ขั้นสรุป พร้อมเวลาของแต่ละขั้น
+2. บทบาทครูและบทบาทนักเรียนในแต่ละขั้น
+3. คำถามกระตุ้นการคิดอย่างน้อย 3 ข้อ
+4. วิธีวัดและประเมินผลที่สอดคล้องกับจุดประสงค์ พร้อมเกณฑ์
+5. แนวทางช่วยเหลือนักเรียนที่เรียนช้าและต่อยอดนักเรียนที่เรียนเร็ว
+ใช้เฉพาะสื่อที่ระบุ หากจำเป็นต้องใช้สื่อเพิ่มให้แยกเป็นข้อเสนอแนะ` },
+
+  { id:"infographic", type:"prompt", category:"งานเอกสาร", title:"อินโฟกราฟิกภาษาไทย",
+    desc:"จัดข้อมูลจำนวนมากให้อ่านง่าย เป็นลำดับ และพร้อมนำไปสร้างภาพ",
+    tools:"Claude, ChatGPT, Gemini", tags:"โปสเตอร์ รายงาน บอร์ด สรุปข้อมูล",
+    how:"วางข้อมูลจริงทั้งหมดที่ต้องการนำเสนอ AI จะจัดลำดับโดยไม่เพิ่มข้อมูลใหม่",
+    fields:[
+      {key:"หัวข้อ",type:"text",ph:"ผลการดำเนินงานโครงการปี 2569",req:true},
+      {key:"ข้อมูล",type:"textarea",ph:"วางข้อมูลและตัวเลขจริงทั้งหมด",req:true},
+      {key:"กลุ่มผู้อ่าน",type:"text",ph:"ผู้ปกครองและชุมชน",req:true},
+      {key:"รูปแบบ",type:"select",options:["แนวตั้ง A4","โพสต์สี่เหลี่ยม 1:1","สตอรี่ 9:16"]}
+    ],
+    content:`จัดทำโครงอินโฟกราฟิกภาษาไทยรูปแบบ {รูปแบบ}
+หัวข้อ: {หัวข้อ}
+กลุ่มผู้อ่าน: {กลุ่มผู้อ่าน}
+ข้อมูลทั้งหมด:
+{ข้อมูล}
+
+ให้ส่งผลลัพธ์ 2 ส่วน
+ส่วนที่ 1 โครงเนื้อหา: หัวเรื่องหลัก ประเด็นย่อยเรียงตามลำดับความสำคัญ ข้อความแต่ละกล่องไม่เกิน 2 บรรทัด และตัวเลขที่ควรเน้น
+ส่วนที่ 2 Prompt สร้างภาพ: ระบุการจัดวาง โทนสี ไอคอน และตำแหน่งข้อความภาษาไทยทุกกล่อง
+
+ใช้เฉพาะข้อมูลที่ให้ไว้ ห้ามปัดเศษหรือเปลี่ยนตัวเลข ห้ามเพิ่มข้อมูลใหม่` }
+];
+
+/* ================= helpers ================= */
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const varsOf = t => [...new Set([...t.matchAll(/\{([^{}]+)\}/g)].map(m => m[1]))];
+const fill = (t, v) => t.replace(/\{([^{}]+)\}/g, (_, k) => (v[k] && v[k].trim()) ? v[k].trim() : "{" + k + "}");
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function toast(msg){
+  const t = $("#toast"); t.textContent = msg; t.classList.add("show");
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("show"), 2000);
+}
+const CHECK_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+function burst(el){
+  if (reduced || !el) return;
+  const r = el.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+  const colors = ["#14B8A6","#F59E0B","#1E3A5F","#5DCAA5"];
+  for (let i = 0; i < 14; i++){
+    const sp = document.createElement("span"), a = Math.PI * 2 * i / 14 + Math.random() * .4, d = 34 + Math.random() * 30;
+    sp.className = "spark"; sp.style.left = cx + "px"; sp.style.top = cy + "px"; sp.style.background = colors[i % 4];
+    sp.style.setProperty("--dx", Math.cos(a) * d + "px"); sp.style.setProperty("--dy", Math.sin(a) * d + "px"); sp.style.setProperty("--rot", (Math.random() * 360) + "deg");
+    document.body.appendChild(sp); setTimeout(() => sp.remove(), 750);
+  }
+}
+function confirmBtn(btn, label){
+  if (!btn || !btn.classList.contains("btn") || btn.classList.contains("copied")) return;
+  const html = btn.innerHTML, w = btn.offsetWidth;
+  btn.style.minWidth = w + "px"; btn.classList.add("copied"); btn.innerHTML = CHECK_SVG + label;
+  setTimeout(() => { btn.classList.remove("copied"); btn.innerHTML = html; btn.style.minWidth = ""; }, 1500);
+}
+async function copyText(text, msg){
+  const src = document.activeElement && document.activeElement.tagName === "BUTTON" ? document.activeElement : null;
+  try { await navigator.clipboard.writeText(text); }
+  catch (e) { const a = document.createElement("textarea"); a.value = text; document.body.appendChild(a); a.select(); document.execCommand("copy"); a.remove(); }
+  toast(msg || "คัดลอกแล้ว");
+  burst(src); confirmBtn(src, "คัดลอกแล้ว");
+}
+function download(name, text){
+  const url = URL.createObjectURL(new Blob([text], {type:"text/plain;charset=utf-8"}));
+  const a = document.createElement("a"); a.href = url; a.download = name; a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 500); toast("ดาวน์โหลดแล้ว");
+}
+
+/* ================= theme & menu ================= */
+(function(){
+  let saved = null; try { saved = localStorage.getItem("chao-theme"); } catch (e) {}
+  if (saved) document.documentElement.dataset.theme = saved;
+  $("#themeBtn").addEventListener("click", () => {
+    const cur = document.documentElement.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    const next = cur === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem("chao-theme", next); } catch (e) {}
+  });
+  $("#menuBtn").addEventListener("click", e => {
+    const open = $("#nav").classList.toggle("open");
+    e.currentTarget.setAttribute("aria-expanded", open);
+  });
+})();
+
+/* ================= router ================= */
+function route(){
+  const v = (location.hash || "#home").slice(1);
+  const name = $$(".view").some(s => s.dataset.view === v) ? v : "home";
+  $$(".view").forEach(s => s.classList.toggle("active", s.dataset.view === name));
+  const navName = name.startsWith("skill-") ? "skills" : (name === "trend" || name === "report") ? "tools" : name;
+  $$(".nav a").forEach(a => a.getAttribute("href") === "#" + navName ? a.setAttribute("aria-current","page") : a.removeAttribute("aria-current"));
+  $("#nav").classList.remove("open"); $("#menuBtn").setAttribute("aria-expanded","false");
+  window.scrollTo(0, 0);
+}
+addEventListener("hashchange", route);
+addEventListener("popstate", route);
+document.addEventListener("click", e => {
+  const a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+  if (!a) return;
+  const h = a.getAttribute("href");
+  if (!h || h.length < 2) return;
+  e.preventDefault();
+  if (location.hash !== h){
+    try { history.pushState(null, "", h); } catch (err) { location.hash = h; return; }
+  }
+  route();
+});
+
+/* ================= cards ================= */
+let FAVS = [];
+try { FAVS = JSON.parse(localStorage.getItem("chao-favs") || "[]"); } catch (e) { FAVS = []; }
+function saveFavs(){ try { localStorage.setItem("chao-favs", JSON.stringify(FAVS)); } catch (e) {} }
+
+const ART = {
+  "การตลาดและการขาย": ["#1E3A5F","#0F6E56", '<rect x="118" y="62" width="84" height="80" rx="10" fill="#FFFFFF" opacity=".92"/><path d="M138 66v-8a22 22 0 0 1 44 0v8" stroke="#FFFFFF" stroke-width="6" fill="none" stroke-linecap="round"/><rect x="186" y="98" width="58" height="30" rx="6" fill="#F59E0B" transform="rotate(-14 215 113)"/><circle cx="196" cy="110" r="4" fill="#412402"/><path d="M140 104h40M140 118h26" stroke="#1E3A5F" stroke-width="6" stroke-linecap="round" opacity=".5"/>'],
+  "คอนเทนต์": ["#132840","#2F6B8F", '<rect x="132" y="28" width="56" height="124" rx="12" fill="#FFFFFF" opacity=".95"/><rect x="138" y="40" width="44" height="78" rx="6" fill="#14B8A6"/><path d="M154 66l16 13-16 13z" fill="#FFFFFF"/><path d="M142 128h36M142 138h24" stroke="#1E3A5F" stroke-width="5" stroke-linecap="round" opacity=".5"/><circle cx="214" cy="60" r="12" fill="#F59E0B"/><path d="M209 60l4 4 7-8" stroke="#412402" stroke-width="3" fill="none" stroke-linecap="round"/>'],
+  "สร้างภาพ": ["#24466F","#5B4B8A", '<rect x="96" y="40" width="128" height="100" rx="10" fill="#FFFFFF" opacity=".95"/><rect x="106" y="50" width="108" height="80" rx="6" fill="#B5D4F4"/><circle cx="188" cy="72" r="10" fill="#F59E0B"/><path d="M106 130l34-38 22 24 14-14 38 28z" fill="#1E3A5F"/><path d="M146 130l30-30 38 30z" fill="#14B8A6"/>'],
+  "สร้างวิดีโอ": ["#132840","#8B2C3B", '<rect x="70" y="56" width="180" height="70" rx="8" fill="#FFFFFF" opacity=".95"/><g fill="#132840">'+[0,1,2,3,4,5,6,7].map(i=>`<rect x="${80+i*21}" y="62" width="11" height="8" rx="2"/><rect x="${80+i*21}" y="112" width="11" height="8" rx="2"/>`).join("")+'</g><rect x="80" y="76" width="160" height="30" fill="#8B2C3B" opacity=".25"/><circle cx="160" cy="91" r="20" fill="#14B8A6"/><path d="M154 82l15 9-15 9z" fill="#FFFFFF"/>'],
+  "การศึกษา": ["#1E3A5F","#B45309", '<path d="M160 60c-20-12-46-14-66-8v80c20-6 46-4 66 8z" fill="#FFFFFF" opacity=".95"/><path d="M160 60c20-12 46-14 66-8v80c-20-6-46-4-66 8z" fill="#FFFFFF" opacity=".8"/><path d="M106 76h40M106 90h40M106 104h28M174 76h40M174 90h40M174 104h28" stroke="#1E3A5F" stroke-width="5" stroke-linecap="round" opacity=".45"/><path d="M222 30l5 11 12 2-9 8 2 12-10-6-10 6 2-12-9-8 12-2z" fill="#F59E0B"/>'],
+  "งานเอกสาร": ["#0F2238","#1E3A5F", '<rect x="132" y="34" width="86" height="112" rx="6" fill="#FFFFFF" opacity=".55" transform="rotate(8 175 90)"/><rect x="112" y="32" width="86" height="114" rx="6" fill="#FFFFFF"/><rect x="122" y="44" width="50" height="8" rx="3" fill="#1E3A5F"/><path d="M122 64h66M122 76h66M122 88h44" stroke="#1E3A5F" stroke-width="4" stroke-linecap="round" opacity=".4"/><rect x="124" y="108" width="12" height="26" rx="2" fill="#14B8A6"/><rect x="142" y="98" width="12" height="36" rx="2" fill="#0F6E56"/><rect x="160" y="114" width="12" height="20" rx="2" fill="#F59E0B"/>']
+};
+const TOOL_ART = {
+  trend: ["#132840","#0F6E56", '<path d="M70 132l40-30 30 18 44-46 36 24 30-38" stroke="#FFFFFF" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="250" cy="60" r="10" fill="#F59E0B"/><rect x="70" y="140" width="180" height="4" rx="2" fill="#FFFFFF" opacity=".3"/><g fill="#14B8A6"><circle cx="110" cy="102" r="6"/><circle cx="184" cy="74" r="6"/></g>'],
+  report: ["#1E3A5F","#5B4B8A", '<rect x="108" y="22" width="104" height="146" rx="5" fill="#FBF6EA"/><rect x="108" y="22" width="14" height="146" fill="#E9DFC8"/><rect x="130" y="32" width="72" height="12" rx="2" fill="#1E3A5F"/><circle cx="134" cy="58" r="4" fill="#0F6E56"/><circle cx="134" cy="74" r="4" fill="#B45309"/><path d="M142 58h26M142 74h26" stroke="#8A7550" stroke-width="3" stroke-linecap="round"/><circle cx="190" cy="62" r="8" fill="#7B8CA3"/><path d="M176 86c0-10 6-16 14-16s14 6 14 16z" fill="#5F7290"/><rect x="130" y="98" width="34" height="25" fill="#E8E2D6" stroke="#B9AE98"/><rect x="168" y="98" width="34" height="25" fill="#E8E2D6" stroke="#B9AE98"/><path d="M160 146h40M168 154h24" stroke="#8A7550" stroke-width="3" stroke-linecap="round"/>']
+};
+function coverSVG(p){
+  const a = (p.type === "tool" && TOOL_ART[p.id]) || ART[p.category] || ART["งานเอกสาร"];
+  const gid = "g" + p.id.replace(/[^a-z0-9]/gi, "");
+  return `<svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="${gid}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${a[0]}"/><stop offset="1" stop-color="${a[1]}"/></linearGradient><pattern id="${gid}d" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#FFFFFF" opacity=".12"/></pattern></defs><rect width="320" height="180" fill="url(#${gid})"/><rect width="320" height="180" fill="url(#${gid}d)"/><circle cx="280" cy="20" r="70" fill="#FFFFFF" opacity=".05"/>${a[2]}</svg>`;
+}
+const HEART = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>';
+function cardHTML(p){
+  const exc = esc(p.content).replace(/\{([^{}]+)\}/g, '<mark>$1</mark>');
+  const kind = p.type === "tool" ? "เครื่องมือ" : p.type === "skill" ? "Skill" : "Prompt";
+  const fav = FAVS.includes(p.id);
+  const media = p.image ? `<img src="${esc(p.image)}" alt="" loading="lazy">` : coverSVG(p);
+  return `<article class="card" data-id="${p.id}">
+    <button class="card-open" aria-label="${esc(p.title)}">
+      <div class="cover"><span class="kind-badge ${p.type === "tool" ? "tool" : ""}">${kind}</span>${media}
+        <div class="peek" aria-hidden="true"><b>${p.type === "prompt" ? "ตัวอย่าง Prompt" : "สิ่งที่ได้"}</b>${exc}</div></div>
+      <div class="body"><div class="meta">${esc(p.category)}</div><h3>${esc(p.title)}</h3><p>${esc(p.desc)}</p></div>
+    </button>
+    <button class="fav" data-fav="${p.id}" aria-pressed="${fav}" aria-label="${fav ? "นำออกจากรายการโปรด" : "เพิ่มในรายการโปรด"}: ${esc(p.title)}">${HEART}</button>
+  </article>`;
+}
+function openItem(p){
+  if (p.type === "tool") go("#" + (p.route || "trend"));
+  else if (p.type === "skill") go("#" + p.route);
+  else openPrompt(p.id);
+}
+function go(h){
+  if (location.hash !== h){ try { history.pushState(null, "", h); } catch (e) { location.hash = h; return; } }
+  route();
+}
+function bindCards(root){
+  root.querySelectorAll(".card-open").forEach(b => b.addEventListener("click", () => openItem(PROMPTS.find(x => x.id === b.closest(".card").dataset.id))));
+  root.querySelectorAll(".fav").forEach(b => b.addEventListener("click", () => toggleFav(b.dataset.fav)));
+}
+function toggleFav(id){
+  const on = !FAVS.includes(id);
+  FAVS = on ? [...FAVS, id] : FAVS.filter(x => x !== id);
+  saveFavs();
+  const t = PROMPTS.find(x => x.id === id).title;
+  $$(`.fav[data-fav="${id}"]`).forEach(b => {
+    b.setAttribute("aria-pressed", on);
+    b.setAttribute("aria-label", (on ? "นำออกจากรายการโปรด" : "เพิ่มในรายการโปรด") + ": " + t);
+    b.classList.remove("pop"); void b.offsetWidth; b.classList.add("pop");
+  });
+  if (on) burst($(`.fav[data-fav="${id}"]`));
+  toast(on ? "เพิ่มในรายการโปรดแล้ว" : "นำออกจากรายการโปรดแล้ว");
+  updateFavChip();
+  if (curCat === "__fav") renderLib();
+}
+$("#homeGrid").innerHTML = PROMPTS.slice(0, 6).map(cardHTML).join("");
+$("#toolGrid").innerHTML = PROMPTS.filter(p => p.type === "tool").map(cardHTML).join("");
+$("#skillGrid").innerHTML = PROMPTS.filter(p => p.type === "skill").map(cardHTML).join("");
+["#homeGrid","#toolGrid","#skillGrid"].forEach(g => bindCards($(g)));
+
+/* tilt + spotlight (เมาส์เท่านั้น) */
+(function(){
+  if (reduced || !matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  let last = null;
+  const reset = c => { c.style.removeProperty("--rx"); c.style.removeProperty("--ry"); c.classList.remove("tilting"); };
+  document.addEventListener("pointermove", e => {
+    const c = e.target.closest ? e.target.closest(".card") : null;
+    if (last && last !== c) reset(last);
+    last = c; if (!c) return;
+    const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+    c.classList.add("tilting");
+    c.style.setProperty("--rx", ((.5 - y) * 6).toFixed(2) + "deg");
+    c.style.setProperty("--ry", ((x - .5) * 7).toFixed(2) + "deg");
+    c.style.setProperty("--mx", (x * 100).toFixed(1) + "%");
+    c.style.setProperty("--my", (y * 100).toFixed(1) + "%");
+  }, {passive:true});
+  document.addEventListener("pointerleave", () => { if (last) reset(last); last = null; });
+  const hero = $(".hero");
+  hero.addEventListener("pointermove", e => {
+    const r = hero.getBoundingClientRect();
+    hero.style.setProperty("--hx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");
+    hero.style.setProperty("--hy", ((e.clientY - r.top) / r.height * 100).toFixed(1) + "%");
+  }, {passive:true});
+})();
+
+/* ================= library ================= */
+const cats = ["ทั้งหมด", ...new Set(PROMPTS.map(p => p.category))];
+let curCat = "ทั้งหมด";
+$("#chips").innerHTML = cats.map(c => `<button class="chip" aria-pressed="${c === curCat}" data-cat="${esc(c)}">${esc(c)}</button>`).join("") +
+  `<button class="chip" aria-pressed="false" data-cat="__fav" id="favChip"></button>`;
+function updateFavChip(){ const c = $("#favChip"); if (c) c.textContent = "รายการโปรด (" + FAVS.length + ")"; }
+updateFavChip();
+$$("#chips .chip").forEach(b => b.addEventListener("click", () => {
+  curCat = b.dataset.cat;
+  $$("#chips .chip").forEach(x => x.setAttribute("aria-pressed", x === b));
+  renderLib();
+}));
+$("#q").addEventListener("input", renderLib);
+function renderLib(){
+  const q = $("#q").value.trim().toLowerCase();
+  const list = PROMPTS.filter(p => (curCat === "ทั้งหมด" || p.category === curCat || (curCat === "__fav" && FAVS.includes(p.id))) &&
+    (!q || [p.title, p.desc, p.category, p.tags || ""].join(" ").toLowerCase().includes(q)));
+  $("#count").textContent = `พบ ${list.length} รายการ`;
+  $("#libGrid").innerHTML = list.length ? list.map(cardHTML).join("")
+    : `<div class="empty" style="grid-column:1/-1">${curCat === "__fav" && !q ? "ยังไม่มีรายการโปรด แตะรูปหัวใจบนการ์ดเพื่อเก็บไว้ที่นี่" : 'ไม่พบ Prompt ที่ตรงกับคำค้น ลองคำอื่นหรือเลือกหมวด "ทั้งหมด"'}</div>`;
+  bindCards($("#libGrid"));
+}
+renderLib();
+
+/* ================= prompt modal ================= */
+let cur = null, vals = {};
+function fieldsOf(p){
+  const defined = p.fields || [];
+  const keys = defined.map(f => f.key);
+  return [...defined, ...varsOf(p.content).filter(k => !keys.includes(k)).map(k => ({key:k, type:"text"}))];
+}
+function openPrompt(id, preset){
+  cur = PROMPTS.find(p => p.id === id); if (!cur) return;
+  vals = {};
+  $("#mTitle").textContent = cur.title;
+  $("#mDesc").textContent = cur.desc;
+  $("#mHow").textContent = (cur.tools ? "เหมาะกับ: " + cur.tools + " — " : "") + (cur.how || "");
+  const fs = fieldsOf(cur);
+  $("#mForm").innerHTML = fs.map((f, i) => {
+    const id = "f" + i, req = f.req ? '<span class="req" aria-hidden="true">*</span>' : "";
+    let input;
+    if (f.type === "select") input = `<select id="${id}" data-k="${esc(f.key)}">${f.options.map(o => `<option>${esc(o)}</option>`).join("")}</select>`;
+    else if (f.type === "textarea") input = `<textarea id="${id}" data-k="${esc(f.key)}" placeholder="${esc(f.ph || "")}"></textarea>`;
+    else input = `<input id="${id}" data-k="${esc(f.key)}" placeholder="${esc(f.ph || "")}">`;
+    return `<div class="field"><label for="${id}">${esc(f.key)}${req}</label>${input}</div>`;
+  }).join("");
+  $$("#mForm [data-k]").forEach(el => {
+    const k = el.dataset.k;
+    if (preset && preset[k]) el.value = preset[k];
+    vals[k] = el.value;
+    el.addEventListener("input", () => { vals[k] = el.value; $("#mErr").hidden = true; renderOut(); });
+  });
+  renderOut();
+  openDialog();
+}
+function renderOut(){
+  const fs = fieldsOf(cur);
+  const html = esc(cur.content).replace(/\{([^{}]+)\}/g, (_, k) => {
+    const raw = Object.keys(vals).find(x => esc(x) === k);
+    const v = raw !== undefined ? (vals[raw] || "").trim() : "";
+    return v ? `<span class="v">${esc(v)}</span>` : `<span class="v empty">${k}</span>`;
+  });
+  $("#mOut").innerHTML = html;
+  const done = fs.filter(f => (vals[f.key] || "").trim()).length;
+  $("#mProg").textContent = `กรอกแล้ว ${done} จาก ${fs.length} ช่อง`;
+  $("#mBar").style.width = (fs.length ? Math.round(done / fs.length * 100) : 100) + "%";
+}
+function missingReq(){ return fieldsOf(cur).filter(f => f.req && !(vals[f.key] || "").trim()).map(f => f.key); }
+function guardOut(){
+  const m = missingReq();
+  if (m.length){ $("#mErr").textContent = "กรอกช่องที่จำเป็นก่อน: " + m.join(", "); $("#mErr").hidden = false; return false; }
+  return true;
+}
+function finalText(){
+  const v = {...vals};
+  fieldsOf(cur).forEach(f => { if (!(v[f.key] || "").trim()) v[f.key] = "ไม่ระบุ"; });
+  return fill(cur.content, v);
+}
+$("#mCopy").addEventListener("click", () => { if (guardOut()) copyText(finalText(), "คัดลอก Prompt แล้ว"); });
+$("#mDl").addEventListener("click", () => { if (guardOut()) download(cur.id + ".txt", finalText()); });
+$("#mRaw").addEventListener("click", () => copyText(cur.content, "คัดลอกต้นฉบับแล้ว"));
+function openDialog(){
+  const d = $("#modal");
+  if (typeof d.showModal === "function") d.showModal(); else { d.setAttribute("open", ""); d.style.position = "fixed"; d.style.inset = "12px"; d.style.margin = "auto"; d.style.zIndex = 70; d.style.overflow = "auto"; }
+}
+function closeDialog(){
+  const d = $("#modal");
+  if (typeof d.close === "function") d.close(); else d.removeAttribute("open");
+}
+$("#mClose").addEventListener("click", closeDialog);
+$("#modal").addEventListener("click", e => { if (e.target === $("#modal")) closeDialog(); });
+
+/* ================= hero assembler ================= */
+const ASM = {
+  parts:["เขียนโพสต์ขาย ", {k:"ชื่อสินค้า", o:["น้ำพริกแม่ศรี","ผ้าทอมือ","กาแฟดริป"]},
+         " สำหรับลูกค้าบน ", {k:"แพลตฟอร์ม", o:["TikTok","Facebook","LINE OA"]},
+         " ด้วยน้ำเสียง", {k:"น้ำเสียง", o:["เป็นกันเอง","มืออาชีพ","ตลกขบขัน"]},
+         " โดยใช้เฉพาะข้อมูลจริงของสินค้า"],
+  idx:{}
+};
+function renderAsm(showFilled){
+  $("#asmText").innerHTML = ASM.parts.map(p => {
+    if (typeof p === "string") return esc(p);
+    const i = ASM.idx[p.k];
+    const filled = showFilled && i !== undefined;
+    return `<button class="slot ${filled ? "filled" : ""}" data-k="${esc(p.k)}" aria-label="เปลี่ยน${esc(p.k)}">${esc(filled ? p.o[i] : p.k)}</button>`;
+  }).join("");
+  $$("#asmText .slot").forEach(b => b.addEventListener("click", () => {
+    const p = ASM.parts.find(x => x.k === b.dataset.k);
+    ASM.idx[p.k] = ((ASM.idx[p.k] !== undefined ? ASM.idx[p.k] : -1) + 1) % p.o.length;
+    renderAsm(true);
+    const nb = $(`#asmText .slot[data-k="${p.k}"]`); nb.classList.add("pop"); nb.focus();
+  }));
+}
+(function introAsm(){
+  const slots = ASM.parts.filter(p => typeof p !== "string");
+  renderAsm(false);
+  if (reduced){ slots.forEach(s => ASM.idx[s.k] = 0); renderAsm(true); return; }
+  slots.forEach((s, n) => setTimeout(() => {
+    ASM.idx[s.k] = 0; renderAsm(true);
+    $(`#asmText .slot[data-k="${s.k}"]`).classList.add("pop");
+  }, 700 + n * 650));
+})();
+$("#asmUse").addEventListener("click", () => {
+  const preset = {};
+  ASM.parts.forEach(p => { if (typeof p !== "string") preset[p.k] = p.o[ASM.idx[p.k] !== undefined ? ASM.idx[p.k] : 0]; });
+  openPrompt("sale-post", preset);
+});
+
+/* ================= Trend Prompt Studio ================= */
+const FACT_KEYS = [
+  {k:"what", h:"เกิดอะไรขึ้น"},
+  {k:"who", h:"ใครหรือหน่วยงานใดเกี่ยวข้อง"},
+  {k:"when", h:"เมื่อใดและที่ไหน"},
+  {k:"numbers", h:"ตัวเลข ผลลัพธ์ หรือประเด็นสำคัญ"},
+  {k:"why", h:"เหตุใดผู้ชมจึงควรรู้เรื่องนี้"},
+  {k:"context", h:"ข้อมูลประกอบ"},
+  {k:"sources", h:"แหล่งอ้างอิง"},
+  {k:"assess", h:"ผลการประเมิน"}
+];
+const T = { step:1, facts:{}, choice:{} };
+FACT_KEYS.forEach(f => T.facts[f.k] = "");
+
+function goStep(n){
+  T.step = n;
+  $$(".panel").forEach(p => p.classList.toggle("active", +p.dataset.step === n));
+  $$("#stepper button").forEach(b => {
+    const s = +b.dataset.go;
+    s === n ? b.setAttribute("aria-current","step") : b.removeAttribute("aria-current");
+    b.classList.toggle("done", s < n);
+  });
+  if (n === 3) renderMaster();
+  $("#stepper").scrollIntoView({behavior: reduced ? "auto" : "smooth", block:"start"});
+}
+$$("[data-go]").forEach(b => b.addEventListener("click", () => goStep(+b.dataset.go)));
+
+function extractPrompt(news){
+  return `คุณคือบรรณาธิการตรวจสอบข้อเท็จจริง หน้าที่ของคุณคืออ่านเนื้อหาด้านล่าง แล้วสกัดเฉพาะข้อเท็จจริงที่ปรากฏในเนื้อหาจริง เพื่อใช้เป็นข้อมูลตั้งต้นในการผลิตคลิปสั้นที่มีสาระ
+
+เนื้อหาที่ต้องวิเคราะห์:
+"""
+${news}
+"""
+
+กฎที่ต้องปฏิบัติอย่างเคร่งครัด
+1. ใช้เฉพาะข้อมูลที่ปรากฏในเนื้อหาข้างต้น ห้ามเดา ห้ามเติมตัวเลข วันที่ ชื่อบุคคล หรือคำพูดที่ไม่มีในเนื้อหา
+2. หัวข้อใดไม่มีข้อมูล ให้เขียนว่า "ไม่พบข้อมูลในเนื้อหา"
+3. หากเนื้อหาเป็นเพียงแฮชแท็ก ความเห็น หรือข่าวลือที่ไม่มีแหล่งยืนยัน ให้ระบุในหัวข้อ "ผลการประเมิน" ว่าไม่เพียงพอ
+4. หากเกี่ยวข้องกับข้อกล่าวหาต่อบุคคลที่ยังไม่มีข้อยุติ ให้ระบุว่าเป็น "ข้อกล่าวหา" ไม่ใช่ข้อเท็จจริง
+5. หากคุณสามารถค้นหาเว็บได้ ให้ค้นข้อมูลบริบทจากแหล่งที่น่าเชื่อถือ แยกไว้ในหัวข้อ "ข้อมูลประกอบ" พร้อมลิงก์ทุกรายการ หากค้นหาไม่ได้ ให้เขียนว่า "ไม่ได้ค้นข้อมูลเพิ่มเติม"
+
+ตอบตามรูปแบบนี้เท่านั้น โดยคงหัวข้อไว้ทุกบรรทัด
+
+${FACT_KEYS.map(f => "### " + f.h).join("\n")}
+(ในหัวข้อผลการประเมิน ให้ระบุ "ข้อมูลเพียงพอ" หรือ "ข้อมูลไม่เพียงพอ" พร้อมเหตุผลหนึ่งประโยค)`;
+}
+$("#mkExtract").addEventListener("click", () => {
+  const news = $("#news").value.trim(), url = $("#newsUrl").value.trim();
+  const err = $("#newsErr");
+  if (!news){ err.textContent = "วางเนื้อหาข่าวก่อนสร้าง Prompt"; err.hidden = false; $("#news").focus(); return; }
+  if (/^https?:\/\/\S+$/.test(news)){ err.textContent = "ช่องนี้มีเพียงลิงก์ ให้คัดลอกเนื้อหาข่าวมาวางเป็นข้อความ เพราะ AI บางตัวเปิดลิงก์ไม่ได้และอาจสรุปจากชื่อหัวข้อเพียงอย่างเดียว"; err.hidden = false; return; }
+  err.hidden = true;
+  const body = url ? news + "\n\nแหล่งที่มา: " + url : news;
+  $("#extractOut").textContent = extractPrompt(body);
+  toast("สร้าง Prompt แล้ว");
+});
+$("#news").addEventListener("input", () => $("#newsErr").hidden = true);
+$("#copyExtract").addEventListener("click", () => {
+  const t = $("#extractOut").textContent;
+  if (!t.startsWith("คุณคือ")){ toast("สร้าง Prompt ก่อนคัดลอก"); return; }
+  copyText(t, "คัดลอก Prompt สกัดข้อเท็จจริงแล้ว");
+});
+
+function renderFacts(){
+  $("#facts").innerHTML = FACT_KEYS.map((f, i) => `<div class="field" style="margin:0">
+    <label for="fact${i}">${esc(f.h)}</label>
+    <textarea id="fact${i}" data-fk="${f.k}" style="min-height:${f.k === "assess" ? 56 : 72}px">${esc(T.facts[f.k])}</textarea></div>`).join("");
+  $$("#facts textarea").forEach(t => t.addEventListener("input", () => { T.facts[t.dataset.fk] = t.value; renderAssess(); }));
+  renderAssess();
+}
+function renderAssess(){
+  const a = T.facts.assess || "";
+  $("#assessAlert").innerHTML = /ไม่เพียงพอ/.test(a)
+    ? `<div class="alert">AI ประเมินว่าข้อมูลไม่เพียงพอ ควรหาแหล่งข่าวเพิ่ม หรือเลือกประเด็นอื่นก่อนผลิตคลิป</div>` : "";
+}
+$("#parseBtn").addEventListener("click", () => {
+  const txt = $("#aiReply").value, err = $("#replyErr");
+  if (!txt.trim()){ err.textContent = "วางคำตอบจาก AI ก่อน"; err.hidden = false; return; }
+  const parts = txt.split(/^\s*#{2,4}\s*/m);
+  let hit = 0;
+  parts.forEach(block => {
+    const nl = block.indexOf("\n"); if (nl < 0) return;
+    const head = block.slice(0, nl).trim(), body = block.slice(nl + 1).trim();
+    const f = FACT_KEYS.find(x => head.includes(x.h) || x.h.includes(head.replace(/[*:：]/g,"").trim()) && head.length > 3);
+    if (f){ T.facts[f.k] = body; hit++; }
+  });
+  if (!hit){ err.textContent = "ไม่พบหัวข้อตามรูปแบบ ตรวจว่าคัดลอกคำตอบครบ หรือกรอกข้อมูลเองทางขวา"; err.hidden = false; return; }
+  err.hidden = true; renderFacts(); toast(`แยกข้อมูลได้ ${hit} หัวข้อ`);
+});
+$("#aiReply").addEventListener("input", () => $("#replyErr").hidden = true);
+renderFacts();
+
+const CHOICES = [
+  {k:"audience", h:"กลุ่มผู้ชม", o:["คนทั่วไป","วัยทำงาน","นักเรียนนักศึกษา","ผู้ปกครอง","ผู้สูงอายุ","ครูและบุคลากรการศึกษา"]},
+  {k:"angle", h:"มุมเล่าเรื่อง", o:["อธิบายให้เข้าใจง่าย","ผลกระทบต่อชีวิตประจำวัน","ตัวเลขที่ควรรู้","เบื้องหลังเหตุการณ์","ข้อควรรู้และวิธีรับมือ"]},
+  {k:"tone", h:"โทนภาษา", o:["เป็นกันเอง","จริงจังน่าเชื่อถือ","สนุกแต่มีสาระ","อบอุ่นชวนคิด"]},
+  {k:"platform", h:"แพลตฟอร์ม", o:["Facebook Reels","TikTok","YouTube Shorts"]},
+  {k:"style", h:"สไตล์ภาพ", o:["ภาพสมจริงแนวสารคดีข่าว","อินโฟกราฟิกเคลื่อนไหว","ภาพประกอบ 3D","ภาพวาดดิจิทัลโทนอบอุ่น"]}
+];
+CHOICES.forEach(c => T.choice[c.k] = c.o[0]);
+$("#choices").innerHTML = CHOICES.map(c => `<div class="group" role="group" aria-label="${esc(c.h)}"><b>${esc(c.h)}</b><div class="opts">
+  ${c.o.map(o => `<button class="opt" data-ck="${c.k}" aria-pressed="${T.choice[c.k] === o}">${esc(o)}</button>`).join("")}</div></div>`).join("");
+$$("#choices .opt").forEach(b => b.addEventListener("click", () => {
+  T.choice[b.dataset.ck] = b.textContent;
+  $$(`#choices .opt[data-ck="${b.dataset.ck}"]`).forEach(x => x.setAttribute("aria-pressed", x === b));
+  renderMaster();
+}));
+$("#extraNote").addEventListener("input", renderMaster);
+
+function masterPrompt(){
+  const F = T.facts, C = T.choice, v = s => (s || "").trim() || "ไม่พบข้อมูลในเนื้อหา";
+  const extra = $("#extraNote").value.trim();
+  return `คุณคือผู้ผลิตคลิปสั้นเชิงสาระที่ยึดข้อเท็จจริงเป็นหลัก
+ผลิตคอนเทนต์คลิปแนวตั้ง 9:16 ความยาว 20 วินาที แบ่งเป็น 2 ฉาก ฉากละ 10 วินาที จากข้อเท็จจริงด้านล่างเท่านั้น
+
+ข้อเท็จจริงที่ตรวจสอบแล้ว
+- เกิดอะไรขึ้น: ${v(F.what)}
+- ใครหรือหน่วยงานใดเกี่ยวข้อง: ${v(F.who)}
+- เมื่อใดและที่ไหน: ${v(F.when)}
+- ตัวเลข ผลลัพธ์ หรือประเด็นสำคัญ: ${v(F.numbers)}
+- เหตุใดผู้ชมจึงควรรู้: ${v(F.why)}
+- ข้อมูลประกอบ: ${v(F.context)}
+- แหล่งอ้างอิง: ${v(F.sources)}
+
+แนวทางที่กำหนด
+- กลุ่มผู้ชม: ${C.audience}
+- มุมเล่าเรื่อง: ${C.angle}
+- โทนภาษา: ${C.tone}
+- แพลตฟอร์ม: ${C.platform}
+- สไตล์ภาพ: ${C.style}${extra ? "\n- ความต้องการเพิ่มเติม: " + extra : ""}
+
+กฎที่ต้องปฏิบัติอย่างเคร่งครัด
+1. ใช้เฉพาะข้อเท็จจริงข้างต้น ห้ามแต่งเหตุการณ์ ห้ามเติมตัวเลข ห้ามสร้างคำพูดของบุคคล
+2. ไม่กล่าวถึงแพลตฟอร์มต้นทางของกระแสในบทพูด ให้พูดถึงเนื้อหาโดยตรง
+3. ข้อกล่าวหาที่ยังไม่มีข้อยุติ ต้องใช้ถ้อยคำว่าเป็นข้อกล่าวหา ห้ามสรุปว่าบุคคลใดกระทำผิด
+4. หัวข้อใดระบุว่า "ไม่พบข้อมูลในเนื้อหา" ห้ามนำไปใช้หรือเดาแทน
+5. หากข้อเท็จจริงไม่เพียงพอสำหรับคลิป 20 วินาที ให้แจ้งผู้ใช้ตามจริงก่อน แทนการเขียนบทต่อ
+6. VOICEOVER ภาษาไทยของแต่ละช่วงต้องกระชับ อ่านออกเสียงได้ทันภายในเวลาของช่วงนั้น
+
+ส่งผลลัพธ์ตามลำดับนี้
+1. สรุปกระแสและข้อเท็จจริงสำคัญ ไม่เกิน 3 บรรทัด
+2. ข้อมูลประกอบที่ควรรู้ก่อนเขียนคลิป
+3. Hook 3 ทางเลือก ตามมุมเล่าเรื่องที่กำหนด และระบุ Hook ที่แนะนำ
+4. บทคลิป 20 วินาที แบ่งฉากที่ 1 (0–10 วินาที) และฉากที่ 2 (10–20 วินาที)
+5. Image Prompt แยกตามฉาก สำหรับภาพเริ่มต้นของแต่ละฉาก
+6. Motion Prompt ฉบับสมบูรณ์ของแต่ละฉาก กำหนดเวลาภายในฉากเป็น 0–2, 2–7 และ 7–10 วินาที
+   โดยรวม ภาพ การเคลื่อนไหว กล้อง เสียงประกอบ VOICEOVER ภาษาไทย และข้อความบนจอภาษาไทย ไว้ใน Motion Prompt เดียวของแต่ละฉาก
+7. ชื่อคลิป คำอธิบายคลิป (ระบุแหล่งอ้างอิงท้ายคำอธิบาย) แคปชัน และแฮชแท็กที่เหมาะกับ ${C.platform}`;
+}
+function renderMaster(){
+  const txt = masterPrompt();
+  $("#masterOut").textContent = txt;
+  const filled = ["what","who","when","numbers","why"].filter(k => (T.facts[k] || "").trim()).length;
+  $("#factWarn").innerHTML = filled < 2
+    ? `<div class="alert" style="margin-top:12px">ข้อเท็จจริงหลักยังกรอกไม่ถึง 2 หัวข้อ กลับไปขั้นที่ 2 เพื่อเพิ่มข้อมูลก่อนคัดลอก</div>`
+    : /ไม่เพียงพอ/.test(T.facts.assess || "") ? `<div class="alert" style="margin-top:12px">ข้อมูลถูกประเมินว่าไม่เพียงพอ AI อาจแจ้งกลับแทนการเขียนบท</div>` : "";
+}
+$("#copyMaster").addEventListener("click", () => copyText(masterPrompt(), "คัดลอก Master Prompt แล้ว"));
+$("#dlMaster").addEventListener("click", () => download("trend-master-prompt.txt", masterPrompt()));
+
+/* ================= Skill: Best Practice ================= */
+(function(){
+  const MD = $("#skill-bp-md").textContent.trim();
+  const cut = MD.indexOf("## บทบาทและขอบเขต");
+  const SYS = cut >= 0 ? MD.slice(cut) : MD;
+  const TITLE = MD.split("\n")[0];
+  const FRONT = `---
+name: best-practice-teacher-report
+description: ช่วยครูผู้สอนร่าง ตรวจ ปรับ และเทียบรายงานวิธีปฏิบัติที่เป็นเลิศ (Best Practice) กับเกณฑ์การคัดเลือกที่มีประเด็นพิจารณาและน้ำหนักคะแนน รวมถึงคำนำ บทคัดย่อ ตาราง และการอ้างอิง APA 7th ใช้ได้ทุกระดับชั้นและกลุ่มสาระ ใช้เมื่อผู้ใช้ขอเขียนหรือตรวจรายงาน Best Practice หรือผลงานวิธีปฏิบัติที่เป็นเลิศของครู
+---
+
+`;
+  const CLAUDE_MD = FRONT + TITLE + "\n\n" + SYS + "\n";
+  $("#bpPreview").textContent = MD;
+
+  // tabs
+  const tabs = $$('[role="tab"]');
+  tabs.forEach(t => {
+    t.addEventListener("click", () => select(t));
+    t.addEventListener("keydown", e => {
+      const i = tabs.indexOf(t);
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft"){
+        const n = tabs[(i + (e.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length];
+        select(n); n.focus();
+      }
+    });
+  });
+  function select(t){
+    tabs.forEach(x => { x.setAttribute("aria-selected", x === t); x.tabIndex = x === t ? 0 : -1; });
+    $$(".tabpanel").forEach(p => p.classList.toggle("active", p.id === t.getAttribute("aria-controls")));
+  }
+  tabs.forEach((x, i) => x.tabIndex = i ? -1 : 0);
+
+  $("#bpCopySys").addEventListener("click", () => copyText(SYS, "คัดลอกคำสั่งระบบแล้ว"));
+  $("#bpCopyAll").addEventListener("click", () => copyText(MD, "คัดลอกทั้งไฟล์แล้ว"));
+  $("#bpDlMd").addEventListener("click", () => download("best-practice-teacher-guide-universal.md", MD));
+  $("#bpDlZip").addEventListener("click", async () => {
+    if (!window.JSZip){ download("SKILL.md", CLAUDE_MD); toast("ดาวน์โหลด SKILL.md แล้ว ให้ใส่ในโฟลเดอร์ best-practice-teacher-report แล้วบีบอัดเป็น .zip"); return; }
+    const zip = new JSZip();
+    zip.folder("best-practice-teacher-report").file("SKILL.md", CLAUDE_MD);
+    const blob = await zip.generateAsync({type:"blob"});
+    const url = URL.createObjectURL(blob), a = document.createElement("a");
+    a.href = url; a.download = "best-practice-teacher-report.zip"; a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 500); toast("ดาวน์โหลด .zip แล้ว");
+  });
+
+  // kickoff form
+  const DOCS = ["ไฟล์เกณฑ์การคัดเลือกของรอบนี้","ไฟล์ต้นฉบับที่เคยเขียนไว้","ผลประเมินก่อนดำเนินการ","ผลประเมินหลังดำเนินการ","ผลความพึงพอใจ","ผลทดสอบจากหน่วยงานภายนอก","รายการเผยแพร่และรางวัล"];
+  $("#bpDocs").innerHTML = DOCS.map((d, i) => `<label><input type="checkbox" value="${esc(d)}" ${i === 0 ? "checked" : ""}>${esc(d)}</label>`).join("");
+  const ids = ["bpLevel","bpSubject","bpInno","bpProc","bpProblem","bpSchool","bpStart"];
+  ids.forEach(id => $("#" + id).addEventListener("input", renderKick));
+  $$("#bpDocs input").forEach(c => c.addEventListener("change", renderKick));
+
+  function kickText(){
+    const g = id => $("#" + id).value.trim();
+    const has = $$("#bpDocs input").filter(c => c.checked).map(c => c.value);
+    const miss = DOCS.filter(d => !has.includes(d));
+    const start = g("bpStart");
+    const L = [];
+    L.push("ปฏิบัติตามคู่มือเขียนรายงาน Best Practice ของครูผู้สอนที่ให้ไว้ ช่วยเขียนรายงาน Best Practice ของฉัน", "", "ข้อมูลตั้งต้น");
+    L.push("- ระดับ: " + g("bpLevel") + (g("bpSubject") ? " กลุ่มสาระหรือวิชา: " + g("bpSubject") : ""));
+    L.push("- นวัตกรรม: " + (g("bpInno") || "{ชื่อนวัตกรรม}"));
+    L.push("- กระบวนการจัดการเรียนรู้: " + (g("bpProc") || "ยังไม่ได้แยกจากนวัตกรรม ขอให้ช่วยถามเพื่อแยกให้ชัด"));
+    L.push("- สภาพปัญหาโดยย่อ: " + (g("bpProblem") || "{สภาพปัญหา}"));
+    if (g("bpSchool")) L.push("- สถานศึกษาและสังกัด: " + g("bpSchool"));
+    L.push("", "เอกสารที่แนบมาในข้อความนี้: " + (has.length ? has.join(", ") : "ยังไม่มี"));
+    if (miss.length) L.push("เอกสารที่ยังไม่มี: " + miss.join(", ") + " (ถ้าจำเป็นต่อประเด็นใด ให้ขอจากฉันหรือบอกทางเลือกที่ทำได้ ห้ามสร้างข้อมูลแทน)");
+    if (!has.includes(DOCS[0])) L.push("ฉันยังไม่ได้แนบไฟล์เกณฑ์ ขอให้ขอไฟล์เกณฑ์จากฉันก่อนเริ่มเขียน ห้ามใช้เกณฑ์จากความจำ");
+    L.push("", "ต้องการเริ่มที่: " + start);
+    if (/ตรวจ|ปรับผลงานเดิม/.test(start)) L.push("ฉันแนบฉบับที่เขียนไว้มาด้วย ให้ใช้ฉบับนั้นเป็นหลักและยึดข้อเท็จจริงจากไฟล์นั้น");
+    L.push("", "ขอให้ถามข้อมูลที่ยังขาดก่อนลงมือเขียน และทำทีละประเด็นตามคู่มือ รอให้ฉันตรวจก่อนไปข้อถัดไป");
+    return L.join("\n");
+  }
+  function renderKick(){
+    $("#bpErr").hidden = true;
+    $("#bpKick").textContent = kickText();
+    const crit = $$("#bpDocs input")[0].checked;
+    $("#bpWarn").innerHTML = crit ? "" : `<div class="alert" style="margin-top:12px">ยังไม่ได้ติ๊กไฟล์เกณฑ์ เกณฑ์เปลี่ยนได้ทุกปี ควรแนบไฟล์เกณฑ์ของรอบที่ส่งประกวดทุกครั้ง</div>`;
+  }
+  $("#bpCopyKick").addEventListener("click", () => {
+    const miss = [["bpInno","ชื่อนวัตกรรม"],["bpProblem","สภาพปัญหาโดยย่อ"]].filter(([id]) => !$("#" + id).value.trim()).map(x => x[1]);
+    if (miss.length){ $("#bpErr").textContent = "กรอกช่องที่จำเป็นก่อน: " + miss.join(", "); $("#bpErr").hidden = false; return; }
+    copyText(kickText(), "คัดลอกข้อความเริ่มงานแล้ว");
+  });
+  renderKick();
+
+  // follow-up commands
+  const CMDS = [
+    ["ทำทีละหัวข้อตามคู่มือ", "เมื่อ AI เขียนทั้งเล่มรวดเดียวหรือข้ามขั้นตอน"],
+    ["ตรวจข้อนี้เทียบถ้อยคำเกณฑ์ระดับคุณภาพสูงสุดทีละองค์ประกอบ และบอกตรง ๆ ว่าองค์ประกอบใดยังไม่ชัด", "หลังได้ร่างแต่ละข้อย่อย"],
+    ["ตรวจว่าเนื้อหาข้อนี้ซ้ำกับประเด็นอื่นหรือไม่ และส่วนใดควรย้ายไปประเด็นใดตามคู่มือ", "เมื่อรู้สึกว่าเนื้อหาวนซ้ำ"],
+    ["ใช้ฉบับที่ฉันปรับเองซึ่งแนบมานี้เป็นหลัก ตรวจเฉพาะคำผิด การอ้างอิง ความซ้ำซ้อน และการไม่ตรงเกณฑ์ ไม่ต้องเขียนทับสำนวนของฉัน", "เมื่อส่งฉบับที่แก้เองกลับไป"],
+    ["รวมรายการอ้างอิงที่สะสมไว้เป็นบรรณานุกรม APA 7th และระบุรายการที่ยังไม่ได้ตรวจสอบว่ามีอยู่จริง", "เมื่อเนื้อหาครบทุกประเด็น"],
+    ["เนื้อหาทุกประเด็นผ่านการตรวจแล้ว ช่วยเขียนบทคัดย่อและคำนำจากฉบับที่ฉันแนบมา", "ขั้นสุดท้ายก่อนจัดทำเล่ม"]
+  ];
+  $("#bpCmds").innerHTML = CMDS.map(([c, w], i) => `<button class="cmd" data-i="${i}"><span>${esc(c)}<small>${esc(w)}</small></span><span class="c">คัดลอก</span></button>`).join("");
+  $$("#bpCmds .cmd").forEach(b => b.addEventListener("click", () => copyText(CMDS[+b.dataset.i][0], "คัดลอกคำสั่งแล้ว")));
+})();
+
+/* ================= Report Prompt Studio ================= */
+(function(){
+  const COLORS = ["#1E3A5F","#0F6E56","#B45309","#8B2C3B","#5B4B8A","#2F6B8F"];
+  const RATIOS = [
+    {k:"a4p", l:"A4 แนวตั้ง", ar:"1 / 1.414", a4:true, line:"ขนาดกระดาษ A4 แนวตั้ง อัตราส่วน 1:1.414 ความละเอียดสูงระดับ 8K สำหรับงานพิมพ์จริง"},
+    {k:"a4l", l:"A4 แนวนอน", ar:"1.414 / 1", a4:true, line:"ขนาดกระดาษ A4 แนวนอน อัตราส่วน 1.414:1 ความละเอียดสูงระดับ 8K สำหรับงานพิมพ์จริง"},
+    {k:"916", l:"9:16", ar:"9 / 16", line:"ภาพแนวตั้งอัตราส่วน 9:16 ความละเอียดสูง คมชัดสำหรับแสดงผลบนหน้าจอโทรศัพท์"},
+    {k:"169", l:"16:9", ar:"16 / 9", line:"ภาพแนวนอนอัตราส่วน 16:9 ความละเอียดสูง คมชัดสำหรับจอนำเสนอและวิดีโอ"},
+    {k:"11", l:"1:1", ar:"1 / 1", line:"ภาพสี่เหลี่ยมจัตุรัสอัตราส่วน 1:1 ความละเอียดสูง คมชัดสำหรับโพสต์บนสื่อสังคมออนไลน์"},
+    {k:"43", l:"4:3", ar:"4 / 3", line:"ภาพแนวนอนอัตราส่วน 4:3 ความละเอียดสูง คมชัด"},
+    {k:"34", l:"3:4", ar:"3 / 4", line:"ภาพแนวตั้งอัตราส่วน 3:4 ความละเอียดสูง คมชัด"}
+  ];
+  const STYLES = [
+    {k:"retro", l:"ไทยย้อนยุค Scrapbook",
+     t:"ออกแบบเป็นหน้ารายงานเชิงนิตยสาร สไตล์ Thai Retro Vintage Scrapbook Collage ผสมโปสเตอร์ไทยย้อนยุคและนิตยสารการศึกษาร่วมสมัย บรรยากาศอบอุ่น เป็นทางการ น่าเชื่อถือ และเหมาะสำหรับรายงานผลการปฏิบัติงานของ{role}\n\nใช้พื้นหลังกระดาษเก่าสีครีม โทนสีน้ำตาลอบอุ่น กรมท่า เขียวอมฟ้า แดงเลือดหมู และสีทองมัสตาร์ด มีพื้นผิวกระดาษและเกรนฟิล์มเล็กน้อย ประดับด้วยภาพวาดเส้นหรือภาพประกอบเกี่ยวกับโรงเรียน อาคารเรียน ห้องสมุด เทคโนโลยี การจัดการเรียนรู้ และชุมชนอย่างพอเหมาะ\n\nส่วนหัวใช้ตัวอักษรไทยย้อนยุคขนาดใหญ่ มีเส้นขอบหลายชั้น แต่ข้อความเนื้อหาใช้ตัวอักษรไทยที่เรียบ อ่านง่าย และเป็นทางการ"},
+    {k:"modern", l:"นิตยสารร่วมสมัย สะอาดตา",
+     t:"ออกแบบเป็นหน้ารายงานเชิงนิตยสารการศึกษาร่วมสมัย สะอาดตา เป็นระเบียบ จัดวางแบบกริดชัดเจน มีพื้นที่ว่างเพียงพอ บรรยากาศทางการ น่าเชื่อถือ และเหมาะสำหรับรายงานผลการปฏิบัติงานของ{role}\n\nใช้พื้นหลังสีขาวนวล โทนสีหลักกรมท่า เขียวอมฟ้า และสีเทาอ่อน เน้นจุดสำคัญด้วยสีอำพันเพียงเล็กน้อย ใช้เส้นแบ่งบาง ๆ และไอคอนเส้นเรียบเกี่ยวกับการศึกษาอย่างพอเหมาะ\n\nส่วนหัวใช้ตัวอักษรไทยแบบไม่มีหัวที่หนาและทันสมัย ข้อความเนื้อหาใช้ตัวอักษรไทยที่เรียบ อ่านง่าย และเป็นทางการ"},
+    {k:"info", l:"อินโฟกราฟิกทางการ",
+     t:"ออกแบบเป็นหน้ารายงานแบบอินโฟกราฟิกทางการ แบ่งเนื้อหาเป็นกล่องข้อมูลชัดเจน มีไอคอนแบบแบน ลูกศรแสดงลำดับ และแถบเน้นตัวเลขสำคัญ บรรยากาศน่าเชื่อถือ และเหมาะสำหรับรายงานผลการปฏิบัติงานของ{role}\n\nใช้พื้นหลังสีอ่อนเรียบ โทนสีกรมท่า ฟ้า และเขียว กล่องข้อมูลมีมุมโค้งเล็กน้อยและสีพื้นอ่อนแตกต่างกันตามหัวข้อ\n\nส่วนหัวใช้ตัวอักษรไทยหนา ชัดเจน ข้อความเนื้อหาใช้ตัวอักษรไทยที่เรียบ อ่านง่าย และเป็นทางการ"},
+    {k:"water", l:"ภาพประกอบสีน้ำ",
+     t:"ออกแบบเป็นหน้ารายงานที่ตกแต่งด้วยภาพประกอบสีน้ำโทนอบอุ่น บรรยากาศนุ่มนวล เป็นมิตร แต่ยังคงความเป็นทางการ และเหมาะสำหรับรายงานผลการปฏิบัติงานของ{role}\n\nใช้พื้นหลังกระดาษสีน้ำสีขาวนวล โทนสีพาสเทลฟ้า เขียว และเหลืองอ่อน ประดับด้วยภาพสีน้ำของโรงเรียน ต้นไม้ นักเรียน และกิจกรรมการเรียนรู้บริเวณขอบหน้าอย่างพอเหมาะ\n\nส่วนหัวใช้ตัวอักษรไทยแบบมีหัวที่อ่อนช้อย ข้อความเนื้อหาใช้ตัวอักษรไทยที่เรียบ อ่านง่าย และเป็นทางการ"},
+    {k:"thai", l:"ไทยร่วมสมัย หรูหรา",
+     t:"ออกแบบเป็นหน้ารายงานสไตล์ไทยร่วมสมัยที่สง่างาม หรูหรา และเป็นทางการ ประดับลายไทยแบบเส้นบางเฉพาะมุมกระดาษและเส้นแบ่งหัวข้อ เหมาะสำหรับรายงานผลการปฏิบัติงานของ{role}\n\nใช้พื้นหลังสีงาช้าง โทนสีกรมท่าเข้มและสีทอง มีพื้นผิวกระดาษละเอียดเล็กน้อย ไม่ใช้ลวดลายหนาแน่นจนรบกวนการอ่าน\n\nส่วนหัวใช้ตัวอักษรไทยแบบมีหัวที่สง่างาม ข้อความเนื้อหาใช้ตัวอักษรไทยที่เรียบ อ่านง่าย และเป็นทางการ"},
+    {k:"custom", l:"กำหนดเอง", t:""}
+  ];
+  const LAYOUTS = {
+    1:[{l:"1 กรอบ", c:1}],
+    2:[{l:"2 กรอบเรียงคู่กัน 1 แถว", c:2},{l:"2 กรอบเรียงซ้อนกัน 1 คอลัมน์", c:1}],
+    3:[{l:"3 กรอบเรียงกัน 1 แถว", c:3},{l:"แถวบน 2 กรอบ แถวล่าง 1 กรอบ", c:2}],
+    4:[{l:"4 กรอบ แถวละ 2 กรอบ", c:2},{l:"4 กรอบเรียงกัน 1 แถว", c:4}],
+    5:[{l:"แถวบน 3 กรอบ แถวล่าง 2 กรอบ", c:3}],
+    6:[{l:"6 กรอบ แถวละ 3 กรอบ", c:3},{l:"6 กรอบ แถวละ 2 กรอบ", c:2}]
+  };
+  const R = { topics:[{n:"",b:""},{n:"",b:""}], ratio:"a4p", mode:"full", style:"retro", frames:2, layout:0 };
+  const g = id => $("#" + id);
+  const val = id => g(id).value.trim();
+
+  function opts(el, items, cur, onPick){
+    el.innerHTML = items.map((it, i) => `<button class="opt" data-i="${i}" aria-pressed="${cur(it, i)}">${esc(it.l)}</button>`).join("");
+    el.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => { onPick(items[+b.dataset.i], +b.dataset.i); }));
+  }
+  function drawRatio(){ opts(g("rpRatio"), RATIOS, r => r.k === R.ratio, r => { R.ratio = r.k; g("rpBind").checked = !!r.a4; drawRatio(); update(); }); }
+  const MODES = [{k:"full", l:"ใส่ข้อความครบ"},{k:"space", l:"เว้นพื้นที่ข้อความ"}];
+  function drawMode(){
+    opts(g("rpMode"), MODES, m => m.k === R.mode, m => { R.mode = m.k; drawMode(); update(); });
+    g("rpModeHint").textContent = R.mode === "full"
+      ? "AI จะใส่ข้อความทั้งหมดลงในภาพ ควรตรวจคำสะกดภาษาไทยทุกตำแหน่ง"
+      : "AI สร้างเฉพาะหัวเรื่อง ชื่อหัวข้อ ภาพบุคคล และการจัดหน้า แล้วคุณใส่ข้อความเองใน Canva หรือ PowerPoint ได้ข้อความถูกต้องแน่นอนกว่า";
+  }
+  function drawStyle(){ opts(g("rpStyle"), STYLES, s => s.k === R.style, s => { R.style = s.k; g("rpCustomWrap").hidden = s.k !== "custom"; drawStyle(); update(); }); }
+  function drawFrames(){
+    const items = [0,1,2,3,4,5,6].map(n => ({l: n ? n + " กรอบ" : "ไม่มี", n}));
+    opts(g("rpFrames"), items, it => it.n === R.frames, it => { R.frames = it.n; R.layout = 0; drawFrames(); update(); });
+    g("rpLayoutWrap").hidden = !R.frames;
+    if (R.frames) opts(g("rpLayout"), LAYOUTS[R.frames], (l, i) => i === R.layout, (l, i) => { R.layout = i; drawFrames(); update(); });
+  }
+
+  function drawTopics(){
+    g("rpTopics").innerHTML = R.topics.map((t, i) => `<div class="topic">
+      <div class="topic-head"><b><span class="dot" style="background:${COLORS[i]}">${i + 1}</span>หัวข้อที่ ${i + 1}</b>
+      ${R.topics.length > 1 ? `<button class="rm" data-rm="${i}" aria-label="ลบหัวข้อที่ ${i + 1}">ลบ</button>` : ""}</div>
+      <div class="field" style="margin-bottom:8px"><label class="sr-only" for="tn${i}">ชื่อหัวข้อที่ ${i + 1}</label><input id="tn${i}" data-tn="${i}" placeholder="ชื่อหัวข้อที่ ${i + 1}" value="${esc(t.n)}"></div>
+      <div class="field" style="margin:0"><label class="sr-only" for="tb${i}">เนื้อหาหัวข้อที่ ${i + 1}</label><textarea id="tb${i}" data-tb="${i}" placeholder="เนื้อหาตามข้อมูลจริง">${esc(t.b)}</textarea><div class="cc" id="tc${i}">${t.b.length} ตัวอักษร</div></div></div>`).join("");
+    g("rpTopics").querySelectorAll("[data-tn]").forEach(e => e.addEventListener("input", () => { R.topics[+e.dataset.tn].n = e.value; update(); }));
+    g("rpTopics").querySelectorAll("[data-tb]").forEach(e => e.addEventListener("input", () => { const i = +e.dataset.tb; R.topics[i].b = e.value; g("tc" + i).textContent = e.value.length + " ตัวอักษร"; update(); }));
+    g("rpTopics").querySelectorAll("[data-rm]").forEach(b => b.addEventListener("click", () => { R.topics.splice(+b.dataset.rm, 1); drawTopics(); update(); }));
+    g("rpAdd").disabled = R.topics.length >= 6;
+    g("rpAdd").textContent = R.topics.length >= 6 ? "ครบ 6 หัวข้อแล้ว" : "เพิ่มหัวข้อ";
+  }
+  g("rpAdd").addEventListener("click", () => { if (R.topics.length < 6){ R.topics.push({n:"",b:""}); drawTopics(); update(); g("tn" + (R.topics.length - 1)).focus(); } });
+
+  ["rpTitle","rpResult","rpCustom","rpPose","rpPos","rpPoseCustom","rpName","rpRole"].forEach(id => g(id).addEventListener("input", update));
+  ["rpBind","rpPerson","rpRefPage","rpSign"].forEach(id => g(id).addEventListener("change", update));
+
+  function buildPrompt(){
+    const ratio = RATIOS.find(r => r.k === R.ratio), style = STYLES.find(s => s.k === R.style);
+    const bind = g("rpBind").checked, person = g("rpPerson").checked, ref = g("rpRefPage").checked, sign = g("rpSign").checked;
+    const full = R.mode === "full";
+    const roleTxt = val("rpRole") ? val("rpRole") : "บุคลากรทางการศึกษา";
+    const pose = val("rpPose") === "กำหนดเอง" ? (val("rpPoseCustom") || "ยืนอย่างสุภาพและมั่นใจ") : val("rpPose");
+    const tps = R.topics.filter(t => t.n.trim() || t.b.trim());
+    const L = [];
+    // reference images
+    if (person || ref){
+      L.push("ใช้ภาพที่แนบเป็นภาพอ้างอิง โดยกำหนดบทบาทดังนี้", "");
+      let n = 1;
+      if (person) L.push(`- ภาพที่ ${n++}: ภาพบุคคลของผู้จัดทำรายงาน ให้ใช้เป็นข้อมูลอ้างอิงใบหน้า รูปร่าง ทรงผม เครื่องแต่งกาย และบุคลิก`);
+      if (ref) L.push(`- ภาพที่ ${n++}: ภาพหน้ารายงานต้นแบบ ให้ใช้เป็นข้อมูลอ้างอิงเฉพาะรูปแบบ สี การจัดวาง ตัวอักษร และบรรยากาศ เพื่อให้ทุกหน้าเป็นชุดเดียวกัน`);
+      L.push("");
+    }
+    L.push("สร้างหน้ารายงานผลการปฏิบัติงานหัวข้อ", "", `“${val("rpTitle") || "[ชื่อมิติหรือชื่อหัวข้อหลัก]"}”`, "", ratio.line, "");
+    // style
+    L.push("สไตล์ภาพ", "");
+    L.push(style.k === "custom" ? (val("rpCustom") || "[อธิบายสไตล์ภาพ]") + "\n\nส่วนหัวใช้ตัวอักษรไทยขนาดใหญ่ที่โดดเด่น ข้อความเนื้อหาใช้ตัวอักษรไทยที่เรียบ อ่านง่าย และเป็นทางการ" : style.t.replace("{role}", roleTxt), "");
+    if (ref) L.push("หากแนบภาพหน้ารายงานต้นแบบ ให้ยึดรูปแบบ สี การจัดวาง และตัวอักษรจากภาพต้นแบบเป็นหลัก เพื่อให้หน้านี้เป็นชุดเดียวกับหน้าอื่น", "");
+    // binding
+    if (bind){
+      L.push("ข้อกำหนดพื้นที่เข้าเล่ม", "");
+      L.push(ratio.a4 ? "เว้นระยะขอบด้านซ้ายประมาณ 2.5 เซนติเมตร หรือประมาณร้อยละ 12 ของความกว้างกระดาษ A4 ตลอดทั้งหน้า เพื่อรองรับการเข้าเล่ม" : "เว้นระยะขอบด้านซ้ายประมาณร้อยละ 12 ของความกว้างภาพตลอดทั้งหน้า เพื่อรองรับการเข้าเล่ม");
+      L.push("", "พื้นที่ดังกล่าวให้มีเพียงพื้นผิวกระดาษสีอ่อน ห้ามวางหัวเรื่อง ข้อความ เลขหัวข้อ รูปบุคคล กรอบภาพ ช่องลงนาม หรืองานตกแต่งที่สำคัญลงในพื้นที่เข้าเล่ม", "");
+    }
+    // person
+    if (person){
+      L.push("การจัดวางภาพบุคคล", "", "นำบุคคลจากภาพอ้างอิงมาจัดวางเป็นภาพไดคัตแบบไม่มีพื้นหลังและไม่มีกรอบ", "",
+        "ต้องรักษาเอกลักษณ์ของบุคคลให้ใกล้เคียงต้นฉบับมากที่สุด ได้แก่ รูปหน้า ดวงตา คิ้ว จมูก ริมฝีปาก ใบหู สีผิว ทรงผม อายุ รูปร่าง และเครื่องแต่งกาย", "",
+        `จัดบุคคลให้อยู่ในท่าทางที่ดูสมาร์ท สุขุม มั่นใจ และมีมาดผู้บริหาร โดย${pose}`, "",
+        `แสดงภาพตั้งแต่ศีรษะถึงประมาณช่วงเอวหรือกึ่งกลางต้นขา วางบริเวณ${val("rpPos")}ของพื้นที่ใช้งาน โดยไม่บังหัวเรื่องและข้อความ`, "",
+        "ห้ามใส่กรอบรูป กรอบวงรี เส้นขอบ หรือพื้นหลังสตูดิโอ ให้ขอบล่างของรูปบุคคลค่อย ๆ กลมกลืนกับพื้นผิวกระดาษ ภาพประกอบ และองค์ประกอบของหน้า คล้ายการจัดหน้าบทความในนิตยสารระดับมืออาชีพ", "");
+    }
+    // content
+    L.push("โครงสร้างเนื้อหา", "");
+    const count = Math.max(tps.length, 1);
+    L.push(`แบ่งเนื้อหาเป็น ${count} หัวข้อ โดยใช้เลขหัวข้อในวงกลมสีแตกต่างกันอย่างเป็นระบบ`, "");
+    if (!full) L.push("แสดงเฉพาะเลขหัวข้อในวงกลมและชื่อหัวข้อตามที่กำหนด ใต้ชื่อหัวข้อแต่ละข้อให้เว้นพื้นที่ว่างพื้นสีอ่อนเรียบสำหรับพิมพ์ข้อความภายหลัง ห้ามใส่ข้อความ ตัวอักษรจำลอง หรือเส้นบรรทัดในพื้นที่ว่าง", "");
+    (tps.length ? tps : [{n:"",b:""}]).forEach((t, i) => {
+      L.push(`หัวข้อที่ ${i + 1}`, `“${t.n.trim() || "[ชื่อหัวข้อที่ " + (i + 1) + "]"}”`, "");
+      if (full) L.push(t.b.trim() || "[เนื้อหาหัวข้อที่ " + (i + 1) + "]", "");
+    });
+    const res = val("rpResult");
+    if (res || full){
+      L.push("ผลที่เกิดจากการปฏิบัติงาน");
+      L.push(full ? (res || "[ผลลัพธ์ รางวัล ตัวชี้วัด หรือความสำเร็จ]") : "(เว้นพื้นที่ว่างใต้หัวข้อนี้สำหรับพิมพ์ข้อความภายหลัง)", "");
+    }
+    if (full){
+      L.push("หลักการสรุปเนื้อหา", "",
+        "หากข้อความยาวเกินพื้นที่ ให้สรุปและเรียบเรียงใหม่ให้กระชับ อ่านเข้าใจง่าย แต่ต้องรักษาสาระสำคัญและข้อเท็จจริงเดิมไว้ครบถ้วน โดยเฉพาะ ชื่อหลักสูตร ชื่อนโยบาย ชื่อโครงการ ปีการศึกษาและปีงบประมาณ ตัวเลขและร้อยละ ชื่อรางวัล ระดับของรางวัล หน่วยงาน และผลลัพธ์ที่เกิดกับผู้เรียน ครู และสถานศึกษา", "",
+        "ห้ามสร้างข้อมูลใหม่ ห้ามเปลี่ยนความหมาย ห้ามเพิ่มเติมรางวัล และห้ามตัดสาระสำคัญออก", "");
+    }
+    // frames
+    if (R.frames){
+      const lay = LAYOUTS[R.frames][R.layout];
+      L.push("กรอบสำหรับใส่ภาพกิจกรรม", "", `สร้างกรอบภาพว่างจำนวน ${R.frames} ช่อง`, "",
+        "ทุกกรอบต้องเป็นแนวนอนอัตราส่วน 4:3 เท่ากัน โดยกำหนดให้ความกว้าง 4 ส่วน และความสูง 3 ส่วน ลักษณะคล้ายภาพถ่ายขนาด 8 × 6 นิ้ว", "",
+        `จัดวางกรอบเป็น ${lay.l}`, "",
+        "ภายในกรอบใช้พื้นสีครีมหรือสีเทาอ่อนเรียบ ไม่มีบุคคล ไม่มีทิวทัศน์ ไม่มีภาพจำลอง ไม่มีข้อความ และไม่มีคำว่า “ใส่ภาพ”", "",
+        `กรอบทุกช่องต้องมีขนาดเท่ากัน เห็นขอบครบทั้ง 4 ด้าน ไม่ถูก${person ? "ภาพบุคคล " : ""}ข้อความ${sign ? " หรือช่องลงนาม" : ""}ทับซ้อน`, "");
+    }
+    // signature
+    if (sign){
+      L.push("ส่วนรับรองข้อมูล", "", "จัดส่วนรับรองข้อมูลไว้บริเวณด้านล่างของหน้า โดยใช้ข้อความต่อไปนี้อย่างถูกต้องครบถ้วน", "",
+        "“ขอรับรองว่ารายงานดังกล่าวข้างต้นเป็นความจริงทุกประการ", "",
+        "(ลงชื่อ) ……………............................…………… ผู้รายงาน",
+        `( ${val("rpName") || "[ชื่อ นามสกุล]"} )`,
+        `${val("rpRole") || "[ตำแหน่งและสถานศึกษา]"}”`, "");
+    }
+    // text rules
+    L.push("ข้อกำหนดด้านข้อความ", "");
+    const tr = full ? [
+      "ข้อความภาษาไทยต้องถูกต้อง 100%",
+      "ตรวจสอบพยัญชนะ สระ วรรณยุกต์ ตัวเลข และเครื่องหมายทุกตำแหน่ง",
+      "ใช้ข้อความตามที่กำหนดเท่านั้น",
+      "ห้ามสร้างคำภาษาไทยที่ไม่มีความหมาย",
+      "ห้ามเปลี่ยนชื่อบุคคล ชื่อโรงเรียน ชื่อนโยบาย ชื่อโครงการ ตัวเลข และชื่อรางวัล",
+      "ห้ามเพิ่มคำขวัญ ประโยคสร้างแรงบันดาลใจ หรือข้อความตกแต่งที่ไม่ได้กำหนด",
+      "ห้ามทำข้อความซ้ำ", "ห้ามตัดข้อความสำคัญ",
+      ratio.a4 ? "ต้องอ่านได้ชัดเจนเมื่อพิมพ์ลงบนกระดาษ A4" : "ต้องอ่านได้ชัดเจนเมื่อแสดงผลบนหน้าจอ",
+      "หากพื้นที่ไม่เพียงพอ ให้ลดงานตกแต่งและสรุปข้อความก่อนลดขนาดตัวอักษร"
+    ] : [
+      "ใส่ข้อความเฉพาะหัวเรื่อง ชื่อหัวข้อ" + (sign ? " และส่วนรับรองข้อมูล" : "") + " ตามที่กำหนดเท่านั้น",
+      "ข้อความภาษาไทยต้องถูกต้อง 100% ตรวจสอบพยัญชนะ สระ วรรณยุกต์ และตัวเลขทุกตำแหน่ง",
+      "ห้ามสร้างคำภาษาไทยที่ไม่มีความหมาย และห้ามใส่ข้อความจำลองในพื้นที่ว่าง",
+      "ห้ามเพิ่มคำขวัญ ประโยคสร้างแรงบันดาลใจ หรือข้อความตกแต่งที่ไม่ได้กำหนด"
+    ];
+    tr.forEach(x => L.push("- " + x));
+    L.push("");
+    // prohibitions
+    const no = [];
+    if (bind) no.push(ratio.a4 ? "ห้ามวางองค์ประกอบสำคัญในระยะขอบซ้าย 2.5 เซนติเมตร" : "ห้ามวางองค์ประกอบสำคัญในระยะขอบซ้ายที่เว้นไว้");
+    if (person) no.push("ห้ามใส่กรอบรอบภาพบุคคล","ห้ามเปลี่ยนใบหน้าบุคคล","ห้ามเปลี่ยนสีหรือรายละเอียดเครื่องแต่งกาย","ห้ามสร้างมือหรือนิ้วผิดรูป");
+    if (R.frames) no.push("ห้ามใส่ภาพสมมติลงในกรอบภาพกิจกรรม","ห้ามใช้กรอบภาพอัตราส่วน 16:9 หรือกรอบแนวยาวแบบพาโนรามา", "ห้ามให้กรอบภาพทับกับข้อความ" + (sign ? "หรือช่องลงนาม" : ""));
+    no.push("ห้ามใส่ลายน้ำ โลโก้ หรือข้อความภาษาอังกฤษที่ไม่ได้กำหนด","ห้ามเพิ่มข้อมูลนอกเหนือจากเนื้อหาที่ให้มา");
+    L.push("ข้อห้าม", "", ...no);
+    return L.join("\n").replace(/\n{3,}/g, "\n\n");
+  }
+
+  const PERSON_SVG = '<svg viewBox="0 0 60 80" aria-hidden="true"><circle cx="30" cy="18" r="11" fill="#7B8CA3"/><path d="M8 80c0-20 9-34 22-34s22 14 22 34z" fill="#5F7290"/></svg>';
+  function drawSheet(){
+    const ratio = RATIOS.find(r => r.k === R.ratio);
+    const sh = g("rpSheet");
+    const [w, h] = ratio.ar.split("/").map(Number);
+    sh.style.aspectRatio = ratio.ar;
+    sh.style.width = (w >= h ? "100%" : Math.round(w / h * 100 * 0.62) + "%");
+    sh.style.maxHeight = "340px";
+    const tps = R.topics.length;
+    const full = R.mode === "full";
+    const topicsHTML = R.topics.map((t, i) => `<div class="tp"><i style="background:${COLORS[i]}"></i><span class="${full ? "" : "blank"}"><em></em>${full ? "<em></em><em style='width:85%'></em>" : "<em></em>"}</span></div>`).join("");
+    let framesHTML = "";
+    if (R.frames){
+      const c = LAYOUTS[R.frames][R.layout].c;
+      framesHTML = `<div class="frames" style="grid-template-columns:repeat(${c},1fr);${c === 1 ? "width:55%;align-self:center" : ""}">${"<i></i>".repeat(R.frames)}</div>`;
+    }
+    sh.innerHTML = (g("rpBind").checked ? '<div class="bind"></div>' : "") +
+      `<div class="area"><div class="ttl">${esc(val("rpTitle") || "ชื่อมิติหรือหัวข้อหลัก")}</div>
+       <div class="mid"><div class="tops">${topicsHTML}</div>${g("rpPerson").checked ? `<div class="person" style="align-items:${val("rpPos") === "ด้านขวาบน" ? "flex-start" : "center"}">${PERSON_SVG}</div>` : ""}</div>
+       ${framesHTML}
+       ${g("rpSign").checked ? '<div class="sign"><em></em><em></em><em style="width:60%"></em></div>' : ""}</div>`;
+    sh.setAttribute("aria-label", `ผังจำลอง ${ratio.l} ${tps} หัวข้อ ${R.frames} กรอบภาพ`);
+    g("rpRatioLabel").textContent = ratio.l;
+  }
+
+  function update(){
+    g("rpPersonOpts").hidden = !g("rpPerson").checked;
+    g("rpSignOpts").hidden = !g("rpSign").checked;
+    g("rpPoseCustomWrap").hidden = val("rpPose") !== "กำหนดเอง";
+    g("rpResultCc").textContent = g("rpResult").value.length + " ตัวอักษร";
+    const total = R.topics.reduce((a, t) => a + t.b.length, 0) + g("rpResult").value.length;
+    g("rpLenWarn").innerHTML = (R.mode === "full" && total > 1200)
+      ? `<div class="alert">เนื้อหารวม ${total} ตัวอักษร ข้อความยาวอาจทำให้ AI ใส่ข้อความตกหล่นหรือสะกดผิด พิจารณาสรุปให้สั้นลง แบ่งเป็นหลายหน้า หรือใช้โหมด "เว้นพื้นที่ข้อความ"</div>` : "";
+    g("rpErr").hidden = true;
+    g("rpOut").textContent = buildPrompt();
+    drawSheet();
+  }
+  function guard(){
+    const miss = [];
+    if (!val("rpTitle")) miss.push("ชื่อมิติหรือหัวข้อหลัก");
+    if (!R.topics.some(t => t.n.trim())) miss.push("ชื่อหัวข้ออย่างน้อย 1 หัวข้อ");
+    if (g("rpSign").checked && !val("rpName")) miss.push("ชื่อผู้รายงาน");
+    if (miss.length){ g("rpErr").textContent = "กรอกข้อมูลก่อนคัดลอก: " + miss.join(", "); g("rpErr").hidden = false; return false; }
+    return true;
+  }
+  g("rpCopy").addEventListener("click", () => { if (guard()) copyText(buildPrompt(), "คัดลอก Prompt แล้ว"); });
+  g("rpDl").addEventListener("click", () => { if (guard()) download("report-page-prompt.txt", buildPrompt()); });
+
+  drawRatio(); drawMode(); drawStyle(); drawFrames(); drawTopics(); update();
+})();
+
+/* ================= สุ่มไอเดีย ================= */
+let rolling = false;
+function surprise(btn){
+  if (rolling) return;
+  const dice = btn && btn.querySelector(".dice");
+  if (dice){ dice.classList.remove("roll"); void dice.offsetWidth; dice.classList.add("roll"); }
+  const start = () => {
+    const cards = $$("#libGrid .card");
+    if (!cards.length) return;
+    const pick = cards[Math.floor(Math.random() * cards.length)];
+    const finish = () => {
+      cards.forEach(c => c.classList.remove("shuffle"));
+      pick.classList.add("picked");
+      pick.scrollIntoView({behavior: reduced ? "auto" : "smooth", block:"center"});
+      setTimeout(() => { pick.classList.remove("picked"); rolling = false; openItem(PROMPTS.find(x => x.id === pick.dataset.id)); }, reduced ? 200 : 650);
+    };
+    rolling = true;
+    if (reduced || cards.length < 2){ finish(); return; }
+    let i = 0, n = 10 + Math.floor(Math.random() * 3), prev = null;
+    const step = () => {
+      if (prev) prev.classList.remove("shuffle");
+      if (i >= n){ finish(); return; }
+      let c; do { c = cards[Math.floor(Math.random() * cards.length)]; } while (c === prev);
+      c.classList.add("shuffle"); prev = c; i++;
+      setTimeout(step, 50 + i * i * 1.1);
+    };
+    step();
+  };
+  if ((location.hash || "#home") !== "#library"){
+    curCat = "ทั้งหมด"; $("#q").value = "";
+    $$("#chips .chip").forEach(x => x.setAttribute("aria-pressed", x.dataset.cat === "ทั้งหมด"));
+    renderLib(); go("#library"); setTimeout(start, 350);
+  } else start();
+}
+$$("[data-surprise]").forEach(b => b.addEventListener("click", () => surprise(b)));
+
+/* ================= ค้นหาด่วน (Ctrl+K) ================= */
+(function(){
+  const dlg = $("#cmdk"), inp = $("#cmdq"), list = $("#cmdList");
+  const PAGES = [["หน้าแรก","#home"],["คลัง Prompt","#library"],["Skill","#skills"],["เครื่องมือ","#tools"],["วิธีใช้งาน","#how"],["เกี่ยวกับ","#about"]];
+  let items = [], sel = 0;
+  function show(){ if (typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open", ""); inp.value = ""; render(); setTimeout(() => inp.focus(), 0); }
+  function hide(){ if (typeof dlg.close === "function") dlg.close(); else dlg.removeAttribute("open"); }
+  function render(){
+    const q = inp.value.trim().toLowerCase();
+    const kind = p => p.type === "tool" ? "เครื่องมือ" : p.type === "skill" ? "Skill" : "Prompt · " + p.category;
+    items = [
+      ...PROMPTS.filter(p => !q || [p.title, p.desc, p.category, p.tags || ""].join(" ").toLowerCase().includes(q)).map(p => ({t:p.title, k:kind(p), run:() => openItem(p)})),
+      ...PAGES.filter(([t]) => !q || t.toLowerCase().includes(q)).map(([t, h]) => ({t, k:"หน้าเว็บ", run:() => go(h)}))
+    ];
+    sel = 0;
+    list.innerHTML = items.length ? items.map((it, i) => `<li><button role="option" id="cmo${i}" aria-selected="${i === sel}" data-i="${i}"><span>${esc(it.t)}</span><small>${esc(it.k)}</small></button></li>`).join("")
+      : `<li style="padding:16px;color:var(--muted)">ไม่พบรายการ ลองพิมพ์คำอื่น</li>`;
+    list.querySelectorAll("button").forEach(b => {
+      b.addEventListener("click", () => run(+b.dataset.i));
+      b.addEventListener("mousemove", () => mark(+b.dataset.i));
+    });
+    inp.setAttribute("aria-activedescendant", items.length ? "cmo0" : "");
+  }
+  function mark(i){
+    sel = i;
+    list.querySelectorAll("button").forEach(b => b.setAttribute("aria-selected", +b.dataset.i === i));
+    const b = $("#cmo" + i); if (b){ b.scrollIntoView({block:"nearest"}); inp.setAttribute("aria-activedescendant", "cmo" + i); }
+  }
+  function run(i){ const it = items[i]; if (!it) return; hide(); setTimeout(it.run, 30); }
+  inp.addEventListener("input", render);
+  inp.addEventListener("keydown", e => {
+    if (e.key === "ArrowDown"){ e.preventDefault(); if (items.length) mark((sel + 1) % items.length); }
+    else if (e.key === "ArrowUp"){ e.preventDefault(); if (items.length) mark((sel - 1 + items.length) % items.length); }
+    else if (e.key === "Enter"){ e.preventDefault(); run(sel); }
+  });
+  dlg.addEventListener("click", e => { if (e.target === dlg) hide(); });
+  $("#cmdBtn").addEventListener("click", show);
+  document.addEventListener("keydown", e => {
+    const typing = /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName);
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k"){ e.preventDefault(); dlg.open ? hide() : show(); }
+    else if (e.key === "/" && !typing && !dlg.open && !$("#modal").open){ e.preventDefault(); show(); }
+  });
+})();
+
+route();
+</script>
+</body>
+</html>
