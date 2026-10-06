@@ -50,7 +50,8 @@ button,input,select,textarea{font:inherit;color:inherit}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
 .brand svg{flex:none}
 .brand b{font-family:var(--f-display);font-weight:700;font-size:18px;letter-spacing:.01em;white-space:nowrap;line-height:1.3}
-@media (max-width:420px){.brand b{font-size:16px}.brand svg{width:30px;height:30px}}
+@media (max-width:420px){.brand b{font-size:15px}.brand svg{width:30px;height:30px}.top .wrap{gap:8px}.brand{min-width:0;gap:8px}.brand small{font-size:11px}}
+@media (max-width:360px){.brand small{display:none}}
 .brand small{display:block;font-size:12px;color:#B5D4F4;line-height:1.2}
 .nav{display:flex;gap:4px;align-items:center}
 .nav a{text-decoration:none;font-size:15px;color:#DCE8F6;padding:8px 12px;border-radius:var(--r-sm);white-space:nowrap}
@@ -60,7 +61,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .icon-btn{flex:none;background:transparent;border:1px solid #ffffff33;color:#fff;width:40px;height:40px;border-radius:var(--r-sm);display:grid;place-items:center;cursor:pointer}
 .icon-btn:hover{background:#ffffff14}
 .menu-btn{display:none}
-@media (max-width:1060px){
+@media (max-width:1240px){
   .menu-btn{display:grid}
   .nav{position:absolute;left:0;right:0;top:100%;background:var(--navy);flex-direction:column;align-items:stretch;padding:8px 20px 16px;border-bottom:1px solid #2B4C75;display:none}
   .nav.open{display:flex}
@@ -330,7 +331,8 @@ details.preview pre{margin:0;border-top:1px solid var(--line);padding:16px;max-h
 @keyframes spark{to{transform:translate(var(--dx),var(--dy)) rotate(var(--rot));opacity:0}}
 .btn.copied{background:var(--teal-ink);color:#fff;border-color:var(--teal-ink)}
 .kbd{font-family:var(--f-mono);font-size:11px;border:1px solid #ffffff40;border-radius:4px;padding:1px 5px;margin-left:8px;color:#B5D4F4}
-@media (max-width:1060px){.kbd{display:none}}
+@media (max-width:1440px){.kbd{display:none}}
+@media (max-width:1360px){.nav a{padding:8px 9px;font-size:14.5px}.top .wrap{gap:12px}}
 .cmd-btn{width:auto;padding:0 12px;gap:6px;display:flex;align-items:center;font-size:14px;color:#DCE8F6}
 .cmd-btn span.l{display:inline}
 @media (max-width:600px){.cmd-btn span.l{display:none}.cmd-btn{width:40px;padding:0;justify-content:center}}
@@ -345,6 +347,39 @@ dialog.cmdk{width:min(640px,calc(100vw - 24px));align-self:start;margin-top:12vh
 .dice{display:inline-block}
 .dice.roll{animation:roll .6s ease}
 @keyframes roll{to{transform:rotate(360deg)}}
+
+/* lesson plan */
+.tl{display:flex;height:14px;border-radius:99px;overflow:hidden;margin:12px 0 14px;background:var(--line);gap:2px}
+.tl i{display:block;min-width:2px;transition:flex .3s ease}
+.tl-steps{display:grid;gap:8px}
+.tl-row{display:grid;grid-template-columns:12px 1fr auto;gap:10px;align-items:center;font-size:14px;line-height:1.45}
+.tl-dot{width:12px;height:12px;border-radius:50%}
+.tl-min{display:flex;align-items:center;gap:4px}
+.tl-min input{width:54px;text-align:center;border:1px solid var(--line);background:var(--paper);border-radius:var(--r-sm);padding:4px}
+.tl-min small{font-size:12px;color:var(--muted)}
+.tl-min .rm{padding:2px 8px;font-size:15px;line-height:1.2}
+.kpi{display:grid;gap:12px;margin-top:14px}
+.kpi-row{display:grid;grid-template-columns:110px 1fr 56px;gap:10px;align-items:center;font-size:14px}
+.kpi-bar{height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+.kpi-bar i{display:block;height:100%;transition:width .4s ease}
+.kpi-row b{text-align:right;font-size:14px}
+.page-hero .stepper button[aria-selected="true"]{background:var(--navy-panel);color:#fff}
+.page-hero .stepper button[aria-selected="true"] b{color:var(--teal)}
+
+/* bp flow */
+.flowmap{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+.flowmap button{all:unset;box-sizing:border-box;cursor:pointer;border:1px solid var(--line);background:var(--card);border-radius:var(--r-md);padding:12px 14px;display:grid;gap:4px;position:relative;transition:border-color .15s ease,transform .15s ease}
+.flowmap button:hover{border-color:var(--teal-ink);transform:translateY(-2px)}
+.flowmap button:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.flowmap button[aria-pressed="true"]{border-color:var(--teal-ink);box-shadow:0 0 0 3px #14B8A633}
+.flowmap b{font-family:var(--f-display);font-size:22px;color:var(--teal-ink);line-height:1}
+.flowmap span{font-size:14px;font-weight:600;line-height:1.4}
+.flowmap em{font-style:normal;font-size:12px;font-weight:600;justify-self:start;padding:2px 8px;border-radius:999px;background:var(--mark);color:var(--teal-ink)}
+.flowmap em.blank{background:var(--warn-bg);color:var(--warn-ink)}
+.flowmap em.opt{background:var(--line);color:var(--muted)}
+.flow-detail{padding:18px 22px}
+.flow-detail b{display:block;font-family:var(--f-display);font-size:18px;margin-bottom:6px}
+.flow-detail p{color:var(--muted);font-size:15px}
 
 footer{border-top:1px solid var(--line);padding:28px 0 36px;color:var(--muted);font-size:14px}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
@@ -367,7 +402,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <a href="#home">หน้าแรก</a>
       <a href="#library">คลัง Prompt</a>
       <a href="#skills">Skill</a>
-      <a href="#tools">เครื่องมือ<span class="tag">ใหม่</span></a>
+      <a href="#tools">เครื่องมือ</a>
+      <a href="#lesson">แผนการจัดการเรียนรู้<span class="tag">ใหม่</span></a>
       <a href="#how">วิธีใช้งาน</a>
       <a href="#about">เกี่ยวกับ</a>
     </nav>
@@ -584,13 +620,41 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   <div class="page-hero"><div class="wrap">
     <a class="link" href="#skills" style="color:#9FE1CB">กลับไปหน้า Skill</a>
     <h1 style="margin-top:10px">คู่มือเขียนรายงาน Best Practice ของครูผู้สอน</h1>
-    <p>ให้ AI ช่วยร่าง ตรวจ และปรับรายงานทีละประเด็นตามเกณฑ์การคัดเลือกจริง ยึดข้อมูลจริงของครู ไม่สร้างตัวเลขหรือแหล่งอ้างอิงขึ้นเอง</p>
-    <div class="meta-row"><span>ครูผู้สอนทุกระดับและกลุ่มสาระ</span><span>ใช้ได้กับ AI ทุกตัว</span><span>รวมคำนำ บทคัดย่อ และ APA 7th</span></div>
+    <p>คัดลอก Prompt เดียววางใน AI แล้ว AI จะสัมภาษณ์คุณทีละประเด็น คุณตอบคร่าว ๆ แล้วได้ร่างทันที ส่วนผลการดำเนินการและการเผยแพร่จะเป็นโครงว่างให้คุณเติมข้อมูลจริงเอง</p>
+    <div class="meta-row"><span>ครูผู้สอนทุกระดับและกลุ่มสาระ</span><span>ใช้ได้กับ AI ทุกตัว</span><span>ไม่ต้องแนบเกณฑ์</span><span>รวมคำนำ บทคัดย่อ และ APA 7th</span></div>
   </div></div>
 
   <div class="sec" style="padding-top:40px"><div class="wrap">
-    <h2 class="sub">1. รับ Skill ตามช่องทางที่คุณใช้</h2>
-    <p class="sub-note">เลือกช่องทาง แล้วทำตามขั้นตอน ทุกช่องทางต้องแนบไฟล์เกณฑ์ของรอบที่ส่งประกวดด้วย</p>
+    <h2 class="sub">1. Prompt สั่งงาน</h2>
+    <p class="sub-note">คัดลอก Prompt นี้ไปวางในแชทใหม่ของ Claude, ChatGPT หรือ Gemini เพียงครั้งเดียว AI จะเริ่มสัมภาษณ์คุณทีละประเด็นทันที ไม่ต้องกรอกข้อมูลหรือแนบไฟล์ใดก่อน</p>
+    <div class="box">
+      <div class="out-head"><b>Prompt ผู้ช่วยร่างรายงาน Best Practice</b>
+        <div class="row"><button class="btn btn-line btn-sm" id="bpDlKick">ดาวน์โหลด .txt</button><button class="btn btn-primary btn-sm" id="bpCopyKick">คัดลอก</button></div></div>
+      <div class="prompt-box" id="bpKick" style="margin-top:12px;max-height:420px"></div>
+    </div>
+  </div></div>
+
+  <div class="sec" style="padding-top:0"><div class="wrap">
+    <h2 class="sub">2. ลำดับการสัมภาษณ์</h2>
+    <p class="sub-note">เมื่อวาง Prompt แล้ว AI จะถามทีละประเด็น คุณตอบคร่าว ๆ แล้ว AI ร่างเนื้อหาให้ทันที แตะประเด็นเพื่อดูคำถามที่ AI จะถาม</p>
+    <div class="flowmap" id="bpFlow" role="list"></div>
+    <div class="box flow-detail" id="bpFlowDetail" aria-live="polite"></div>
+  </div></div>
+
+  <div class="sec" style="padding-top:0"><div class="wrap">
+    <h2 class="sub">3. คำสั่งเสริมระหว่างทำงาน</h2>
+    <p class="sub-note">แตะเพื่อคัดลอก ใช้เมื่อถึงช่วงงานนั้น หรือเมื่อ AI ไม่ทำตามขั้นตอน</p>
+    <div class="cmds" id="bpCmds"></div>
+    <div class="alert" style="margin-top:28px"><b>ข้อควรทราบ</b><br>
+      คู่มือนี้ช่วยร่างเบื้องต้นตามแนวทางกลาง ไม่ได้ยึดเกณฑ์ของรอบใดรอบหนึ่ง ควรตรวจความสอดคล้องกับเกณฑ์จริงด้วยตนเองก่อนส่ง<br>
+      ประเด็นที่ 4 และ 7 จะเป็นโครงพร้อมตารางว่าง เติมข้อมูลจริงเอง หรือส่งข้อมูลให้ AI เรียบเรียงด้วยคำสั่งในส่วนนี้<br>
+      ตรวจแหล่งอ้างอิงเองทุกรายการ หาก AI ที่ใช้ค้นเว็บไม่ได้ เพราะ AI ทุกตัวอาจสร้างแหล่งที่ไม่มีอยู่จริงได้<br>
+      AI แต่ละตัวทำตามคำสั่งยาวได้ไม่เท่ากัน หากตัวใดเขียนทั้งเล่มรวดเดียวโดยไม่ถาม ให้ใช้คำสั่ง "ทำทีละประเด็นตามคู่มือ ถามฉันก่อนแล้วค่อยร่าง"</div>
+  </div></div>
+
+  <div class="sec" style="padding-top:0"><div class="wrap">
+    <h2 class="sub">4. คู่มือฉบับเต็ม (ทางเลือก)</h2>
+    <p class="sub-note">Prompt ในส่วนที่ 1 ใช้งานได้ครบในตัวแล้ว ส่วนนี้สำหรับผู้ที่ต้องการติดตั้งคู่มือฉบับเต็มไว้ในแชทบอทของตนเอง เพื่อใช้ซ้ำหลายครั้ง</p>
     <div class="box">
       <div class="tabs" role="tablist" aria-label="ช่องทางการใช้งาน">
         <button role="tab" aria-selected="true" aria-controls="tp1" id="tb1">แชทบอทที่ตั้งคำสั่งเองได้</button>
@@ -601,70 +665,30 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <div class="tabpanel active" role="tabpanel" id="tp1" aria-labelledby="tb1">
         <ol><li>คัดลอกคำสั่งระบบ ระบบตัดเนื้อหาตั้งแต่หัวข้อ "บทบาทและขอบเขต" ให้แล้ว</li>
         <li>วางลงในช่องคำสั่งของ GPTs, Gems หรือ Project</li>
-        <li>เริ่มแชทใหม่ แนบไฟล์เกณฑ์ แล้วส่งข้อความเริ่มงานจากส่วนที่ 2</li></ol>
+        <li>เริ่มแชทใหม่ แล้วส่ง Prompt จากส่วนที่ 1</li></ol>
         <button class="btn btn-primary" id="bpCopySys">คัดลอกคำสั่งระบบ</button>
       </div>
       <div class="tabpanel" role="tabpanel" id="tp2" aria-labelledby="tb2">
         <ol><li>คัดลอกทั้งไฟล์ แล้ววางเป็นข้อความแรกของแชทใหม่</li>
-        <li>แนบหรือวางไฟล์เกณฑ์ของรอบที่ส่งประกวด</li>
-        <li>ส่งข้อความเริ่มงานจากส่วนที่ 2 หรือพิมพ์ว่า "ปฏิบัติตามคู่มือนี้ ช่วยเขียนรายงาน Best Practice ของฉัน"</li></ol>
+        <li>ส่ง Prompt จากส่วนที่ 1 หรือพิมพ์ว่า "ปฏิบัติตามคู่มือนี้ ช่วยเขียนรายงาน Best Practice ของฉัน"</li></ol>
         <button class="btn btn-primary" id="bpCopyAll">คัดลอกทั้งไฟล์</button>
       </div>
       <div class="tabpanel" role="tabpanel" id="tp3" aria-labelledby="tb3">
         <ol><li>ดาวน์โหลดไฟล์ .md</li>
-        <li>อัปโหลดเป็นไฟล์ความรู้ พร้อมไฟล์เกณฑ์การคัดเลือกของรอบที่ส่งประกวด</li>
-        <li>ส่งข้อความเริ่มงานจากส่วนที่ 2</li></ol>
+        <li>อัปโหลดเป็นไฟล์ความรู้ของแชทบอทหรือ Project</li>
+        <li>ส่ง Prompt จากส่วนที่ 1</li></ol>
         <button class="btn btn-primary" id="bpDlMd">ดาวน์โหลด .md</button>
       </div>
       <div class="tabpanel" role="tabpanel" id="tp4" aria-labelledby="tb4">
         <ol><li>ดาวน์โหลดไฟล์ .zip ซึ่งจัดเป็นโฟลเดอร์ Skill พร้อมส่วนหัวชื่อและคำอธิบายแล้ว</li>
         <li>อัปโหลดไฟล์ .zip ในส่วนการตั้งค่า Skills ของ Claude แล้วเปิดใช้งาน</li>
-        <li>เริ่มแชทใหม่ แนบไฟล์เกณฑ์ แล้วส่งข้อความเริ่มงานจากส่วนที่ 2 Claude จะเรียกใช้ Skill เมื่อเกี่ยวข้อง</li></ol>
+        <li>เริ่มแชทใหม่ แล้วส่ง Prompt จากส่วนที่ 1 Claude จะเรียกใช้ Skill เมื่อเกี่ยวข้อง</li></ol>
         <button class="btn btn-primary" id="bpDlZip">ดาวน์โหลด .zip สำหรับ Claude</button>
       </div>
       <details class="preview"><summary>ดูเนื้อหาคู่มือทั้งหมด</summary><pre id="bpPreview"></pre></details>
     </div>
   </div></div>
 
-  <div class="sec" style="padding-top:0"><div class="wrap">
-    <h2 class="sub">2. สร้างข้อความเริ่มงาน</h2>
-    <p class="sub-note">กรอกข้อมูลตั้งต้น เพื่อให้ AI เริ่มได้ตรงจุดและถามกลับน้อยลง ข้อมูลอื่นจะถามคุณระหว่างทำงานตามคู่มือ</p>
-    <div class="two">
-      <div class="box">
-        <div class="field"><label for="bpLevel">ระดับและสาขา<span class="req">*</span></label>
-          <select id="bpLevel"><option>ปฐมวัย</option><option>ประถมศึกษา</option><option>มัธยมศึกษาตอนต้น</option><option>มัธยมศึกษาตอนปลาย</option><option>การศึกษาพิเศษ</option><option>อื่น ๆ</option></select></div>
-        <div class="field"><label for="bpSubject">กลุ่มสาระหรือวิชา</label><input id="bpSubject" placeholder="คณิตศาสตร์ หรือ ประสบการณ์สำคัญด้านสติปัญญา"></div>
-        <div class="field"><label for="bpInno">ชื่อนวัตกรรม<span class="req">*</span></label><input id="bpInno" placeholder="สื่อ เกม ชุดกิจกรรม หรือรูปแบบที่คุณพัฒนา">
-          <div class="hint">ตัวผลงานที่คุณสร้างขึ้น</div></div>
-        <div class="field"><label for="bpProc">กระบวนการจัดการเรียนรู้</label><input id="bpProc" placeholder="รูปแบบหรือขั้นตอนการสอนที่ใช้คู่กับนวัตกรรม">
-          <div class="hint">หากยังแยกไม่ได้ เว้นว่างไว้ AI จะช่วยแยกให้</div></div>
-        <div class="field"><label for="bpProblem">สภาพปัญหาโดยย่อ<span class="req">*</span></label><textarea id="bpProblem" placeholder="ปัญหาที่พบในผู้เรียนก่อนพัฒนานวัตกรรม"></textarea></div>
-        <div class="field"><label for="bpSchool">สถานศึกษาและสังกัด</label><input id="bpSchool" placeholder="ใช้ต่อท้ายชื่อผลงาน"></div>
-        <div class="field"><b style="display:block;font-size:14px;margin-bottom:8px">เอกสารที่มีและจะแนบไปด้วย</b>
-          <div class="checks" id="bpDocs"></div></div>
-        <div class="field"><label for="bpStart">ต้องการเริ่มที่</label>
-          <select id="bpStart"><option>ตั้งชื่อผลงาน</option><option>ประเด็นที่ 1 ความสำคัญของผลงาน</option><option>ตรวจฉบับที่เขียนไว้แล้วเทียบกับเกณฑ์</option><option>ปรับผลงานเดิมจากการประกวดอื่นให้เข้ากับเกณฑ์นี้</option></select></div>
-      </div>
-      <div class="box">
-        <div class="out-head"><b>ข้อความเริ่มงาน</b>
-          <div class="row"><button class="btn btn-primary btn-sm" id="bpCopyKick">คัดลอก</button></div></div>
-        <div id="bpWarn"></div>
-        <div class="prompt-box" id="bpKick" style="margin-top:12px"></div>
-        <div class="err" id="bpErr" hidden></div>
-        <p class="note" style="margin-top:12px">ส่งข้อความนี้หลังจากให้ AI อ่านคู่มือแล้ว และแนบเอกสารที่ติ๊กไว้ในข้อความเดียวกัน</p>
-      </div>
-    </div>
-  </div></div>
-
-  <div class="sec" style="padding-top:0"><div class="wrap">
-    <h2 class="sub">3. คำสั่งเสริมระหว่างทำงาน</h2>
-    <p class="sub-note">แตะเพื่อคัดลอก ใช้เมื่อ AI ข้ามขั้นตอนหรือเมื่อถึงช่วงงานนั้น</p>
-    <div class="cmds" id="bpCmds"></div>
-    <div class="alert" style="margin-top:28px"><b>ข้อควรระวังเมื่อใช้กับ AI ตัวอื่น</b><br>
-      แนบไฟล์เกณฑ์ทุกครั้ง เพราะเกณฑ์เปลี่ยนได้ทุกปี และคู่มือนี้สั่งให้ AI ยึดไฟล์เกณฑ์เป็นหลัก<br>
-      ตรวจแหล่งอ้างอิงเองทุกรายการ หาก AI ที่ใช้ค้นเว็บไม่ได้ เพราะ AI ทุกตัวอาจสร้างแหล่งที่ไม่มีอยู่จริงได้<br>
-      คู่มือนี้ยังไม่ได้ทดสอบกับ AI ทุกตัว AI แต่ละตัวทำตามคำสั่งยาวได้ไม่เท่ากัน หากตัวใดเขียนทั้งเล่มรวดเดียวหรือข้ามหลักการ ให้ใช้คำสั่ง "ทำทีละหัวข้อตามคู่มือ"</div>
-  </div></div>
 </section>
 
 
@@ -762,6 +786,76 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   </div></div>
 </section>
 
+
+<!-- ================= LESSON PLAN STUDIO ================= -->
+<section class="view" data-view="lesson" aria-label="แผนการจัดการเรียนรู้">
+  <div class="page-hero"><div class="wrap">
+    <h1>แผนการจัดการเรียนรู้</h1>
+    <p>กรอกข้อมูลส่วนหัวของแผนและเลือกกระบวนการจัดการเรียนรู้ แล้วนำ Prompt ไปให้ AI เขียนแผนตามแบบฟอร์ม Active-based Learning สำหรับยื่น PA ส่วนบันทึกหลังสอนจะเป็นช่องว่างไว้เขียนเอง</p>
+      </div></div>
+
+  <div class="sec" style="padding-top:36px"><div class="wrap">
+  <!-- ---------- TAB 1 ---------- -->
+  <div class="rp" id="lpPanel1">
+    <div>
+      <div class="box">
+        <h2>1. ข้อมูลเบื้องต้น</h2>
+        <p class="note" style="margin-bottom:12px">กรอกเฉพาะส่วนหัวของแผน AI จะค้นหาหรือสร้างเนื้อหาส่วนอื่นทั้งหมดตามแบบฟอร์มให้</p>
+        <div class="inline">
+          <div class="field"><label for="lpNo">แผนการจัดการเรียนรู้ที่<span class="req">*</span></label><input id="lpNo" inputmode="numeric" placeholder="1"></div>
+          <div class="field"><label for="lpUnit">หน่วยการเรียนรู้ที่</label><input id="lpUnit" placeholder="1"></div>
+        </div>
+        <div class="field"><label for="lpTopic">เรื่อง<span class="req">*</span></label><input id="lpTopic" placeholder="การบวกจำนวนสองหลัก"></div>
+        <div class="inline">
+          <div class="field"><label for="lpCode">รหัสวิชา</label><input id="lpCode" placeholder="ค14101"></div>
+          <div class="field"><label for="lpCourse">รายวิชา<span class="req">*</span></label><input id="lpCourse" placeholder="คณิตศาสตร์ 4"></div>
+        </div>
+        <div class="field"><label for="lpArea">กลุ่มสาระการเรียนรู้<span class="req">*</span></label><select id="lpArea"><option>ภาษาไทย</option><option>คณิตศาสตร์</option><option>วิทยาศาสตร์และเทคโนโลยี</option><option>สังคมศึกษา ศาสนาและวัฒนธรรม</option><option>สุขศึกษาและพลศึกษา</option><option>ศิลปะ</option><option>การงานอาชีพ</option><option>ภาษาต่างประเทศ</option></select></div>
+        <div class="inline">
+          <div class="field"><label for="lpGrade">ระดับชั้น<span class="req">*</span></label><select id="lpGrade"></select></div>
+          <div class="field"><label for="lpTerm">ภาคเรียนที่</label><select id="lpTerm"><option>1</option><option>2</option></select></div>
+          <div class="field"><label for="lpHrs">เวลา (ชั่วโมง)</label><input id="lpHrs" type="number" min="0.5" max="20" step="0.5" value="1"></div>
+        </div>
+        <div class="inline">
+          <div class="field"><label for="lpTeacher">ครูผู้สอน<span class="req">*</span></label><input id="lpTeacher" placeholder="นาย/นาง/นางสาว ชื่อ นามสกุล"></div>
+          <div class="field"><label for="lpRank">ตำแหน่งและวิทยฐานะ</label><select id="lpRank"><option>ครูผู้ช่วย</option><option selected>ครู</option><option>ครู วิทยฐานะครูชำนาญการ</option><option>ครู วิทยฐานะครูชำนาญการพิเศษ</option><option>ครู วิทยฐานะครูเชี่ยวชาญ</option><option>ครู วิทยฐานะครูเชี่ยวชาญพิเศษ</option></select></div>
+        </div>
+        <div class="inline">
+          <div class="field"><label for="lpBoss">ชื่อผู้อำนวยการ</label><input id="lpBoss" placeholder="นาย/นาง/นางสาว ชื่อ นามสกุล"></div>
+          <div class="field"><label for="lpBossPos">ตำแหน่งผู้อำนวยการ</label><input id="lpBossPos" placeholder="ผู้อำนวยการโรงเรียน..."></div>
+        </div>
+      </div>
+
+      <div class="box">
+        <h2>2. กระบวนการจัดการเรียนรู้</h2>
+        <div class="opts" id="lpModels"></div>
+        <p class="hint" id="lpModelNote" style="margin-top:10px"></p>
+        <div class="field" id="lpCustomWrap" hidden style="margin-top:10px"><label for="lpCustom">ขั้นตอนของกระบวนการ (บรรทัดละ 1 ขั้น)</label><textarea id="lpCustom" placeholder="ขั้นนำ&#10;ขั้นสอน&#10;ขั้นสรุป"></textarea></div>
+      </div>
+    </div>
+
+    <div class="rp-side">
+      <div class="box" style="margin:0">
+        <div class="out-head"><b>ลำดับเวลาของกระบวนการ</b><span class="note" id="lpTotal"></span></div>
+        <div class="tl" id="lpBar" aria-hidden="true"></div>
+        <div id="lpSteps" class="tl-steps"></div>
+        <div id="lpTimeWarn"></div>
+        <button class="btn btn-line btn-sm" id="lpReset" style="margin-top:10px">แบ่งเวลาใหม่อัตโนมัติ</button>
+      </div>
+      <div class="box" style="margin:0">
+        <div class="out-head"><b>Prompt เขียนแผน</b>
+          <div class="row"><button class="btn btn-line btn-sm" id="lpDl">ดาวน์โหลด .txt</button><button class="btn btn-primary btn-sm" id="lpCopy">คัดลอก</button></div></div>
+        <div class="progress" aria-hidden="true" style="margin-top:12px"><i id="lpBarFill"></i></div>
+        <div class="err" id="lpErr" hidden></div>
+        <div class="prompt-box" id="lpOut" style="margin-top:12px;max-height:300px;min-height:160px"></div>
+        <p class="note" style="margin-top:10px">AI จะเขียนส่วนที่ 1–6 และส่วนที่ 8 การประเมิน ส่วนที่ 7, 9–12 และความเห็นของหัวหน้าสถานศึกษาจะเป็นโครงพร้อมช่องว่างตามแบบฟอร์ม ตรวจมาตรฐานและตัวชี้วัดที่ AI ใส่ให้กับหลักสูตรสถานศึกษาทุกครั้ง</p>
+      </div>
+    </div>
+  </div>
+
+  </div></div>
+</section>
+
 <!-- ================= HOW ================= -->
 <section class="view" data-view="how" aria-label="วิธีใช้งาน">
   <div class="page-hero"><div class="wrap"><h1>วิธีใช้งาน</h1><p>ใช้ได้ทันทีโดยไม่ต้องสมัครสมาชิก</p></div></div>
@@ -823,6 +917,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   </div>
   <ul id="cmdList" role="listbox"></ul>
   <div class="foot">ใช้ลูกศรขึ้นลงเพื่อเลือก กด Enter เพื่อเปิด กด Esc เพื่อปิด</div>
+</dialog>
+
+<dialog id="manualCopy" aria-labelledby="mcTitle" style="width:min(720px,calc(100vw - 24px))">
+  <div class="m-head"><div><h2 id="mcTitle">คัดลอกด้วยตนเอง</h2><p>เบราว์เซอร์หรือหน้าพรีวิวนี้ไม่อนุญาตให้คัดลอกหรือดาวน์โหลดอัตโนมัติ ข้อความถูกเลือกไว้แล้ว กด Ctrl+C (Mac กด Cmd+C) หรือกดค้างแล้วเลือก "คัดลอก" บนโทรศัพท์</p></div>
+  <button class="m-close" onclick="document.getElementById('manualCopy').close()" aria-label="ปิด"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div style="padding:18px 24px 24px"><label class="sr-only" for="manualText">ข้อความ Prompt</label><textarea id="manualText" readonly style="width:100%;height:min(420px,55dvh);font-family:var(--f-mono);font-size:13px;line-height:1.7;border:1px solid var(--line);border-radius:var(--r-md);padding:12px;background:var(--paper)"></textarea></div>
 </dialog>
 
 <div class="toast" id="toast" role="status"></div>
@@ -1161,8 +1261,13 @@ const PROMPTS = [
     tags:"รายงานผลการปฏิบัติงาน ภาพรายงาน A4 ปก ผู้บริหาร ครู",
     content:"หน้ารายงาน {ชื่อหัวข้อหลัก} + {ภาพบุคคล} + {หัวข้อ 1–6} + {กรอบภาพ 4:3} + {ส่วนรับรอง}" },
 
+  { id:"lesson", type:"tool", route:"lesson", category:"การศึกษา", title:"แผนการจัดการเรียนรู้",
+    desc:"กรอกเพียงข้อมูลส่วนหัวและเลือกกระบวนการ ได้ Prompt ให้ AI เขียนแผนตามแบบฟอร์ม PA ส่วนบันทึกหลังสอนเว้นช่องว่างไว้เขียนเอง",
+    tags:"แผนการสอน แผนการจัดการเรียนรู้ PA active learning 5E GPAS CIPPA ครู",
+    content:"ข้อมูลส่วนหัว + {กระบวนการที่เลือก} → AI เขียน {ตัวชี้วัด} {สาระสำคัญ} {จุดประสงค์} {ชิ้นงาน} {กระบวนการ} {สื่อ} {การประเมิน} → ส่วนอื่นเว้นว่าง" },
+
   { id:"bp-skill", type:"skill", route:"skill-bp", category:"การศึกษา", title:"เขียนรายงาน Best Practice ของครู",
-    desc:"AI ช่วยร่างและตรวจรายงานทีละประเด็นตามเกณฑ์จริง ไม่สร้างตัวเลขหรือแหล่งอ้างอิงเอง",
+    desc:"Prompt เดียววางใน AI ได้ทันที AI สัมภาษณ์ทีละประเด็น ตอบคร่าว ๆ แล้วได้ร่าง ผลการดำเนินการและการเผยแพร่เป็นโครงว่างให้เติมเอง",
     tags:"best practice วิธีปฏิบัติที่เป็นเลิศ ประกวด ครู รายงาน skill",
     content:"## บทบาทและขอบเขต\nคุณเป็นผู้ช่วยเขียนรายงาน {Best Practice} ของครูผู้สอน ตามเกณฑ์ที่มี {ประเด็นพิจารณา} และ {น้ำหนักคะแนน}" },
 
@@ -1348,15 +1453,29 @@ function confirmBtn(btn, label){
 }
 async function copyText(text, msg){
   const src = document.activeElement && document.activeElement.tagName === "BUTTON" ? document.activeElement : null;
-  try { await navigator.clipboard.writeText(text); }
-  catch (e) { const a = document.createElement("textarea"); a.value = text; document.body.appendChild(a); a.select(); document.execCommand("copy"); a.remove(); }
-  toast(msg || "คัดลอกแล้ว");
-  burst(src); confirmBtn(src, "คัดลอกแล้ว");
+  let ok = false;
+  try { if (navigator.clipboard && window.isSecureContext){ await navigator.clipboard.writeText(text); ok = true; } } catch (e) {}
+  if (!ok){
+    try {
+      const a = document.createElement("textarea"); a.value = text; a.setAttribute("readonly", ""); a.style.position = "fixed"; a.style.opacity = "0";
+      document.body.appendChild(a); a.select(); ok = document.execCommand("copy"); a.remove();
+    } catch (e) { ok = false; }
+  }
+  if (ok){ toast(msg || "คัดลอกแล้ว"); burst(src); confirmBtn(src, "คัดลอกแล้ว"); }
+  else manualCopy(text);
+}
+function manualCopy(text){
+  const d = $("#manualCopy"), t = $("#manualText");
+  t.value = text;
+  if (typeof d.showModal === "function") d.showModal(); else d.setAttribute("open", "");
+  setTimeout(() => { t.focus(); t.select(); }, 50);
 }
 function download(name, text){
-  const url = URL.createObjectURL(new Blob([text], {type:"text/plain;charset=utf-8"}));
-  const a = document.createElement("a"); a.href = url; a.download = name; a.click();
-  setTimeout(() => URL.revokeObjectURL(url), 500); toast("ดาวน์โหลดแล้ว");
+  try {
+    const url = URL.createObjectURL(new Blob(["\ufeff" + text], {type:"text/plain;charset=utf-8"}));
+    const a = document.createElement("a"); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1500); toast("เริ่มดาวน์โหลด " + name);
+  } catch (e) { manualCopy(text); }
 }
 
 /* ================= theme & menu ================= */
@@ -1413,6 +1532,7 @@ const ART = {
   "งานเอกสาร": ["#0F2238","#1E3A5F", '<rect x="132" y="34" width="86" height="112" rx="6" fill="#FFFFFF" opacity=".55" transform="rotate(8 175 90)"/><rect x="112" y="32" width="86" height="114" rx="6" fill="#FFFFFF"/><rect x="122" y="44" width="50" height="8" rx="3" fill="#1E3A5F"/><path d="M122 64h66M122 76h66M122 88h44" stroke="#1E3A5F" stroke-width="4" stroke-linecap="round" opacity=".4"/><rect x="124" y="108" width="12" height="26" rx="2" fill="#14B8A6"/><rect x="142" y="98" width="12" height="36" rx="2" fill="#0F6E56"/><rect x="160" y="114" width="12" height="20" rx="2" fill="#F59E0B"/>']
 };
 const TOOL_ART = {
+  lesson: ["#1E3A5F","#0F6E56", '<rect x="114" y="30" width="92" height="128" rx="8" fill="#FFFFFF"/><rect x="140" y="22" width="40" height="16" rx="5" fill="#F59E0B"/><path d="M128 60h52M128 74h64" stroke="#1E3A5F" stroke-width="5" stroke-linecap="round" opacity=".5"/><rect x="128" y="90" width="64" height="8" rx="4" fill="#E2E8F0"/><rect x="128" y="90" width="12" height="8" rx="4" fill="#1E3A5F"/><rect x="141" y="90" width="20" height="8" fill="#0F6E56"/><rect x="162" y="90" width="18" height="8" fill="#14B8A6"/><path d="M130 116l6 6 12-12M130 138l6 6 12-12" stroke="#0F6E56" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M156 120h34M156 142h26" stroke="#1E3A5F" stroke-width="4" stroke-linecap="round" opacity=".4"/>'],
   trend: ["#132840","#0F6E56", '<path d="M70 132l40-30 30 18 44-46 36 24 30-38" stroke="#FFFFFF" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="250" cy="60" r="10" fill="#F59E0B"/><rect x="70" y="140" width="180" height="4" rx="2" fill="#FFFFFF" opacity=".3"/><g fill="#14B8A6"><circle cx="110" cy="102" r="6"/><circle cx="184" cy="74" r="6"/></g>'],
   report: ["#1E3A5F","#5B4B8A", '<rect x="108" y="22" width="104" height="146" rx="5" fill="#FBF6EA"/><rect x="108" y="22" width="14" height="146" fill="#E9DFC8"/><rect x="130" y="32" width="72" height="12" rx="2" fill="#1E3A5F"/><circle cx="134" cy="58" r="4" fill="#0F6E56"/><circle cx="134" cy="74" r="4" fill="#B45309"/><path d="M142 58h26M142 74h26" stroke="#8A7550" stroke-width="3" stroke-linecap="round"/><circle cx="190" cy="62" r="8" fill="#7B8CA3"/><path d="M176 86c0-10 6-16 14-16s14 6 14 16z" fill="#5F7290"/><rect x="130" y="98" width="34" height="25" fill="#E8E2D6" stroke="#B9AE98"/><rect x="168" y="98" width="34" height="25" fill="#E8E2D6" stroke="#B9AE98"/><path d="M160 146h40M168 154h24" stroke="#8A7550" stroke-width="3" stroke-linecap="round"/>']
 };
@@ -1800,7 +1920,7 @@ description: ช่วยครูผู้สอนร่าง ตรวจ �
   $("#bpPreview").textContent = MD;
 
   // tabs
-  const tabs = $$('[role="tab"]');
+  const tabs = $$('[data-view="skill-bp"] [role="tab"]');
   tabs.forEach(t => {
     t.addEventListener("click", () => select(t));
     t.addEventListener("keydown", e => {
@@ -1813,7 +1933,7 @@ description: ช่วยครูผู้สอนร่าง ตรวจ �
   });
   function select(t){
     tabs.forEach(x => { x.setAttribute("aria-selected", x === t); x.tabIndex = x === t ? 0 : -1; });
-    $$(".tabpanel").forEach(p => p.classList.toggle("active", p.id === t.getAttribute("aria-controls")));
+    $$('[data-view="skill-bp"] .tabpanel').forEach(p => p.classList.toggle("active", p.id === t.getAttribute("aria-controls")));
   }
   tabs.forEach((x, i) => x.tabIndex = i ? -1 : 0);
 
@@ -1830,54 +1950,46 @@ description: ช่วยครูผู้สอนร่าง ตรวจ �
     setTimeout(() => URL.revokeObjectURL(url), 500); toast("ดาวน์โหลด .zip แล้ว");
   });
 
-  // kickoff form
-  const DOCS = ["ไฟล์เกณฑ์การคัดเลือกของรอบนี้","ไฟล์ต้นฉบับที่เคยเขียนไว้","ผลประเมินก่อนดำเนินการ","ผลประเมินหลังดำเนินการ","ผลความพึงพอใจ","ผลทดสอบจากหน่วยงานภายนอก","รายการเผยแพร่และรางวัล"];
-  $("#bpDocs").innerHTML = DOCS.map((d, i) => `<label><input type="checkbox" value="${esc(d)}" ${i === 0 ? "checked" : ""}>${esc(d)}</label>`).join("");
-  const ids = ["bpLevel","bpSubject","bpInno","bpProc","bpProblem","bpSchool","bpStart"];
-  ids.forEach(id => $("#" + id).addEventListener("input", renderKick));
-  $$("#bpDocs input").forEach(c => c.addEventListener("change", renderKick));
+  // interview flow map
+  const FLOW = [
+    ["0","เริ่มต้น","ask","AI ถามครั้งเดียว: นวัตกรรมและกระบวนการที่ใช้คู่กัน ระดับชั้นและวิชา จำนวนผู้เรียน ปีการศึกษา สถานศึกษา และไฟล์ต้นฉบับ (ถ้ามี) แล้วเสนอชื่อผลงาน 2–3 แบบให้เลือก"],
+    ["1","ความสำคัญของผลงาน","ask","ปัญหาที่พบในผู้เรียน หลักฐานของปัญหา (เช่น ผลสอบ การสังเกต) สาเหตุ และเหตุผลที่เลือกแก้ด้วยนวัตกรรมนี้"],
+    ["2","จุดประสงค์และเป้าหมาย","ask","ต้องการให้ผู้เรียนเปลี่ยนแปลงอะไร เป้าหมายเชิงปริมาณ (จำนวนหรือร้อยละ) และเชิงคุณภาพ"],
+    ["3","กระบวนการดำเนินงาน","ask","แนวคิดหรือทฤษฎีที่ใช้ ขั้นตอนที่ทำจริง สิ่งที่ปรับปรุงระหว่างทางและได้ข้อเสนอแนะจากใคร ทรัพยากรและเครือข่าย"],
+    ["4","ผลการดำเนินการ","blank","ไม่ถาม AI สร้างโครงพร้อมตารางว่าง (ผลตามจุดประสงค์ ผลก่อน-หลัง ประโยชน์ที่ได้รับ) โดยนำจุดประสงค์จากประเด็นที่ 2 มาใส่ในตารางให้ ตัวเลขเว้นว่างให้เติมเอง"],
+    ["5","ปัจจัยความสำเร็จ","ask","ใครหรืออะไรช่วยให้งานสำเร็จ เช่น ผู้บริหาร ผู้เชี่ยวชาญ PLC ผู้ปกครอง ชุมชน และช่วยอย่างไร"],
+    ["6","บทเรียนที่ได้รับ","ask","สิ่งที่ได้เรียนรู้ สิ่งที่สังเกตเห็นในผู้เรียน ข้อควรระวัง และสิ่งที่จะปรับครั้งต่อไป"],
+    ["7","การเผยแพร่และรางวัล","blank","ไม่ถาม AI สร้างโครงพร้อมตารางว่าง (การเผยแพร่ และการยอมรับหรือรางวัล) ให้เติมข้อมูลจริงและแนบภาพหลักฐานเอง"],
+    ["8","การขยายผล ต่อยอด","ask","ได้ถอดบทเรียนร่วมกับใคร มีผู้นำไปใช้ต่อหรือไม่ ที่ใด และต่อยอดหรือจะต่อยอดอย่างไร"],
+    ["9","การนำเสนอผลงาน","opt","AI ถามก่อนว่าต้องการให้ช่วยร่างบทวีดิทัศน์หรือ storyboard หรือไม่ ถ้าไม่ต้องการให้ข้าม"]
+  ];
+  const TAG = {ask:["AI ถาม",""], blank:["โครงว่าง","blank"], opt:["ถ้าต้องการ","opt"]};
+  $("#bpFlow").innerHTML = FLOW.map((f, i) => `<button role="listitem" data-i="${i}" aria-pressed="${i === 1}"><b>${f[0] === "0" ? "◎" : f[0]}</b><span>${esc(f[1])}</span><em class="${TAG[f[2]][1]}">${TAG[f[2]][0]}</em></button>`).join("");
+  const showFlow = i => {
+    const f = FLOW[i];
+    $$("#bpFlow button").forEach(b => b.setAttribute("aria-pressed", +b.dataset.i === i));
+    $("#bpFlowDetail").innerHTML = `<b>${f[0] === "0" ? "ขั้นเริ่มต้น" : "ประเด็นที่ " + f[0] + " " + esc(f[1])}</b><p>${esc(f[3])}</p>`;
+  };
+  $$("#bpFlow button").forEach(b => b.addEventListener("click", () => showFlow(+b.dataset.i)));
+  showFlow(1);
 
-  function kickText(){
-    const g = id => $("#" + id).value.trim();
-    const has = $$("#bpDocs input").filter(c => c.checked).map(c => c.value);
-    const miss = DOCS.filter(d => !has.includes(d));
-    const start = g("bpStart");
-    const L = [];
-    L.push("ปฏิบัติตามคู่มือเขียนรายงาน Best Practice ของครูผู้สอนที่ให้ไว้ ช่วยเขียนรายงาน Best Practice ของฉัน", "", "ข้อมูลตั้งต้น");
-    L.push("- ระดับ: " + g("bpLevel") + (g("bpSubject") ? " กลุ่มสาระหรือวิชา: " + g("bpSubject") : ""));
-    L.push("- นวัตกรรม: " + (g("bpInno") || "{ชื่อนวัตกรรม}"));
-    L.push("- กระบวนการจัดการเรียนรู้: " + (g("bpProc") || "ยังไม่ได้แยกจากนวัตกรรม ขอให้ช่วยถามเพื่อแยกให้ชัด"));
-    L.push("- สภาพปัญหาโดยย่อ: " + (g("bpProblem") || "{สภาพปัญหา}"));
-    if (g("bpSchool")) L.push("- สถานศึกษาและสังกัด: " + g("bpSchool"));
-    L.push("", "เอกสารที่แนบมาในข้อความนี้: " + (has.length ? has.join(", ") : "ยังไม่มี"));
-    if (miss.length) L.push("เอกสารที่ยังไม่มี: " + miss.join(", ") + " (ถ้าจำเป็นต่อประเด็นใด ให้ขอจากฉันหรือบอกทางเลือกที่ทำได้ ห้ามสร้างข้อมูลแทน)");
-    if (!has.includes(DOCS[0])) L.push("ฉันยังไม่ได้แนบไฟล์เกณฑ์ ขอให้ขอไฟล์เกณฑ์จากฉันก่อนเริ่มเขียน ห้ามใช้เกณฑ์จากความจำ");
-    L.push("", "ต้องการเริ่มที่: " + start);
-    if (/ตรวจ|ปรับผลงานเดิม/.test(start)) L.push("ฉันแนบฉบับที่เขียนไว้มาด้วย ให้ใช้ฉบับนั้นเป็นหลักและยึดข้อเท็จจริงจากไฟล์นั้น");
-    L.push("", "ขอให้ถามข้อมูลที่ยังขาดก่อนลงมือเขียน และทำทีละประเด็นตามคู่มือ รอให้ฉันตรวจก่อนไปข้อถัดไป");
-    return L.join("\n");
-  }
-  function renderKick(){
-    $("#bpErr").hidden = true;
-    $("#bpKick").textContent = kickText();
-    const crit = $$("#bpDocs input")[0].checked;
-    $("#bpWarn").innerHTML = crit ? "" : `<div class="alert" style="margin-top:12px">ยังไม่ได้ติ๊กไฟล์เกณฑ์ เกณฑ์เปลี่ยนได้ทุกปี ควรแนบไฟล์เกณฑ์ของรอบที่ส่งประกวดทุกครั้ง</div>`;
-  }
-  $("#bpCopyKick").addEventListener("click", () => {
-    const miss = [["bpInno","ชื่อนวัตกรรม"],["bpProblem","สภาพปัญหาโดยย่อ"]].filter(([id]) => !$("#" + id).value.trim()).map(x => x[1]);
-    if (miss.length){ $("#bpErr").textContent = "กรอกช่องที่จำเป็นก่อน: " + miss.join(", "); $("#bpErr").hidden = false; return; }
-    copyText(kickText(), "คัดลอกข้อความเริ่มงานแล้ว");
-  });
-  renderKick();
+  // command prompt
+  const BP_PROMPT = "คุณคือผู้ช่วยร่างรายงานวิธีปฏิบัติที่เป็นเลิศ (Best Practice) ของครูผู้สอน ทำงานแบบสัมภาษณ์ทีละประเด็น ผู้ใช้ตอบคร่าว ๆ แล้วคุณร่างเนื้อหาของประเด็นนั้นทันที ใช้ได้กับทุกระดับชั้นและกลุ่มสาระ ตอบเป็นภาษาไทย เขียนรายงานด้วยภาษาเขียนเชิงวิชาการ\n\nหน้าที่ของคุณคืออำนวยความสะดวกในการร่างเบื้องต้นแบบเป็นกลาง ไม่ต้องขอหรือยึดไฟล์เกณฑ์การคัดเลือก ผู้ใช้จะนำไปตรวจสอบกับเกณฑ์จริงด้วยตนเอง หากผู้ใช้แนบเกณฑ์มาเอง จึงปรับหัวข้อและถ้อยคำตามเกณฑ์นั้น\n\n==============================\nส่วนที่ 1 วิธีทำงาน\n==============================\n\nขั้นเริ่มต้น (ถามครั้งเดียวในข้อความเดียว ข้ามข้อที่ผู้ใช้ให้มาแล้ว)\n1. นวัตกรรมคืออะไร และใช้คู่กับกระบวนการจัดการเรียนรู้แบบใด (ถ้ายังแยกไม่ได้ ให้ช่วยถามจนแยกได้ เพราะแต่ละประเด็นพูดถึงคนละมุม)\n2. ระดับชั้น กลุ่มสาระหรือวิชา และจำนวนผู้เรียนกลุ่มเป้าหมาย\n3. ปีการศึกษาที่ดำเนินการ ชื่อสถานศึกษาและสังกัด\n4. มีไฟล์ต้นฉบับที่เคยเขียนไว้หรือไม่ ถ้ามี ให้ศึกษาและยึดข้อเท็จจริงจากไฟล์นั้น\nจากนั้นเสนอชื่อผลงาน 2–3 แบบให้เลือก โดยใช้โครงสร้าง \"การพัฒนา/การแก้ปัญหา + สิ่งที่ต้องการพัฒนาในผู้เรียน + ด้วย/โดยใช้ + นวัตกรรม\" ต่อท้ายด้วยชื่อสถานศึกษาและสังกัด\n\nรอบการทำงานของแต่ละประเด็น (ทำตามลำดับประเด็น 1–9)\n1. ถามคำถามสั้น 2–4 ข้อของประเด็นนั้นในข้อความเดียว และบอกผู้ใช้ว่าตอบคร่าว ๆ ได้\n2. เมื่อผู้ใช้ตอบ ให้ร่างเนื้อหาของประเด็นนั้นทันทีตามแนวทางในส่วนที่ 3 ไม่ถามซ้ำหากข้อมูลพอเขียนได้\n3. ข้อมูลที่ยังขาด ให้เว้นวงเล็บเหลี่ยมบอกสิ่งที่ต้องเติม เช่น [ระบุชื่อทฤษฎี] แล้วสรุปท้ายร่างไม่เกิน 2 จุดที่ควรเพิ่ม\n4. แสดงรายการอ้างอิงที่ใช้ในประเด็นนั้นท้ายร่าง (ถ้ามี)\n5. ถามว่า \"ไปประเด็นถัดไป หรือแก้ไขประเด็นนี้ก่อน\" แล้วรอคำตอบ\nห้ามเขียนหลายประเด็นรวดเดียว และเมื่อผู้ใช้ส่งฉบับที่ตนปรับเองมา ให้ใช้ฉบับนั้นเป็นหลัก ตรวจเฉพาะคำผิด การอ้างอิง และความซ้ำซ้อน ไม่เขียนทับสำนวนของผู้ใช้โดยไม่มีเหตุผล\n\nเมื่อครบทุกประเด็น\nเสนอรวมเล่ม ทำบรรณานุกรม แล้วจึงเขียนบทคัดย่อและคำนำตามส่วนที่ 5 หากผู้ใช้ขอไฟล์ ให้สร้างตามรูปแบบที่ผู้ใช้ระบุ (เช่น Word หรือ PDF)\n\n==============================\nส่วนที่ 2 หลักการเขียน\n==============================\n\n1. ใช้ข้อมูลจริงเท่านั้น รายงานนี้เป็นเอกสารราชการที่กรรมการอาจขอดูหลักฐาน ห้ามสร้างหรือปรับตัวเลข ผลประเมิน ชื่อบุคคล เหตุการณ์ รางวัล หรือแหล่งอ้างอิง หากผู้ใช้ขอให้ปรับตัวเลขให้ดูดีขึ้น ให้ปฏิเสธอย่างสุภาพและเสนอแหล่งข้อมูลจริงที่ใช้แทนได้ เช่น สมุดรายงาน แบบประเมินแรกเข้า บันทึกหลังสอน หากคำนวณร้อยละเพิ่ม ให้บอกวิธีคำนวณให้ผู้ใช้ตรวจ หากค้นเว็บไม่ได้ ให้บอกตรง ๆ ว่ายังไม่ได้ตรวจสอบแหล่งอ้างอิง\n\n2. แยกบทบาทของแต่ละหัวข้อ ไม่เล่าซ้ำ ตัวนวัตกรรม (องค์ประกอบ กติกา แนวคิดรองรับ) อยู่ในข้อการออกแบบ การลงมือทำจริงอยู่ในข้อการดำเนินงาน ผลที่เกิดกับผู้เรียนอยู่ในประเด็นผลการดำเนินการเท่านั้น การเผยแพร่และรางวัลอยู่ในประเด็นการเผยแพร่\n\n3. อ้างอิงเฉพาะจุดที่สมควร ใส่การอ้างอิงเมื่อนำข้อเท็จจริง แนวคิด มาตรฐาน หรือนโยบายจากภายนอกมาสนับสนุน ไม่ใส่กับสิ่งที่ผู้เขียนกำหนดเอง เช่น เป้าหมายร้อยละหรือขั้นตอนที่ออกแบบเอง การนำผลที่เกิดกับผู้เรียนไปเทียบกับทฤษฎีให้ใช้ในประเด็นบทเรียนที่ได้รับเท่านั้น\n\n4. เลือกทฤษฎีให้ตรงช่วงวัยของผู้เรียน เช่น งานปฐมวัยอ้างแนวคิดปฐมวัย ถ้าครูพัฒนารูปแบบเอง ให้เขียนว่าต่อยอดจากแนวคิดใดแล้วปรับอย่างไร\n\n5. อ่านแล้วเข้าใจในตัวเอง ไม่เขียนว่า \"ดังปรากฏในประเด็นที่...\" ให้สรุปสาระหรือระบุตัวเลขในที่นั้นเลย\n\n6. ใช้ภาษาครูและภาษาหลักสูตร เช่น \"สื่อรูปธรรมที่เหมาะกับพัฒนาการของผู้เรียน ครูผลิตเองได้\" แทน \"วัสดุหาง่ายราคาถูก\"\n\n7. เมื่อผู้ใช้ท้วงและมีเหตุผล ให้ยอมรับและแก้ แต่ถ้าข้อท้วงนำไปสู่การสร้างข้อมูลเท็จ ให้ยืนยันจุดยืนเดิมพร้อมเหตุผล\n\n8. ถ้าผลงานเคยเขียนสำหรับการประกวดอื่น ให้ถามผู้ใช้ก่อนว่าจะคงหรือตัดกรอบหรือชื่อเฉพาะของการประกวดเดิม\n\n==============================\nส่วนที่ 3 คำถามและแนวทางรายประเด็น\n==============================\n\nประเด็น 1 ความสำคัญของผลงาน\nคำถาม: ปัญหาที่พบในผู้เรียนคืออะไร มีหลักฐานอะไร (เช่น ผลสอบ การสังเกต) สาเหตุเกิดจากอะไร และทำไมจึงเลือกแก้ด้วยนวัตกรรมนี้\nแนวทาง: 1.1 สภาพปัญหาและความเป็นมา เรียงจากนโยบายระดับชาติและต้นสังกัด สู่ข้อมูลของสถานศึกษา วิเคราะห์สาเหตุ และที่มาของนวัตกรรม เล่าข้อมูลเป็นความเรียงที่ระบุตัวเลขสำคัญ สาเหตุต้องเชื่อมกับสิ่งที่นวัตกรรมแก้ได้ 1.2 แนวทางการพัฒนา บอกว่าทำไมออกแบบนวัตกรรมรูปแบบนี้ และเกริ่นถึงกระบวนการในประเด็น 3\n\nประเด็น 2 จุดประสงค์และเป้าหมาย\nคำถาม: ต้องการให้ผู้เรียนเปลี่ยนแปลงอะไร เป้าหมายเชิงปริมาณ (จำนวนหรือร้อยละ) และเชิงคุณภาพ\nแนวทาง: แยกจุดประสงค์ให้ชัด และแยกเป้าหมายเชิงปริมาณกับเชิงคุณภาพ เป็นรูปธรรม สอดคล้องกับสภาพปัญหา เป้าหมายตัวเลขไม่ใส่การอ้างอิง และทุกเป้าหมายต้องมีผลในประเด็น 4 ที่ตอบกลับได้\n\nประเด็น 3 กระบวนการหรือขั้นตอนการดำเนินงาน\nคำถาม: แนวคิดหรือทฤษฎีที่ใช้ (ถ้าทราบ) ขั้นตอนที่ทำจริง สิ่งที่ปรับปรุงระหว่างทางและได้ข้อเสนอแนะจากใคร ทรัพยากรหรือเครือข่ายที่ใช้\nแนวทาง: แบ่งเป็น 3.1 การออกแบบ (ศึกษาแนวคิด ออกแบบองค์ประกอบของนวัตกรรม ออกแบบกิจกรรม ทฤษฎีต้องเชื่อมกับการตัดสินใจออกแบบจริง) 3.2 การดำเนินงาน (จัดทำแผน ตรวจสอบคุณภาพโดยผู้เชี่ยวชาญ ดำเนินกิจกรรม ปรับปรุงต่อเนื่องจากข้อเสนอแนะของผู้เชี่ยวชาญ บันทึกหลังสอน และ PLC) 3.3 ประสิทธิภาพ (แผนชัดเจนเป็นลำดับ นำไปใช้ได้จริงในบริบทของสถานศึกษา และองค์ความรู้ใหม่ซึ่งเขียนเป็นหลักการที่ค้นพบ ไม่ใช่การเล่ากิจกรรมซ้ำ) 3.4 การใช้ทรัพยากร (ใช้ทรัพยากรและแหล่งเรียนรู้อย่างเหมาะสมคุ้มค่า สอดคล้องกับบริบท และเครือข่ายภายในภายนอก) ถ้าไม่มีรายละเอียดข้อเสนอแนะจริง ให้ขอจากผู้ใช้\n\nประเด็น 4 ผลการดำเนินการ ผลสัมฤทธิ์ ประโยชน์ที่ได้รับ\nไม่ต้องถาม ให้สร้างโครงว่างตามส่วนที่ 4\n\nประเด็น 5 ปัจจัยความสำเร็จ\nคำถาม: ใครหรืออะไรช่วยให้งานสำเร็จ เช่น ผู้บริหาร ผู้เชี่ยวชาญ PLC ผู้ปกครอง ชุมชน และช่วยอย่างไร\nแนวทาง: ระบุปัจจัยเฉพาะเจาะจงที่มาจากการมีส่วนร่วมของผู้เกี่ยวข้อง และส่งผลต่อการพัฒนาต่อเนื่องและยั่งยืน รวมทั้งตัวนวัตกรรมและกระบวนการเอง\n\nประเด็น 6 บทเรียนที่ได้รับ\nคำถาม: สิ่งที่ได้เรียนรู้ สิ่งที่สังเกตเห็นในผู้เรียน ข้อควรระวัง และสิ่งที่จะปรับครั้งต่อไป\nแนวทาง: เขียนข้อสรุปที่เป็นหลักการ ข้อสังเกต ข้อเสนอแนะ ข้อควรระวังสำหรับครูท่านอื่น และแนวทางพัฒนา ส่วนนี้เทียบผลกับทฤษฎีหรืองานวิจัยได้ ข้อสังเกตต้องมาจากสิ่งที่ผู้ใช้สังเกตจริง\n\nประเด็น 7 การเผยแพร่ การยอมรับ รางวัล\nไม่ต้องถาม ให้สร้างโครงว่างตามส่วนที่ 4\n\nประเด็น 8 การขยายผล ต่อยอด ประยุกต์ใช้\nคำถาม: ได้ถอดบทเรียนร่วมกับใคร มีผู้นำไปใช้ต่อหรือไม่ ที่ใด และต่อยอดหรือจะต่อยอดอย่างไร\nแนวทาง: 8.1 ถอดบทเรียน (ถอดทั้งความสำเร็จและอุปสรรคร่วมกัน เข้าใจปัจจัยที่ส่งผล และสังเคราะห์ความรู้จากแหล่งภายนอกที่ใช้จริง) 8.2 เรียนรู้เพื่อต่อยอดและขยายผล (เรียนรู้ร่วมกัน สร้างความรู้ยกระดับ และประยุกต์ใช้ทั้งในและนอกสถานศึกษา พร้อมคำแนะนำการปรับใช้ในบริบทอื่น) ใช้เฉพาะเหตุการณ์ที่ผู้ใช้ยืนยันว่าเกิดขึ้นจริง\n\nประเด็น 9 การนำเสนอผลงาน\nถามก่อนว่าต้องการให้ช่วยร่างบทวีดิทัศน์หรือ storyboard หรือไม่ ความยาวกี่นาที ถ้าต้องการ ให้เรียงตามลำดับประเด็น 1–8 ภายในเวลาที่กำหนด ถ้าไม่ต้องการให้ข้าม\n\n==============================\nส่วนที่ 4 โครงว่างประเด็น 4 และ 7\n==============================\n\nประเด็น 4 (นำจุดประสงค์และเป้าหมายที่ผู้ใช้ยืนยันในประเด็น 2 มาใส่ในตารางได้ นอกนั้นเว้นว่างทั้งหมด)\n4. ผลการดำเนินการ ผลสัมฤทธิ์ ประโยชน์ที่ได้รับ\n4.1 ผลที่เกิดตามจุดประสงค์\nตารางที่ ..... ผลการดำเนินงานตามจุดประสงค์และเป้าหมาย\n| จุดประสงค์/เป้าหมาย | เป้าหมาย (ร้อยละ) | จำนวน (คน) | ร้อยละ | ผลการประเมิน |\n| (จากประเด็น 2) | ..... | ..... | ..... | ☐ บรรลุ ☐ ไม่บรรลุ |\nจากตารางที่ ..... พบว่า ..........................................\n4.2 ผลสัมฤทธิ์\nตารางที่ ..... เปรียบเทียบผลก่อนและหลังการดำเนินงาน\n| รายการประเมิน | ก่อนดำเนินการ | หลังดำเนินการ | ผลต่าง |\n| ..... | ..... | ..... | ..... |\nจากตารางที่ ..... พบว่า ..........................................\n4.3 ประโยชน์ที่ได้รับ\n1) ผู้เรียน ..........................................\n2) ครู ..........................................\n3) ผู้ปกครองและชุมชน ..........................................\n4) สถานศึกษา ..........................................\n\nประเด็น 7 (เว้นว่างทั้งหมด ห้ามเติมรายการหรือรางวัลเอง)\n7. การเผยแพร่ การยอมรับ รางวัล\n7.1 ร่องรอยหลักฐานการเผยแพร่\n| ที่ | รายการ/กิจกรรมการเผยแพร่ | ช่องทาง | วัน เดือน ปี | กลุ่มเป้าหมาย |\n| 1 | ..... | ..... | ..... | ..... |\n| 2 | ..... | ..... | ..... | ..... |\n7.2 การยอมรับและรางวัลที่ได้รับ\n| ที่ | รางวัล/การยอมรับ | ระดับ | หน่วยงานที่มอบ | วัน เดือน ปี |\n| 1 | ..... | ..... | ..... | ..... |\n(ภาพหลักฐานแนบในภาคผนวก)\n\nหากผู้ใช้เติมข้อมูลประเด็น 4 หรือ 7 กลับมา ให้เรียบเรียงจากข้อมูลนั้นโดยไม่เพิ่มหรือเปลี่ยนตัวเลขและรายการ ประเด็น 4 ให้บอกจำนวนคนควบคู่ร้อยละ เทียบกับเป้าหมายในประเด็น 2 และมีย่อหน้าอ่านผลต่อท้ายทุกตาราง ประเด็น 7 ให้แบ่งเป็นการเผยแพร่และระดับการยอมรับ (โรงเรียน เขตพื้นที่หรือจังหวัด ภาคหรือประเทศ)\n\n==============================\nส่วนที่ 5 ส่วนหน้าเล่มและการอ้างอิง\n==============================\n\nทำบทคัดย่อและคำนำหลังเนื้อหาทุกประเด็นเสร็จแล้ว ถ้าประเด็น 4 ยังเป็นโครงว่าง ให้เว้นวงเล็บในจุดที่ต้องใช้ผลจริงแทนการเดา\n\nบทคัดย่อ (ยาวไม่เกินประมาณหนึ่งหน้า ตัวเลขต้องตรงกับเนื้อหา) เรียงตามลำดับ: ชื่อผลงาน ผู้จัดทำ ตำแหน่ง สถานศึกษา สังกัด → ความเป็นมาและสาเหตุของปัญหา → จุดประสงค์ → วิธีดำเนินการ (นวัตกรรม กระบวนการ กลุ่มเป้าหมาย จำนวน ปีการศึกษา) → ผลการดำเนินงาน → การเผยแพร่และการยอมรับที่ผู้ใช้ยืนยัน → ข้อสรุปและการขยายผล\n\nคำนำ: ที่มาและชื่อผลงาน ขอบเขตเนื้อหา คำขอบคุณเฉพาะผู้ที่มีบทบาทจริงในรายงาน และความหวังว่าจะเป็นประโยชน์ ปิดด้วยชื่อและตำแหน่งผู้จัดทำ ชื่อบุคคลที่ยังไม่มีให้เว้นไว้ ห้ามเดา\n\nตาราง: ใส่หมายเลขและชื่อเหนือตาราง มีย่อหน้า \"จากตารางที่ ... พบว่า ...\" ต่อท้าย\n\nการอ้างอิง APA 7th: ในเนื้อหาใช้ (ผู้แต่ง, ปี) บรรณานุกรมเรียงตามตัวอักษร ภาษาไทยก่อนภาษาอังกฤษ ถ้าผู้แต่งกับผู้จัดพิมพ์เป็นหน่วยงานเดียวกันให้ตัดชื่อผู้จัดพิมพ์ เอกสารไม่ได้เผยแพร่ใส่ [เอกสารไม่ตีพิมพ์] งานที่อ้างจากแหล่งรองให้ระบุ \"อ้างถึงใน\" ทุกรายการในเนื้อหาต้องอยู่ในบรรณานุกรมและกลับกัน ห้ามเติมปี เลขหน้า หรือรายละเอียดราชกิจจานุเบกษาที่ไม่แน่ใจ ให้บอกผู้ใช้เติม\n\n==============================\n\nเริ่มได้เลย โดยทักทายสั้น ๆ แล้วถามข้อมูลขั้นเริ่มต้น";
+  $("#bpKick").textContent = BP_PROMPT;
+  $("#bpCopyKick").addEventListener("click", () => copyText(BP_PROMPT, "คัดลอก Prompt สั่งงานแล้ว"));
+  $("#bpDlKick").addEventListener("click", () => download("best-practice-interview-prompt.txt", BP_PROMPT));
 
   // follow-up commands
   const CMDS = [
-    ["ทำทีละหัวข้อตามคู่มือ", "เมื่อ AI เขียนทั้งเล่มรวดเดียวหรือข้ามขั้นตอน"],
-    ["ตรวจข้อนี้เทียบถ้อยคำเกณฑ์ระดับคุณภาพสูงสุดทีละองค์ประกอบ และบอกตรง ๆ ว่าองค์ประกอบใดยังไม่ชัด", "หลังได้ร่างแต่ละข้อย่อย"],
+    ["ไปประเด็นถัดไป", "เมื่อตรวจร่างของประเด็นนี้แล้ว"],
+    ["ทำทีละประเด็นตามคู่มือ ถามฉันก่อนแล้วค่อยร่าง", "เมื่อ AI เขียนทั้งเล่มรวดเดียวหรือไม่ถามก่อน"],
+    ["ร่างประเด็นนี้ใหม่ให้กระชับขึ้น โดยคงข้อเท็จจริงเดิมทั้งหมด", "เมื่อร่างยาวเกินไป"],
     ["ตรวจว่าเนื้อหาข้อนี้ซ้ำกับประเด็นอื่นหรือไม่ และส่วนใดควรย้ายไปประเด็นใดตามคู่มือ", "เมื่อรู้สึกว่าเนื้อหาวนซ้ำ"],
-    ["ใช้ฉบับที่ฉันปรับเองซึ่งแนบมานี้เป็นหลัก ตรวจเฉพาะคำผิด การอ้างอิง ความซ้ำซ้อน และการไม่ตรงเกณฑ์ ไม่ต้องเขียนทับสำนวนของฉัน", "เมื่อส่งฉบับที่แก้เองกลับไป"],
-    ["รวมรายการอ้างอิงที่สะสมไว้เป็นบรรณานุกรม APA 7th และระบุรายการที่ยังไม่ได้ตรวจสอบว่ามีอยู่จริง", "เมื่อเนื้อหาครบทุกประเด็น"],
-    ["เนื้อหาทุกประเด็นผ่านการตรวจแล้ว ช่วยเขียนบทคัดย่อและคำนำจากฉบับที่ฉันแนบมา", "ขั้นสุดท้ายก่อนจัดทำเล่ม"]
+    ["นี่คือข้อมูลจริงของประเด็นที่ 4 ที่ฉันเติมในโครงแล้ว ช่วยเรียบเรียงตามคู่มือ โดยไม่เพิ่มหรือเปลี่ยนตัวเลข", "เมื่อเติมผลการดำเนินการแล้ว"],
+    ["นี่คือข้อมูลจริงของประเด็นที่ 7 ที่ฉันเติมในโครงแล้ว ช่วยเรียบเรียงตามคู่มือ โดยไม่เพิ่มรายการหรือรางวัล", "เมื่อเติมการเผยแพร่และรางวัลแล้ว"],
+    ["ใช้ฉบับที่ฉันปรับเองซึ่งแนบมานี้เป็นหลัก ตรวจเฉพาะคำผิด การอ้างอิง และความซ้ำซ้อน ไม่ต้องเขียนทับสำนวนของฉัน", "เมื่อส่งฉบับที่แก้เองกลับไป"],
+    ["รวมเล่มทุกประเด็น ทำบรรณานุกรม APA 7th และระบุรายการอ้างอิงที่ยังไม่ได้ตรวจสอบว่ามีอยู่จริง", "เมื่อครบทุกประเด็น"],
+    ["เนื้อหาทุกประเด็นเสร็จแล้ว ช่วยเขียนบทคัดย่อและคำนำจากฉบับที่ฉันแนบมา", "ขั้นสุดท้ายก่อนจัดทำเล่ม"]
   ];
   $("#bpCmds").innerHTML = CMDS.map(([c, w], i) => `<button class="cmd" data-i="${i}"><span>${esc(c)}<small>${esc(w)}</small></span><span class="c">คัดลอก</span></button>`).join("");
   $$("#bpCmds .cmd").forEach(b => b.addEventListener("click", () => copyText(CMDS[+b.dataset.i][0], "คัดลอกคำสั่งแล้ว")));
@@ -2148,7 +2260,7 @@ $$("[data-surprise]").forEach(b => b.addEventListener("click", () => surprise(b)
 /* ================= ค้นหาด่วน (Ctrl+K) ================= */
 (function(){
   const dlg = $("#cmdk"), inp = $("#cmdq"), list = $("#cmdList");
-  const PAGES = [["หน้าแรก","#home"],["คลัง Prompt","#library"],["Skill","#skills"],["เครื่องมือ","#tools"],["วิธีใช้งาน","#how"],["เกี่ยวกับ","#about"]];
+  const PAGES = [["หน้าแรก","#home"],["คลัง Prompt","#library"],["Skill","#skills"],["เครื่องมือ","#tools"],["แผนการจัดการเรียนรู้","#lesson"],["วิธีใช้งาน","#how"],["เกี่ยวกับ","#about"]];
   let items = [], sel = 0;
   function show(){ if (typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open", ""); inp.value = ""; render(); setTimeout(() => inp.focus(), 0); }
   function hide(){ if (typeof dlg.close === "function") dlg.close(); else dlg.removeAttribute("open"); }
@@ -2187,6 +2299,156 @@ $$("[data-surprise]").forEach(b => b.addEventListener("click", () => surprise(b)
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k"){ e.preventDefault(); dlg.open ? hide() : show(); }
     else if (e.key === "/" && !typing && !dlg.open && !$("#modal").open){ e.preventDefault(); show(); }
   });
+})();
+
+/* ================= Lesson Plan Studio ================= */
+(function(){
+  const g = id => $("#" + id), val = id => g(id).value.trim();
+  const GRADES = [...[1,2,3,4,5,6].map(n => ["ป." + n, "ชั้นประถมศึกษาปีที่ " + n]), ...[1,2,3,4,5,6].map(n => ["ม." + n, "ชั้นมัธยมศึกษาปีที่ " + n])];
+  g("lpGrade").innerHTML = GRADES.map(([s, l]) => `<option value="${esc(l)}">${esc(l)}</option>`).join("");
+  g("lpGrade").selectedIndex = 3;
+
+  const MODELS = [
+    {k:"abl", l:"Active-based Learning (ตามแบบฟอร์ม)", note:"ใช้ 6 ขั้นตามแบบฟอร์มเดิม แบ่งเวลาตามสัดส่วน 5 : 10 : 15 : 15 : 10 : 5",
+     steps:[["ขั้นปฐมนิเทศและเร้าความสนใจ (Poll)",5],["ขั้นดำเนินการจัดการเรียนรู้ (Lecture)",10],["ขั้นปฏิบัติงานกลุ่ม (Active Learning)",15],["ขั้นสร้างองค์ความรู้ร่วมกัน (Active Learning)",15],["ขั้นประเมินผล (Active Learning)",10],["ขั้นสรุปกิจกรรม (Discussion)",5]]},
+    {k:"5e", l:"สืบเสาะหาความรู้ 5E", note:"แทนที่ขั้นตอนในส่วนที่ 5 ด้วย 5 ขั้นของ 5E",
+     steps:[["ขั้นสร้างความสนใจ (Engagement)"],["ขั้นสำรวจและค้นหา (Exploration)"],["ขั้นอธิบายและลงข้อสรุป (Explanation)"],["ขั้นขยายความรู้ (Elaboration)"],["ขั้นประเมินผล (Evaluation)"]]},
+    {k:"7e", l:"สืบเสาะหาความรู้ 7E", note:"แทนที่ขั้นตอนในส่วนที่ 5 ด้วย 7 ขั้นของ 7E",
+     steps:[["ขั้นตรวจสอบความรู้เดิม (Elicitation)"],["ขั้นเร้าความสนใจ (Engagement)"],["ขั้นสำรวจและค้นหา (Exploration)"],["ขั้นอธิบาย (Explanation)"],["ขั้นขยายความรู้ (Elaboration)"],["ขั้นประเมินผล (Evaluation)"],["ขั้นนำความรู้ไปใช้ (Extension)"]]},
+    {k:"gpas", l:"GPAS 5 Steps", note:"แทนที่ขั้นตอนในส่วนที่ 5 ด้วย 5 ขั้นของ GPAS",
+     steps:[["ขั้นรวบรวมข้อมูล (Gathering)"],["ขั้นคิดวิเคราะห์และสรุปความรู้ (Processing)"],["ขั้นปฏิบัติและสรุปความรู้หลังการปฏิบัติ (Applying and Constructing the Knowledge)"],["ขั้นสื่อสารและนำเสนอ (Applying the Communication Skill)"],["ขั้นประเมินเพื่อเพิ่มคุณค่า (Self-Regulating)"]]},
+    {k:"cippa", l:"CIPPA Model", note:"แทนที่ขั้นตอนในส่วนที่ 5 ด้วย 7 ขั้นของ CIPPA",
+     steps:[["ขั้นทบทวนความรู้เดิม"],["ขั้นแสวงหาความรู้ใหม่"],["ขั้นศึกษาทำความเข้าใจข้อมูลและเชื่อมโยงกับความรู้เดิม"],["ขั้นแลกเปลี่ยนความรู้ความเข้าใจกับกลุ่ม"],["ขั้นสรุปและจัดระเบียบความรู้"],["ขั้นปฏิบัติและแสดงผลงาน"],["ขั้นประยุกต์ใช้ความรู้"]]},
+    {k:"pbl", l:"ใช้ปัญหาเป็นฐาน (Problem-based)", note:"แทนที่ขั้นตอนในส่วนที่ 5 ด้วย 6 ขั้นของการเรียนรู้โดยใช้ปัญหาเป็นฐาน",
+     steps:[["ขั้นกำหนดปัญหา"],["ขั้นทำความเข้าใจปัญหา"],["ขั้นดำเนินการศึกษาค้นคว้า"],["ขั้นสังเคราะห์ความรู้"],["ขั้นสรุปและประเมินค่าของคำตอบ"],["ขั้นนำเสนอและประเมินผลงาน"]]},
+    {k:"proj", l:"โครงงานเป็นฐาน (Project-based)", note:"แทนที่ขั้นตอนในส่วนที่ 5 ด้วยขั้นตอนการเรียนรู้แบบโครงงาน เหมาะกับแผนหลายคาบ",
+     steps:[["ขั้นกำหนดหัวข้อและเป้าหมายโครงงาน"],["ขั้นวางแผนการทำงาน"],["ขั้นลงมือปฏิบัติ"],["ขั้นนำเสนอผลงาน"],["ขั้นประเมินและสะท้อนผล"]]},
+    {k:"dt", l:"Design Thinking", note:"แทนที่ขั้นตอนในส่วนที่ 5 ด้วย 5 ขั้นของ Design Thinking",
+     steps:[["ขั้นเข้าใจปัญหา (Empathize)"],["ขั้นกำหนดปัญหา (Define)"],["ขั้นระดมความคิด (Ideate)"],["ขั้นสร้างต้นแบบ (Prototype)"],["ขั้นทดสอบ (Test)"]]},
+    {k:"custom", l:"กำหนดเอง", note:"พิมพ์ขั้นตอนของกระบวนการที่ต้องการ บรรทัดละ 1 ขั้น", steps:[]}
+  ];
+  const STEP_COLORS = ["#1E3A5F","#0F6E56","#14B8A6","#2F6B8F","#B45309","#5B4B8A","#8B2C3B","#F59E0B"];
+  const L = { model:"abl", mins:[] };
+  const BLANK_7 = "7. แหล่งเรียนรู้ในหรือนอกสถานที่\n................................................................................\n................................................................................";
+  const BLANK_9 = "9. กิจกรรมเสนอแนะ\n................................................................................\n................................................................................\n10. บันทึกผลหลังการสอน (แก้ไขรูปแบบการบันทึกตามความเหมาะสมของท่าน)\nสรุปผลการจัดการเรียนรู้\n1) นักเรียนจำนวน .........................คน\nผ่านจุดประสงค์การเรียนรู้ ......................... คน คิดเป็นร้อยละ .........................\nไม่ผ่านจุดประสงค์ .........................คน คิดเป็นร้อยละ .........................\nได้แก่\n1. .........................\n2. .........................\nนักเรียนที่มีความสามารถพิเศษ/นักเรียนพิการได้แก่\n1. .........................\n2. .........................\n2) นักเรียนมีความรู้ความเข้าใจ (Knowledge: K) นักเรียนจำนวน .........................คน คิดเป็นร้อยละ .........................\nคำอธิบายเพิ่มเติม.........................\n................................................................................\n3) นักเรียนมีความรู้เกิดทักษะ (Skill: S) นักเรียนจำนวน .........................คน คิดเป็นร้อยละ .........................\nคำอธิบายเพิ่มเติม.........................\n................................................................................\n4) นักเรียนมีเจตคติ/คุณลักษณะอันพึงประสงค์ (Attribute / Attitude: A) นักเรียนจำนวน .........................คน คิดเป็นร้อยละ .........................\nคำอธิบายเพิ่มเติม.........................\n................................................................................\nสรุปผลการเรียนรู้ของผู้เรียน (ให้ทำการสรุปด้านผลลัพธ์การเรียนรู้ของผู้เรียนว่าเกิดจาการสอนของครูได้อย่างไร)\n1) ผลงาน หรือผลการปฏิบัติเป็นผลลัพธ์ที่เกิดขึ้นจากการจัดการเรียนรู้ของครู (ให้ทำการสรุปผลการจัดการเรียนรู้ตามประเด็น ดังนี้ 1) เป็นไปตามเป้าหมายหรือวัตถุประสงค์การเรียนรู้ที่กำหนดไว้ ในแผนการจัดการเรียนรู้ 2) เหมาะสมกับวัยและพัฒนาการของผู้เรียน 3) สอดคล้องกับสภาพและบริบทของผู้เรียนและชั้นเรียน 4) เกิดจากตัวผู้เรียนรายบุคคลหรือกลุ่มผู้เรียน ไม่ใช่ผลงานหรือผลการปฏิบัติของครู และ5) เหมาะสม คุ้มค่าและเป็นประโยชน์ต่อการเรียนรู้ของผู้เรียน)\n................................................................................\n................................................................................\n2) ผลงานหรือผลการปฏิบัติสะท้อนถึงการได้รับการพัฒนาทักษะพื้นฐาน (Basic Skills) ตามวัยและลักษณะของผู้เรียน (ให้ทำการสรุปผลการจัดการเรียนรู้ตามประเด็น ดังนี้ 1) ทักษะการสื่อสารโดยการพูด การเขียน หรือการแสดงออกในรูปแบบอื่น ๆ 2) ทักษะการนำเสนออย่างเป็นระบบ น่าสนใจ 3) ทักษะการใช้เครื่องมือ หรืออุปกรณ์ในการเรียน หรือการฝึก 4) ความคล่องแคล่ว หรือความชำนาญ หรือความถูกต้องในการคิดหรือการปฏิบัติ และ5) ทักษะการออกแบบและการวางแผน)\n................................................................................\n................................................................................\n3) ผลงานหรือผลการปฏิบัติสะท้อนถึงความสามารถในการเรียนรู้ (Cognitive Abilities) ตามวัยและลักษณะของผู้เรียน (ให้ทำการสรุปผลการจัดการเรียนรู้ตามประเด็น ดังนี้ 1) ความยืดหยุ่นในการคิด หรือการคิดเชื่อมโยงสิ่งต่าง ๆ 2) ความคิดสร้างสรรค์ หรือการคิดเชิงนวัตกรรม 3) กระบวนการสืบเสาะหาความหมาย หรือกระบวนการตัดสินใจ 4) กระบวนการคิดเชิงเหตุผล หรือการให้เหตุผลเชิงตรรกะ และ5) กระบวนการคิดเชิงระบบ)\n................................................................................\n................................................................................\n4) ผลงานหรือผลการปฏิบัติสะท้อนถึงการบูรณาการทักษะในการทำงาน (Cross - function Skills) ตามวัยและลักษณะของผู้เรียน (ให้ทำการสรุปผลการจัดการเรียนรู้ตามประเด็น ดังนี้ 1) ทักษะกระบวนการ เช่น การวางแผน การวิเคราะห์วิจารณ์ การกำกับตนเองการทดลองปฏิบัติ การนำเสนอความคิด 2) ทักษะทางสังคม เช่น การทำงานร่วมกับผู้อื่น การโน้มน้าว การเจรจา การบริการ การสอนหรือฝึกผู้อื่น 3) ทักษะการจัดการ เช่น การจัดการเวลา การจัดการทรัพยากร การจัดการทีมทำงาน 4) ทักษะเฉพาะทาง เช่น ทักษะทางกายภาพ การเคลื่อนไหว การใช้กล้ามเนื้อ ดนตรี กีฬา หรือทักษะเฉพาะทางตามลักษณะรายวิชาหรือสาระการเรียนรู้ และ5) ทักษะการแก้ปัญหาที่ซับซ้อน เช่น การแก้ปัญหาที่ต้องใช้ทักษะหลากหลายการแก้ปัญหาหลายขั้นตอน การแก้ปัญหาที่ต้องใช้ความร่วมมือจากผู้อื่น การแก้ปัญหาเชิงซ้อนหลายระดับ)\n................................................................................\n................................................................................\n11. ปัญหา/อุปสรรค/แนวทางแก้ไข\n1) ผลการแก้ปัญหาผู้เรียนสามารถเข้าถึงสิ่งที่เรียนและเข้าใจบทเรียน (สรุปผลโดยบันทึกหลังการสอนแสดงให้เห็นถึงการแก้ปัญหาเพื่อให้ผู้เรียนรับรู้และเข้าใจบทเรียน รวมถึงแสดงให้เห็นถึงผลการแก้ปัญหา\nที่ส่งผลลัพธ์ที่ดีต่อผู้เรียน โดยชี้ให้เห็นตามประเด็นดังนี้ 1) เนื้อหา (content) หรือมโนทัศน์ ที่จัดให้ผู้เรียนเรียนรู้หรือฝึกฝน มีความถูกต้อง และตรงตามหลักสูตร 2) ออกแบบและจัดโครงสร้างบทเรียนเป็นระบบ\nและใช้เวลาเหมาะสม และ3) ใช้สื่อประกอบบทเรียนได้เหมาะสมและช่วยในการเรียนรู้บรรลุวัตถุประสงค์\nของบทเรียน)\n................................................................................\n................................................................................\n2) ผู้เรียนสามารถ เชื่อมโยงความรู้หรือประสบการณ์เดิมกับการเรียนรู้ใหม่ (สรุปผลโดยบันทึกหลังการสอนแสดงให้เห็นถึงการแก้ปัญหาเพื่อให้ผู้เรียนสามารถเชื่อมโยงความรู้ หรือประสบการณ์เดิมกับการเรียนรู้ใหม่ รวมถึงแสดงให้เห็นถึงผลการแก้ปัญหาที่ส่งผลลัพธ์ที่ดีต่อผู้เรียน โดยชี้ให้เห็นตามประเด็นดังนี้\n1) มีการทบทวนความรู้ ทักษะ หรือประสบการณ์เดิม เช่น การใช้คำถาม แบบฝึก หรือกิจกรรม ฯลฯ 2) มีการเข้าถึงผู้เรียนที่ยังไม่พร้อมที่จะเรียนรู้ใหม่ และ3) มีการช่วยเหลือผู้เรียนที่ยังมีความรู้ ทักษะ หรือประสบการณ์เดิมไม่เพียงพอ ที่จะเชื่อมโยงกับการเรียนรู้ใหม่ เช่น การอธิบาย ยกตัวอย่าง การใช้คำถาม เกม หรือกิจกรรม ฯลฯ)\n................................................................................\n................................................................................\n3) ผู้เรียนได้สร้างความรู้เอง หรือได้สร้างประสบการณ์ใหม่จากการเรียนรู้ (สรุปผลโดยบันทึกหลังการสอนแสดงให้เห็นถึงการแก้ปัญหาในการให้ผู้เรียนสร้างความรู้หรือสร้างประสบการณ์ใหม่ รวมถึงแสดงให้เห็นถึงผลการแก้ปัญหาที่ส่งผลลัพธ์ที่ดีต่อผู้เรียน โดยชี้ให้เห็นตามประเด็นดังนี้ 1) ออกแบบงานหรือกิจกรรม\nให้ผู้เรียนสร้างความรู้หรือประสบการณ์ใหม่ อย่างเหมาะสมกับวัย สภาพ และบริบทของผู้เรียนและชั้นเรียน\n2) ผู้เรียนได้ลงมือปฏิบัติกิจกรรมที่ต้องใช้ความรู้หรือทักษะหลากหลาย และ3) ใช้เทคนิคให้ผู้เรียนสรุปความรู้หรือประสบการณ์ใหม่ด้วยตนเอง เช่น แผนที่ความคิด ตารางวิเคราะห์ การทดลองปฏิบัติ การนำเสนอ ฯลฯ)\n................................................................................\n................................................................................\n4) ผู้เรียนได้รับการกระตุ้นและเกิดแรงจูงใจในการเรียนรู้ (สรุปผลโดยบันทึกหลังการสอนแสดงให้เห็นถึงการแก้ปัญหาในการกระตุ้นหรือสร้างแรงจูงใจในการเรียนรู้ ของผู้เรียน รวมถึงแสดงให้เห็นถึงผลการแก้ปัญหาที่ส่งผลลัพธ์ที่ดีต่อผู้เรียน โดยชี้ให้เห็นตามประเด็นดังนี้ 1) กิจกรรมการเรียนรู้เชื่อมโยงสอดคล้องกับชีวิตประจำวัน บริบทชุมชน หรือสภาพจริงของผู้เรียน 2) วิธีการหรือกิจกรรมการเรียนรู้ มีความท้าทายและมีระดับความยากง่ายเหมาะสมกับวัย สภาพ และพัฒนาการของผู้เรียน และ3) ผู้เรียนมีโอกาสสะท้อนการเรียนรู้ นำเสนอความสำเร็จ หรืออธิบายข้อผิดพลาดหรือความล้มเหลวที่เกิดขึ้น)\n................................................................................\n................................................................................\n5) ผู้เรียนได้รับการพัฒนาทักษะความเชี่ยวชาญจากการเรียนรู้ (สรุปผลโดยบันทึกหลังการสอนแสดงให้เห็นถึงการแก้ปัญหาในการพัฒนาทักษะความเชี่ยวชาญ ของผู้เรียนรวมถึงแสดงให้เห็นถึงผลการแก้ปัญหา\nที่ส่งผลลัพธ์ที่ดีต่อผู้เรียน โดยชี้ให้เห็นตามประเด็นดังนี้ 1) ผู้เรียนได้ฝึกทักษะต่าง ๆ ครบถ้วนตามวัตถุประสงค์การเรียนรู้ 2) ผู้เรียนได้บูรณาการทักษะต่าง ๆ ลงสู่การปฏิบัติกิจกรรมการเรียนรู้ และ3) ผู้เรียนได้ประยุกต์\nใช้ทักษะที่ได้รับการพัฒนาในสถานการณ์ หรือการแก้ปัญหาใหม่ ๆ)\n................................................................................\n................................................................................\n6) ผู้เรียนได้รับข้อมูลสะท้อนกลับเพื่อปรับปรุงการเรียนรู้ (สรุปผลโดยบันทึกหลังการสอนแสดงให้เห็นถึงการแก้ปัญหาเพื่อให้ผู้เรียนปรับปรุงการเรียนรู้จากข้อมูลสะท้อนกลับของครู รวมถึงแสดงให้เห็นถึงผลการแก้ปัญหาที่ส่งผลลัพธ์ที่ดีต่อผู้เรียน โดยชี้ให้เห็นตามประเด็นดังนี้ 1) มีการสังเกตหรือค้นหาข้อผิดพลาดในการปฏิบัติหรือมโนทัศน์ ที่คลาดเคลื่อนของผู้เรียนในระหว่างการเรียนรู้ 2) มีการประเมินผลระหว่างการเรียนรู้\nโดยใช้วิธีการที่เหมาะสม เช่น การใช้คำถาม แบบทดสอบ การปฏิบัติ ฯลฯ และ3) มีการนำผลการสังเกต หรือผลการค้นหา หรือผลการประเมินระหว่างเรียนรู้สะท้อนกลับให้ผู้เรียน)\n................................................................................\n................................................................................\n7) ผู้เรียนได้รับการพัฒนาการเรียนรู้ในบรรยากาศชั้นเรียนที่เหมาะสม (สรุปผลโดยบันทึกหลังการสอนแสดงให้เห็นถึงการแก้ปัญหาในการสร้างบรรยากาศชั้นเรียนที่ช่วยพัฒนา การเรียนรู้ของผู้เรียน รวมถึงแสดงให้เห็นถึงผลการแก้ปัญหาที่ส่งผลลัพธ์ที่ดีต่อผู้เรียน โดยชี้ให้เห็นตามประเด็นดังนี้ 1) ผู้เรียนได้รับแบบอย่างที่ดีในการใช้ภาษา พฤติกรรมแสดงออก และเจตคติจากครูผู้สอน 2) กระตุ้นให้ผู้เรียนมั่นใจ มีอิสระในการคิดหรือทดลอง และรับรู้ความสามารถของตนเอง และ3) ใช้สื่อการเรียนหรือตัวอย่างประกอบที่หลากหลาย และกระตุ้นให้ผู้เรียน คิดวิเคราะห์ เปรียบเทียบจากสื่อการเรียนหรือตัวอย่างเหล่านั้น)\n................................................................................\n................................................................................\n8) ผู้เรียนสามารถ กำกับการเรียนรู้และมีการเรียนรู้แบบนำตนเอง (สรุปผลโดยบันทึกหลังการสอนแสดงให้เห็นถึงการแก้ปัญหาในการกำกับการเรียนรู้ และการเรียนรู้ แบบนำตนเองของผู้เรียน รวมถึงแสดงให้เห็นถึงผลการแก้ปัญหาที่ส่งผลลัพธ์ที่ดีต่อผู้เรียน โดยชี้ให้เห็นตามประเด็นดังนี้ 1) ผู้เรียนได้รับโอกาสในการกำหนดเป้าหมายการเรียนรู้หรือการลงมือปฏิบัติ 2) ผู้เรียนได้ประเมินตนเองหรือถูกเพื่อนประเมินในระหว่างเรียนหรือเมื่อจบบทเรียน และ3) ผู้เรียนได้รับการกระตุ้นหรือการมอบหมายงานให้ศึกษา ค้นคว้า ฝึกฝน หรือเรียนรู้ต่อเนื่องเพิ่มเติมภายหลังจบบทเรียน)\n................................................................................\n................................................................................\n12. เสนอแนะ\n................................................................................\n................................................................................\nลงชื่อ.........................\n( {TEACHER} )\n{TRANK}\nความเห็นของหัวหน้าสถานศึกษา/ผู้ที่ได้รับมอบหมาย\nได้ทำการตรวจแผนการจัดการเรียนรู้ของ {TEACHER2} แล้วมีความคิดเห็นดังนี้\n1. องค์ประกอบของแผนการจัดการเรียนรู้\n☐ ครบถ้วนและถูกต้อง\n☐ ยังไม่ครบถ้วนหรือไม่ถูกต้อง ควรปรับปรุงพัฒนาต่อไป\n2. ความสอดคล้องของแผนการจัดการเรียนรู้กับหลักสูตรสถานศึกษา\n☐ สอดคล้อง\n☐ ยังไม่สอดคล้อง ควรปรับปรุงพัฒนาต่อไป\n3. รูปแบบของการจัดการเรียนรู้\n☐ เน้นผู้เรียนเป็นสำคัญ\n☐ ยังเน้นผู้เรียนเป็นสำคัญ ควรปรับปรุงพัฒนาต่อไป\n4. สื่อการเรียนรู้\n☐ เหมาะสมกับรูปแบบการจัดการเรียนรู้\n☐ ยังไม่เหมาะ ควรปรับปรุงพัฒนาต่อไป\n5. การประเมินผลการเรียนรู้\n☐ ครอบคลุมจุดประสงค์การเรียนรู้\n☐ ยังไม่ครอบคลุมประสงค์การเรียนรู้ ควรปรับปรุงพัฒนาต่อไป\n6. ข้อเสนอแนะอื่น ๆ\n................................................................................\nลงชื่อ .........................\n( {PNAME} )\nตำแหน่ง {PPOS}";
+
+  const model = () => MODELS.find(m => m.k === L.model);
+  const stepsOf = () => L.model === "custom" ? g("lpCustom").value.split("\n").map(s => s.trim()).filter(Boolean).map(s => [s]) : model().steps;
+  const totalMin = () => Math.max(15, Math.round((+g("lpHrs").value || 1) * 60));
+
+  function allocate(){
+    const st = stepsOf(), total = totalMin();
+    if (!st.length){ L.mins = []; return; }
+    const w = st.map((s, i) => s[1] || ((i === 0 || i === st.length - 1) ? 1 : 2));
+    const sum = w.reduce((a, b) => a + b, 0);
+    let m = w.map(x => Math.max(5, Math.round(total * x / sum / 5) * 5));
+    let diff = total - m.reduce((a, b) => a + b, 0), guard = 0;
+    while (diff !== 0 && guard++ < 200){
+      const idx = diff > 0 ? m.indexOf(Math.max(...m)) : m.indexOf(Math.max(...m));
+      const stepAmt = Math.abs(diff) >= 5 ? 5 : Math.abs(diff);
+      if (diff < 0 && m[idx] - stepAmt < 5) break;
+      m[idx] += diff > 0 ? stepAmt : -stepAmt;
+      diff = total - m.reduce((a, b) => a + b, 0);
+    }
+    L.mins = m;
+  }
+
+  function drawModels(){
+    g("lpModels").innerHTML = MODELS.map(m => `<button class="opt" data-m="${m.k}" aria-pressed="${m.k === L.model}">${esc(m.l)}</button>`).join("");
+    g("lpModels").querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => { L.model = b.dataset.m; drawModels(); allocate(); update(); }));
+    g("lpModelNote").textContent = model().note;
+    g("lpCustomWrap").hidden = L.model !== "custom";
+  }
+
+  function drawTimeline(){
+    const st = stepsOf(), total = totalMin(), used = L.mins.reduce((a, b) => a + b, 0);
+    g("lpTotal").textContent = `รวม ${used} จาก ${total} นาที`;
+    g("lpBar").innerHTML = st.map((s, i) => `<i style="flex:${L.mins[i] || 0};background:${STEP_COLORS[i % 8]}" title="${esc(s[0])}"></i>`).join("");
+    g("lpSteps").innerHTML = st.length ? st.map((s, i) => `<div class="tl-row"><span class="tl-dot" style="background:${STEP_COLORS[i % 8]}"></span><label for="lpm${i}">${esc(s[0])}</label>
+      <span class="tl-min"><button class="rm" data-d="-5" data-i="${i}" aria-label="ลดเวลา ${esc(s[0])}">−</button><input id="lpm${i}" type="number" min="0" step="5" value="${L.mins[i] || 0}" data-i="${i}"><small>นาที</small><button class="rm" data-d="5" data-i="${i}" aria-label="เพิ่มเวลา ${esc(s[0])}">+</button></span></div>`).join("")
+      : `<p class="note">พิมพ์ขั้นตอนในช่อง "ขั้นตอนของกระบวนการ" เพื่อแสดงลำดับเวลา</p>`;
+    g("lpSteps").querySelectorAll("input").forEach(e => e.addEventListener("change", () => { L.mins[+e.dataset.i] = Math.max(0, +e.value || 0); update(); }));
+    g("lpSteps").querySelectorAll("button[data-d]").forEach(b => b.addEventListener("click", () => { const i = +b.dataset.i; L.mins[i] = Math.max(0, (L.mins[i] || 0) + +b.dataset.d); update(); const el = g("lpm" + i); if (el) el.focus(); }));
+    g("lpTimeWarn").innerHTML = st.length && used !== total ? `<div class="alert" style="margin-top:10px">เวลารวมของทุกขั้น (${used} นาที) ไม่เท่ากับเวลาของแผน (${total} นาที) ปรับเวลาแต่ละขั้น หรือกด "แบ่งเวลาใหม่อัตโนมัติ"</div>` : "";
+  }
+
+  function planPrompt(){
+    const st = stepsOf(), total = totalMin(), hrs = +(total / 60).toFixed(2);
+    const fill = (v, ph) => v || ph;
+    const grade = g("lpGrade").value;
+    const T = [];
+    T.push("คุณคือผู้เชี่ยวชาญด้านหลักสูตรและการออกแบบการจัดการเรียนรู้ฐานสมรรถนะ หน้าที่ของคุณคือค้นหาข้อมูลที่จำเป็นและเขียนแผนการจัดการเรียนรู้ตามแบบฟอร์มด้านล่าง โดยเขียนเนื้อหาเฉพาะส่วนที่ 1–6 และส่วนที่ 8 ส่วนที่เหลือคงเป็นโครงพร้อมช่องว่าง ใช้ภาษาเขียนเชิงวิชาการที่ชัดเจน และครูนำไปสอนได้จริง", "");
+    T.push("ข้อมูลส่วนหัวของแผน (ใช้ตามนี้ทุกตัวอักษร)");
+    T.push(`แผนการจัดการเรียนรู้ที่ ${fill(val("lpNo"), "[ลำดับแผน]")}`);
+    T.push(`หน่วยการเรียนรู้ที่ ${fill(val("lpUnit"), "....")}  เรื่อง ${fill(val("lpTopic"), "[ชื่อเรื่อง]")}`);
+    T.push(`รหัสวิชา ${fill(val("lpCode"), "....")}  รายวิชา ${fill(val("lpCourse"), "[รายวิชา]")}  กลุ่มสาระการเรียนรู้${g("lpArea").value}`);
+    T.push(`${grade}  ภาคเรียนที่ ${g("lpTerm").value}`);
+    T.push(`เวลา ${hrs} ชั่วโมง  ครูผู้สอน ${fill(val("lpTeacher"), "[ชื่อครูผู้สอน]")}`, "");
+
+    T.push("ขั้นตอนการทำงาน");
+    T.push(`1. ระบุมาตรฐานการเรียนรู้และตัวชี้วัดที่สอดคล้องกับเรื่อง "${fill(val("lpTopic"), "[ชื่อเรื่อง]")}" ของ${grade} กลุ่มสาระการเรียนรู้${g("lpArea").value} ตามหลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน พุทธศักราช 2551 และฉบับที่มีการปรับปรุง หากรหัสวิชาบ่งชี้ว่าเป็นรายวิชาเพิ่มเติม ให้เขียนเป็นผลการเรียนรู้แทน`);
+    T.push("2. หากคุณค้นหาเว็บได้ ให้ค้นจากแหล่งทางการ เช่น เอกสารหลักสูตรของกระทรวงศึกษาธิการ สำนักงานคณะกรรมการการศึกษาขั้นพื้นฐาน หรือ สสวท. แล้วระบุแหล่งที่ใช้ไว้ท้ายแผน");
+    T.push("3. หากค้นหาเว็บไม่ได้ หรือไม่มั่นใจว่ารหัสและข้อความตัวชี้วัดถูกต้องตรงตามหลักสูตร ให้ทำเครื่องหมาย [โปรดตรวจสอบกับหลักสูตรสถานศึกษา] ต่อท้ายตัวชี้วัดนั้น");
+    T.push("4. เขียนส่วนที่ 1–6 และส่วนที่ 8 ให้สอดคล้องกัน การประเมินต้องวัดจุดประสงค์ทุกข้อ และใช้ชิ้นงานหรือภาระงานในส่วนที่ 4 เป็นหลักฐาน", "");
+
+    T.push("กฎที่ต้องปฏิบัติอย่างเคร่งครัด");
+    T.push("1. ห้ามสร้างรหัสตัวชี้วัด ชื่อเอกสาร ผู้แต่ง เว็บไซต์ หรือปีที่ไม่มีอยู่จริง");
+    T.push("2. จุดประสงค์การเรียนรู้ด้าน K S และ A ใช้คำกริยาที่สังเกตและวัดได้");
+    T.push(`3. กิจกรรมเหมาะสมกับวัยและพัฒนาการของนักเรียน${grade} ผู้เรียนเป็นผู้ลงมือปฏิบัติ คิด และสร้างความรู้ด้วยตนเอง`);
+    T.push("4. สื่อการสอนให้เลือกสิ่งที่โรงเรียนทั่วไปหาได้ง่ายและมีต้นทุนต่ำ");
+    T.push("5. ห้ามสร้างผลการสอน จำนวนนักเรียนที่ผ่าน ร้อยละ หรือชื่อนักเรียน", "");
+
+    T.push("เขียนแผนตามโครงสร้างและลำดับต่อไปนี้", "",
+      "1. มาตรฐานการเรียนรู้/ ตัวชี้วัด/ ผลการเรียนรู้ (สำหรับรายวิชาเพิ่มเติม)", "มาตรฐานการเรียนรู้", "ตัวชี้วัด", "",
+      "2. สาระสำคัญ (ชื่อ concept, ความหมาย และตัวอย่างประกอบ)", "",
+      "3. จุดประสงค์การเรียนรู้", "3.1 ความรู้ (Knowledge: K)", "3.2 ทักษะ (Skill: S)", "3.3 เจตคติ/คุณลักษณะอันพึงประสงค์ (Attribute / Attitude: A)", "",
+      "4. ชิ้นงานหรือภาระงาน (หลักฐาน/ร่องรอยแสดงความรู้)", "",
+      `5. กระบวนการเรียนรู้ (${total} นาที)${L.model !== "abl" ? " โดยใช้" + (L.model === "custom" ? "กระบวนการที่ครูกำหนด" : model().l) : ""}`);
+    if (total > 60) T.push(`แผนนี้ใช้เวลา ${hrs} ชั่วโมง ให้ระบุว่าแต่ละขั้นอยู่ในชั่วโมงที่เท่าใด`);
+    T.push("ใช้ชื่อขั้นและเวลาตามนี้ แต่ละขั้นเขียนกิจกรรมเป็นข้อ 1. 2. ... อย่างน้อย 2 ข้อ ระบุบทบาทของครูและนักเรียน และคำถามกระตุ้นการคิดในขั้นที่เหมาะสม");
+    st.forEach((s, i) => T.push(`${s[0]} (${L.mins[i] || 0} นาที)`));
+    const KEEP = "ให้คัดลอกหัวข้อ ข้อความ และเส้นจุดไข่ปลาในส่วนนี้ตามต้นฉบับทุกบรรทัด ห้ามเขียนเนื้อหาเพิ่ม ห้ามตัดหัวข้อ และห้ามเติมข้อมูลในช่องว่าง เพื่อให้ครูเขียนเพิ่มเติมด้วยตนเองภายหลัง";
+    T.push("", "6. สื่อการสอน", "",
+      "ส่วนที่ 7 (โครงว่าง) " + KEEP, '"""', BLANK_7, '"""', "",
+      "8. การประเมิน (นำเสนอเป็นตาราง คอลัมน์: จุดประสงค์การเรียนรู้ / วิธีการวัดและประเมินผล / เครื่องมือ / เกณฑ์การประเมิน ให้ครอบคลุมจุดประสงค์ด้าน K S และ A ทุกข้อ)",
+      "8.1 วิธีการวัดและประเมินผล",
+      "8.2 เครื่องมือ (ระบุชื่อเครื่องมือให้ตรงกับชิ้นงานหรือภาระงานในส่วนที่ 4 เช่น แบบประเมินชิ้นงาน แบบสังเกตพฤติกรรม แบบทดสอบ)",
+      "8.3 เกณฑ์การประเมิน (ระบุระดับคุณภาพพร้อมคำอธิบายของแต่ละระดับ และเกณฑ์การผ่าน)", "",
+      "ส่วนที่ 9 ถึงท้ายแบบฟอร์ม (โครงว่าง) " + KEEP,
+      '"""', BLANK_9.replace("{TEACHER}", fill(val("lpTeacher"), "....................................")).replace("{TEACHER2}", fill(val("lpTeacher"), "....................................")).replace("{TRANK}", "ตำแหน่ง " + g("lpRank").value).replace("{PNAME}", fill(val("lpBoss"), "....................................")).replace("{PPOS}", fill(val("lpBossPos"), "....................................")), '"""', "",
+      "เมื่อเขียนเสร็จ ให้แสดงต่อท้ายแบบฟอร์ม (แยกจากตัวแผน) 2 ส่วน ได้แก่ แหล่งข้อมูลที่ใช้ค้นมาตรฐานและตัวชี้วัด (ถ้ามี) และรายการที่ครูควรตรวจสอบก่อนนำไปใช้ หากคุณสร้างไฟล์ได้ ให้จัดทำเป็นไฟล์ Word ตามโครงสร้างนี้");
+    return T.join("\n");
+  }
+
+  function guardPlan(){
+    const req = [["lpNo","แผนการจัดการเรียนรู้ที่"],["lpTopic","เรื่อง"],["lpCourse","รายวิชา"],["lpTeacher","ครูผู้สอน"]].filter(([id]) => !val(id));
+    const miss = req.map(x => x[1]);
+    if (!stepsOf().length) miss.push("ขั้นตอนของกระบวนการ");
+    if (miss.length){
+      const msg = "กรอกข้อมูลก่อน: " + miss.join(", ");
+      g("lpErr").textContent = msg; g("lpErr").hidden = false; toast(msg);
+      const first = req.length ? g(req[0][0]) : g("lpCustom");
+      first.scrollIntoView({behavior: reduced ? "auto" : "smooth", block:"center"}); setTimeout(() => first.focus({preventScroll:true}), 300);
+      return false;
+    }
+    return true;
+  }
+  function update(){
+    g("lpErr").hidden = true;
+    drawTimeline();
+    g("lpOut").textContent = planPrompt();
+    const req = ["lpNo","lpTopic","lpCourse","lpTeacher"];
+    g("lpBarFill").style.width = Math.round(req.filter(id => val(id)).length / req.length * 100) + "%";
+  }
+  // events
+  ["lpNo","lpUnit","lpTopic","lpCode","lpCourse","lpTeacher","lpBoss","lpBossPos"].forEach(id => g(id).addEventListener("input", update));
+  ["lpArea","lpGrade","lpTerm","lpRank"].forEach(id => g(id).addEventListener("change", update));
+  g("lpHrs").addEventListener("input", () => { allocate(); update(); });
+  g("lpCustom").addEventListener("input", () => { allocate(); update(); });
+  g("lpReset").addEventListener("click", () => { allocate(); update(); toast("แบ่งเวลาใหม่แล้ว"); });
+  g("lpCopy").addEventListener("click", () => { if (guardPlan()) copyText(planPrompt(), "คัดลอก Prompt เขียนแผนแล้ว"); });
+  g("lpDl").addEventListener("click", () => { if (guardPlan()) download("lesson-plan-" + (val("lpNo") || "x") + ".txt", planPrompt()); });
+  drawModels(); allocate(); update();
 })();
 
 route();
