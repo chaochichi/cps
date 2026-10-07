@@ -438,6 +438,67 @@ dialog.cmdk{width:min(640px,calc(100vw - 24px));align-self:start;margin-top:12vh
 .cv-wide .cv-author{left:36%;right:36%}
 .cv-wide.cv-right .cv-author{left:6%;right:60%}
 
+/* research studio */
+.calc{width:100%;border-collapse:collapse;font-size:14px}
+.calc th,.calc td{padding:6px 4px;text-align:left;font-weight:500}
+.calc thead th{font-weight:600;color:var(--muted);font-size:13px}
+.calc td input{width:100%;border:1px solid var(--line);background:var(--paper);border-radius:var(--r-sm);padding:7px 10px}
+.calc td input:focus{outline:none;border-color:var(--teal-ink);box-shadow:0 0 0 3px #14B8A633}
+.calc-out{margin:14px 0 8px;border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px;background:var(--paper)}
+.calc-out dl{margin:0;display:grid;gap:6px}
+.calc-out dl div{display:flex;justify-content:space-between;gap:12px;font-size:14px;border-bottom:1px dashed var(--line);padding-bottom:5px}
+.calc-out dl div:last-child{border-bottom:none}
+.calc-out dt{color:var(--muted)}
+.calc-out dd{margin:0;font-weight:600;font-family:var(--f-mono);text-align:right}
+
+/* research infographic */
+.ip{position:relative;border-radius:4px;overflow:hidden;background:linear-gradient(180deg,#FFF4D6,#FDE7F0);box-shadow:0 8px 24px #1E3A5F33;padding:4%;display:flex;flex-direction:column;gap:2.4%;max-height:420px}
+.ip-head{display:flex;gap:4%;align-items:center;flex:0 0 auto;min-height:14%}
+.ip-t{flex:1;display:grid;gap:3px;justify-items:center}
+.ip-t em{display:block;height:4px;width:70%;background:#7B5CC4;border-radius:2px}
+.ip-t .ip-school{width:40%;background:#E8457A}
+.ip-t .ip-big{height:10px;width:85%;background:#2C7BB6}
+.ip-t .ip-inno{height:8px;width:55%;background:#E07A2F;border-radius:4px}
+.ip-person{width:20%;aspect-ratio:3/4;border-radius:40% 40% 6px 6px;background:radial-gradient(circle at 50% 30%,#8A6A52 22%,transparent 23%),radial-gradient(ellipse at 50% 100%,#B7A27A 55%,transparent 56%)}
+.ip-row{display:grid;gap:2.4%;flex:1 1 0;min-height:0}
+.ip-row.c2{grid-template-columns:1fr 1fr}
+.ip-row.c3{grid-template-columns:1fr 1fr 1fr}
+.ip-b{background:#FFFFFFCC;border:1px dashed #C9B48A;border-radius:6px;padding:5%;display:grid;align-content:start;gap:3px;min-height:0}
+.ip-b.on{border:1px solid #E2D3B5;background:#FFFFFF}
+.ip-b i{width:11px;height:11px;border-radius:50%;color:#fff;font-style:normal;font-size:7px;display:grid;place-items:center;font-weight:700}
+.ip-b em{display:block;height:3px;background:#D6CCB8;border-radius:2px}
+.ip-b.on em{background:#9A8A6E}
+.ip-b em:last-child{width:70%}
+.ip-8{grid-template-columns:auto 1fr;align-items:center}
+.ip-ch{display:flex;gap:8%;align-items:flex-end;justify-content:center;height:100%}
+.ip-ch small{font-size:9px;color:#9A8A6E}
+.c-bar{display:flex;gap:3px;align-items:flex-end;height:26px}
+.c-bar b{width:8px;background:#E8457A}.c-bar b+b{background:#2F9E9A}
+.c-donut{width:24px;height:24px;border-radius:50%;background:conic-gradient(#2F9E9A 0 75%,#E5E7EB 75%);-webkit-mask:radial-gradient(circle,transparent 45%,#000 46%);mask:radial-gradient(circle,transparent 45%,#000 46%)}
+.c-line{width:30px;height:20px;border-bottom:1px solid #9A8A6E;background:linear-gradient(160deg,transparent 46%,#2C7BB6 47% 53%,transparent 54%)}
+.c-hbar{display:grid;gap:2px;width:30px}.c-hbar b{display:block;height:4px;background:#2F9E9A;width:95%}
+.ip-foot{height:4%;background:#E07A2F;border-radius:999px;width:60%;align-self:center}
+
+/* lesson infographic */
+.lpi{position:relative;width:46%;aspect-ratio:1/1.414;background:linear-gradient(180deg,#FFF8E6,#EAF6F4);border-radius:3px;box-shadow:0 6px 18px #1E3A5F2E;padding:5%;display:flex;flex-direction:column;gap:3%;overflow:hidden}
+.lpi .h{height:12%;border-radius:4px;background:#1E3A5F;display:flex;align-items:center;gap:6%;padding:0 6%}
+.lpi .h em{display:block;height:4px;border-radius:2px;background:#fff;flex:1}
+.lpi .h i{width:16%;aspect-ratio:1;border-radius:50%;background:#F59E0B;flex:none}
+.lpi .r{display:grid;gap:4%;flex:1 1 0;min-height:0}
+.lpi .r.c2{grid-template-columns:1fr 1fr}.lpi .r.c3{grid-template-columns:1fr 1fr 1fr}
+.lpi .b{background:#fff;border:1px solid #DCE3EC;border-radius:4px;padding:6%;display:grid;align-content:start;gap:3px}
+.lpi .b b{font-size:7px;font-weight:700;color:#1E3A5F;line-height:1.2}
+.lpi .b em{display:block;height:2px;background:#C9D3DE;border-radius:1px}
+.lpi .tlp{display:flex;gap:2px;align-items:stretch;height:12px;margin-top:4px}
+.lpi .tlp i{border-radius:2px;display:block}
+.lpi .lines{border:1px dashed #9AA8B8;background:transparent}
+.lpi .lines em{background:#C9D3DE;height:1px;margin-top:4px}
+.lpi .sig{flex:0 0 12%;display:grid;grid-template-columns:1fr 1fr;gap:6%}
+.lpi .sig div{display:grid;align-content:end;gap:2px;justify-items:center}
+.lpi .sig em{display:block;height:1px;width:80%;background:#1E3A5F}
+.lpi .sig small{font-size:6px;color:#5B6474;line-height:1.2;text-align:center}
+.lpi .pg{position:absolute;right:5%;bottom:2%;font-size:7px;color:#5B6474}
+
 footer{border-top:1px solid var(--line);padding:28px 0 36px;color:var(--muted);font-size:14px}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
@@ -460,7 +521,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <a href="#library">คลัง Prompt</a>
       <a href="#skills">Skill</a>
       <a href="#tools">เครื่องมือ</a>
-      <a href="#lesson">แผนการจัดการเรียนรู้<span class="tag">ใหม่</span></a>
+      <a href="#lesson">แผนการสอน</a>
+      <a href="#lesson-info">แผนการสอนหน้าเดียว<span class="tag">ใหม่</span></a>
       <a href="#how">วิธีใช้งาน</a>
       <a href="#about">เกี่ยวกับ</a>
     </nav>
@@ -847,8 +909,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 <!-- ================= LESSON PLAN STUDIO ================= -->
 <section class="view" data-view="lesson" aria-label="แผนการจัดการเรียนรู้">
   <div class="page-hero"><div class="wrap">
-    <h1>แผนการจัดการเรียนรู้</h1>
-    <p>กรอกข้อมูลส่วนหัวของแผนและเลือกกระบวนการจัดการเรียนรู้ แล้วนำ Prompt ไปให้ AI เขียนแผนตามแบบฟอร์ม Active-based Learning สำหรับยื่น PA ส่วนบันทึกหลังสอนจะเป็นช่องว่างไว้เขียนเอง</p>
+    <h1 id="lpH1">แผนการจัดการเรียนรู้</h1>
+    <p id="lpLead"></p>
+    <div class="stepper" style="grid-template-columns:repeat(2,1fr)" role="tablist" aria-label="รูปแบบผลลัพธ์" hidden>
+      <button role="tab" id="lpTabFull" aria-selected="true" aria-controls="lpFullBox"><b>1</b><span>แผนเต็มรูปแบบ<small><br>ตามแบบฟอร์ม PA</small></span></button>
+      <button role="tab" id="lpTabInfo" aria-selected="false" aria-controls="lpInfoBox" tabindex="-1"><b>2</b><span>แผนหน้าเดียว<small><br>อินโฟกราฟิก A4 จำนวน 2 แผ่น</small></span></button>
+    </div>
       </div></div>
 
   <div class="sec" style="padding-top:36px"><div class="wrap">
@@ -899,13 +965,33 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <div id="lpTimeWarn"></div>
         <button class="btn btn-line btn-sm" id="lpReset" style="margin-top:10px">แบ่งเวลาใหม่อัตโนมัติ</button>
       </div>
-      <div class="box" style="margin:0">
+      <div class="box" style="margin:0" id="lpFullBox" role="tabpanel" aria-labelledby="lpTabFull">
         <div class="out-head"><b>Prompt เขียนแผน</b>
           <div class="row"><button class="btn btn-line btn-sm" id="lpDl">ดาวน์โหลด .txt</button><button class="btn btn-primary btn-sm" id="lpCopy">คัดลอก</button></div></div>
         <div class="progress" aria-hidden="true" style="margin-top:12px"><i id="lpBarFill"></i></div>
         <div class="err" id="lpErr" hidden></div>
         <div class="prompt-box" id="lpOut" style="margin-top:12px;max-height:300px;min-height:160px"></div>
         <p class="note" style="margin-top:10px">AI จะเขียนส่วนที่ 1–6 และส่วนที่ 8 การประเมิน ส่วนที่ 7, 9–12 และความเห็นของหัวหน้าสถานศึกษาจะเป็นโครงพร้อมช่องว่างตามแบบฟอร์ม ตรวจมาตรฐานและตัวชี้วัดที่ AI ใส่ให้กับหลักสูตรสถานศึกษาทุกครั้ง</p>
+      </div>
+      <div id="lpInfoBox" role="tabpanel" aria-labelledby="lpTabInfo" hidden style="display:grid;gap:16px">
+        <div class="box" style="margin:0">
+          <div class="out-head"><b>ตั้งค่าอินโฟกราฟิก</b></div>
+          <div class="group" style="margin-top:12px"><b>สไตล์ภาพ</b><div class="opts" id="liStyle"></div></div>
+          <div class="group"><b>จำนวนโลโก้จากภาพอ้างอิง</b><div class="opts" id="liLogos"></div></div>
+          <label class="toggle"><input type="checkbox" id="liNotes" checked>ใส่กล่องบันทึกหลังการสอนแบบเส้นบรรทัดว่างในแผ่นที่ 2</label>
+          <label class="toggle"><input type="checkbox" id="liPhoto">ใส่ภาพครูผู้สอนจากภาพอ้างอิงในส่วนหัว</label>
+        </div>
+        <div class="box" style="margin:0">
+          <div class="out-head"><b>ผังจำลอง 2 แผ่น</b><span class="note">A4 แนวตั้ง</span></div>
+          <div class="sheet-wrap" style="margin-top:12px;gap:14px"><div class="lpi" id="liPage1" role="img" aria-label="ผังแผ่นที่ 1"></div><div class="lpi" id="liPage2" role="img" aria-label="ผังแผ่นที่ 2"></div></div>
+        </div>
+        <div class="box" style="margin:0">
+          <div class="out-head"><b>Prompt แผนหน้าเดียว</b>
+            <div class="row"><button class="btn btn-line btn-sm" id="liDl">ดาวน์โหลด .txt</button><button class="btn btn-primary btn-sm" id="liCopy">คัดลอก</button></div></div>
+          <div class="err" id="liErr" hidden></div>
+          <div class="prompt-box" id="liOut" style="margin-top:12px;max-height:300px;min-height:160px"></div>
+          <p class="note" style="margin-top:10px">AI จะเขียนเนื้อหาแบบย่อให้ตรวจก่อน เมื่อคุณยืนยันจึงสร้างภาพทีละแผ่น ตรวจมาตรฐาน ตัวชี้วัด และข้อความภาษาไทยในภาพทุกตำแหน่งก่อนใช้</p>
+        </div>
       </div>
     </div>
   </div>
@@ -1078,6 +1164,93 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <div class="err" id="cvErr" hidden></div>
         <div class="prompt-box" id="cvOut" style="margin-top:12px;max-height:300px;min-height:160px"></div>
         <p class="note" style="margin-top:10px">แนบภาพอ้างอิงตามลำดับที่ระบุใน Prompt เครื่องมือสร้างภาพแต่ละตัวมีขีดจำกัดความละเอียดของตนเอง ควรขยายภาพ (upscale) ก่อนพิมพ์ และตรวจข้อความภาษาไทยทุกตำแหน่ง</p>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+
+<!-- ================= RESEARCH PROMPT STUDIO ================= -->
+<section class="view" data-view="research" aria-label="Research Infographic Studio">
+  <div class="page-hero"><div class="wrap">
+    <a class="link" href="#tools" style="color:#9FE1CB">กลับไปหน้าเครื่องมือ</a>
+    <h1 style="margin-top:10px">Research Infographic Studio</h1>
+    <p>สร้าง Prompt อินโฟกราฟิกสรุปวิจัยในชั้นเรียนหน้าเดียว 10 ส่วน พร้อมกราฟผลการวิจัยจากตัวเลขจริง กรอกข้อมูลเอง หรือให้ AI สรุปจากไฟล์รายงานที่แนบก็ได้</p>
+  </div></div>
+
+  <div class="sec" style="padding-top:36px"><div class="wrap rp">
+    <div>
+      <div class="box">
+        <h2>1. ที่มาของเนื้อหา</h2>
+        <div class="gtypes" id="riSource" role="group" aria-label="ที่มาของเนื้อหา"></div>
+      </div>
+
+      <div class="box">
+        <h2>2. ส่วนหัวอินโฟกราฟิก</h2>
+        <div class="field"><label for="riTitle">ชื่อเรื่องวิจัย<span class="req">*</span></label><textarea id="riTitle" style="min-height:70px" placeholder="การพัฒนาทักษะการอ่านสะกดคำของนักเรียนชั้นประถมศึกษาปีที่ 1 โดยใช้เกมประสมคำร่วมกับการเรียนรู้แบบร่วมมือ"></textarea></div>
+        <div class="inline">
+          <div class="field"><label for="riInno">ชื่อนวัตกรรม (ป้ายเด่น)</label><input id="riInno" placeholder="เมืองมหัศจรรย์ตัวอักษร"></div>
+          <div class="field"><label for="riTag">คำโปรยใต้ชื่อนวัตกรรม</label><input id="riTag" placeholder="รู้เสียง • ประสมคำ • อ่านออก • ใช้เป็น"></div>
+        </div>
+        <div class="inline">
+          <div class="field"><label for="riName">ผู้วิจัย</label><input id="riName" placeholder="นาย/นาง/นางสาว ชื่อ นามสกุล"></div>
+          <div class="field"><label for="riPos">ตำแหน่ง</label><input id="riPos" placeholder="ครู โรงเรียน..."></div>
+        </div>
+        <div class="field"><label for="riSchool">ชื่อสถานศึกษา (ป้ายด้านบน)</label><input id="riSchool" placeholder="โรงเรียน..."></div>
+        <div class="field"><label for="riSlogan">คำขวัญท้ายภาพ (ไม่บังคับ)</label><input id="riSlogan" placeholder="อ่านได้อย่างมั่นใจ • เรียนรู้อย่างมีความสุข"></div>
+      </div>
+
+      <div class="box" id="riPartsBox">
+        <h2>3. เนื้อหา 10 ส่วน</h2>
+        <p class="note" style="margin-bottom:12px">เขียนสั้น ๆ ส่วนละ 2–4 บรรทัด ใช้ข้อมูลจริงเท่านั้น ส่วนที่เว้นว่าง AI จะใส่ช่องว่างให้เติมภายหลัง ส่วนที่ 8 ใช้กราฟจากข้อ 4</p>
+        <div id="riParts"></div>
+        <div id="riLenWarn"></div>
+      </div>
+
+      <div class="box">
+        <h2>4. ข้อมูลกราฟผลการวิจัย (ส่วนที่ 8)</h2>
+        <p class="note" style="margin-bottom:12px">กรอกเฉพาะตัวเลขจริง ระบบคำนวณผลต่างและร้อยละให้ กราฟที่ไม่มีข้อมูลจะไม่แสดงบนภาพ</p>
+        <div class="field"><label for="riFull">คะแนนเต็ม</label><input id="riFull" type="number" min="0" step="any" placeholder="20"></div>
+        <table class="calc">
+          <thead><tr><th scope="col"></th><th scope="col">ก่อน</th><th scope="col">หลัง</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">จำนวนที่ประเมิน (คน)</th><td><input id="riNpre" type="number" min="0" aria-label="จำนวนที่ประเมินก่อน"></td><td><input id="riNpost" type="number" min="0" aria-label="จำนวนที่ประเมินหลัง"></td></tr>
+            <tr><th scope="row">ค่าเฉลี่ย</th><td><input id="riMpre" type="number" step="any" aria-label="ค่าเฉลี่ยก่อน"></td><td><input id="riMpost" type="number" step="any" aria-label="ค่าเฉลี่ยหลัง"></td></tr>
+            <tr><th scope="row">ผู้ผ่านเกณฑ์ (คน)</th><td><input id="riPpre" type="number" min="0" aria-label="ผู้ผ่านเกณฑ์ก่อน"></td><td><input id="riPpost" type="number" min="0" aria-label="ผู้ผ่านเกณฑ์หลัง"></td></tr>
+          </tbody>
+        </table>
+        <div class="field" style="margin-top:12px"><label for="riCrit">เกณฑ์การผ่าน</label><input id="riCrit" placeholder="ร้อยละ 70"></div>
+        <div id="riCalcOut" class="calc-out" aria-live="polite"></div>
+        <div class="field"><label for="riTrend">พัฒนาการระหว่างกิจกรรม (ไม่บังคับ บรรทัดละ ช่วงเวลา = ค่า)</label><textarea id="riTrend" placeholder="สัปดาห์ 2 = 6.2&#10;สัปดาห์ 4 = 7.4&#10;สัปดาห์ 6 = 8.2"></textarea></div>
+        <div class="inline">
+          <div class="field"><label for="riTrendLabel">หน่วยของพัฒนาการ</label><input id="riTrendLabel" placeholder="คำที่อ่านถูกเฉลี่ยจาก 10 คำ"></div>
+          <div class="field"><label for="riSatMax">คะแนนเต็มความพึงพอใจ</label><input id="riSatMax" type="number" min="1" step="any" placeholder="3"></div>
+        </div>
+        <div class="field"><label for="riSat">ความพึงพอใจ (ไม่บังคับ บรรทัดละ รายการ = ค่า)</label><textarea id="riSat" placeholder="เกมสนุก = 2.88&#10;บัตรภาพ = 2.76"></textarea></div>
+      </div>
+
+      <div class="box">
+        <h2>5. ขนาดและสไตล์</h2>
+        <div class="group"><b>ขนาด</b><div class="opts" id="riRatio"></div></div>
+        <div class="group"><b>สไตล์ภาพ</b><div class="opts" id="riStyle"></div></div>
+        <div class="field"><label for="riDeco">ตัวละครหรือของประกอบ</label><input id="riDeco" placeholder="ไม่บังคับ เช่น นักเรียนการ์ตูนถือบัตรพยัญชนะ รถไฟตัวอักษร"></div>
+        <label class="toggle"><input type="checkbox" id="riPerson" checked>ใส่ภาพผู้วิจัยจากภาพอ้างอิง</label>
+        <div class="group"><b>จำนวนโลโก้จากภาพอ้างอิง</b><div class="opts" id="riLogos"></div></div>
+        <p class="note">ใช้ภาพบุคคลของตนเองหรือที่ได้รับอนุญาต และหากใช้ภาพนักเรียนจริงต้องได้รับความยินยอมจากผู้ปกครอง</p>
+      </div>
+    </div>
+
+    <div class="rp-side">
+      <div class="box" style="margin:0">
+        <div class="out-head"><b>ผังจำลองอินโฟกราฟิก</b><span class="note" id="riFill"></span></div>
+        <div class="sheet-wrap" style="margin-top:12px"><div class="ip" id="riPreview" role="img" aria-label="ผังจำลองอินโฟกราฟิก"></div></div>
+      </div>
+      <div class="box" style="margin:0">
+        <div class="out-head"><b>Prompt อินโฟกราฟิก</b>
+          <div class="row"><button class="btn btn-line btn-sm" id="riDl">ดาวน์โหลด .txt</button><button class="btn btn-primary btn-sm" id="riCopy">คัดลอก</button></div></div>
+        <div class="err" id="riErr" hidden></div>
+        <div class="prompt-box" id="riOut" style="margin-top:12px;max-height:300px;min-height:160px"></div>
+        <p class="note" style="margin-top:10px">อินโฟกราฟิกที่มีข้อความมาก เครื่องมือสร้างภาพอาจสะกดภาษาไทยหรือตัวเลขผิดได้ ตรวจทุกตำแหน่งก่อนใช้ และแก้ไขใน Canva หากจำเป็น</p>
       </div>
     </div>
   </div></div>
@@ -1503,6 +1676,16 @@ const PROMPTS = [
     tags:"ปกรายงาน ปก PA SAR Best Practice วิจัย แฟ้มสะสมผลงาน หน้าปก",
     content:"{ประเภทเอกสาร} + {ผู้จัดทำ} + {สาขา} + {การจัดวาง} + {สไตล์} → Prompt ภาพปกพร้อมพิมพ์" },
 
+  { id:"research", type:"tool", route:"research", category:"การศึกษา", title:"Research Infographic Studio",
+    desc:"สร้าง Prompt อินโฟกราฟิกสรุปวิจัยในชั้นเรียนหน้าเดียว 10 ส่วน พร้อมกราฟผลการวิจัยจากตัวเลขจริง และผังจำลองหน้า",
+    tags:"วิจัยในชั้นเรียน อินโฟกราฟิก สรุปวิจัย หน้าเดียว โปสเตอร์ กราฟ ก่อนเรียนหลังเรียน",
+    content:"{ชื่อเรื่อง} + {เนื้อหา 10 ส่วน} + {ตัวเลขกราฟ} + {สไตล์} → Prompt อินโฟกราฟิกวิจัยหน้าเดียว" },
+
+  { id:"lesson-info", type:"tool", route:"lesson-info", category:"การศึกษา", title:"แผนการสอนหน้าเดียว",
+    desc:"กรอกข้อมูลส่วนหัวและเลือกกระบวนการ ได้ Prompt สร้างแผนการสอนเป็นอินโฟกราฟิก A4 จำนวน 2 แผ่น พร้อมช่องลงนามครูและผู้อำนวยการ",
+    tags:"แผนการสอนหน้าเดียว อินโฟกราฟิก แผนการจัดการเรียนรู้ PA 2 หน้า",
+    content:"ข้อมูลส่วนหัว + {กระบวนการ} → AI ย่อเนื้อหาให้ตรวจ → {อินโฟกราฟิก 2 แผ่น} + {ช่องลงนาม}" },
+
   { id:"bp-skill", type:"skill", route:"skill-bp", category:"การศึกษา", title:"เขียนรายงาน Best Practice ของครู",
     desc:"Prompt เดียววางใน AI ได้ทันที AI สัมภาษณ์ทีละประเด็น ตอบคร่าว ๆ แล้วได้ร่าง ผลการดำเนินการและการเผยแพร่เป็นโครงว่างให้เติมเอง",
     tags:"best practice วิธีปฏิบัติที่เป็นเลิศ ประกวด ครู รายงาน skill",
@@ -1733,10 +1916,12 @@ function download(name, text){
 
 /* ================= router ================= */
 function route(){
-  const v = (location.hash || "#home").slice(1);
+  const raw = (location.hash || "#home").slice(1);
+  const v = raw === "lesson-info" ? "lesson" : raw;
   const name = $$(".view").some(s => s.dataset.view === v) ? v : "home";
+  if (name === "lesson" && window.lpMode) window.lpMode(raw === "lesson-info");
   $$(".view").forEach(s => s.classList.toggle("active", s.dataset.view === name));
-  const navName = name.startsWith("skill-") ? "skills" : (name === "trend" || name === "report" || name === "game" || name === "cover") ? "tools" : name;
+  const navName = raw === "lesson-info" ? "lesson-info" : name.startsWith("skill-") ? "skills" : (name === "trend" || name === "report" || name === "game" || name === "cover" || name === "research") ? "tools" : name;
   $$(".nav a").forEach(a => a.getAttribute("href") === "#" + navName ? a.setAttribute("aria-current","page") : a.removeAttribute("aria-current"));
   $("#nav").classList.remove("open"); $("#menuBtn").setAttribute("aria-expanded","false");
   window.scrollTo(0, 0);
@@ -1769,6 +1954,8 @@ const ART = {
   "งานเอกสาร": ["#0F2238","#1E3A5F", '<rect x="132" y="34" width="86" height="112" rx="6" fill="#FFFFFF" opacity=".55" transform="rotate(8 175 90)"/><rect x="112" y="32" width="86" height="114" rx="6" fill="#FFFFFF"/><rect x="122" y="44" width="50" height="8" rx="3" fill="#1E3A5F"/><path d="M122 64h66M122 76h66M122 88h44" stroke="#1E3A5F" stroke-width="4" stroke-linecap="round" opacity=".4"/><rect x="124" y="108" width="12" height="26" rx="2" fill="#14B8A6"/><rect x="142" y="98" width="12" height="36" rx="2" fill="#0F6E56"/><rect x="160" y="114" width="12" height="20" rx="2" fill="#F59E0B"/>']
 };
 const TOOL_ART = {
+  "lesson-info": ["#1E3A5F","#0F6E56", '<rect x="74" y="26" width="80" height="128" rx="4" fill="#FFF8E6"/><rect x="82" y="34" width="64" height="12" rx="2" fill="#1E3A5F"/><rect x="82" y="54" width="64" height="16" rx="2" fill="#FFFFFF" stroke="#DCE3EC"/><rect x="82" y="76" width="19" height="22" rx="2" fill="#14B8A6"/><rect x="104" y="76" width="19" height="22" rx="2" fill="#2F6B8F"/><rect x="126" y="76" width="20" height="22" rx="2" fill="#B45309"/><rect x="82" y="104" width="64" height="40" rx="2" fill="#FFFFFF" stroke="#DCE3EC"/><rect x="166" y="26" width="80" height="128" rx="4" fill="#EAF6F4"/><rect x="174" y="34" width="64" height="8" rx="2" fill="#1E3A5F"/><rect x="174" y="50" width="12" height="8" fill="#1E3A5F"/><rect x="187" y="50" width="20" height="8" fill="#0F6E56"/><rect x="208" y="50" width="18" height="8" fill="#14B8A6"/><rect x="227" y="50" width="11" height="8" fill="#B45309"/><rect x="174" y="66" width="64" height="36" rx="2" fill="#FFFFFF" stroke="#DCE3EC"/><path d="M178 136h24M212 136h24" stroke="#1E3A5F" stroke-width="2"/><path d="M180 128c4-6 8 4 12-2 3-4 6 2 8 0M214 128c4-6 8 4 12-2 3-4 6 2 8 0" stroke="#F59E0B" stroke-width="2" fill="none"/>'],
+  research: ["#0F2238","#0F6E56", '<rect x="96" y="30" width="96" height="124" rx="6" fill="#FFFFFF"/><path d="M108 50h56M108 62h70M108 74h48" stroke="#1E3A5F" stroke-width="5" stroke-linecap="round" opacity=".45"/><rect x="110" y="118" width="14" height="24" rx="2" fill="#94A3B8"/><rect x="132" y="96" width="14" height="46" rx="2" fill="#14B8A6"/><circle cx="208" cy="96" r="30" fill="none" stroke="#F59E0B" stroke-width="8"/><path d="M229 117l22 22" stroke="#F59E0B" stroke-width="10" stroke-linecap="round"/><path d="M196 96l8 8 14-16" stroke="#FFFFFF" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'],
   cover: ["#1E3A5F","#B45309", '<rect x="116" y="18" width="88" height="148" rx="4" fill="#F3E9D2"/><circle cx="160" cy="34" r="6" fill="#C9A227"/><rect x="132" y="46" width="56" height="7" rx="2" fill="#4A2E1F"/><rect x="140" y="57" width="40" height="4" rx="2" fill="#4A2E1F" opacity=".6"/><circle cx="160" cy="84" r="12" fill="#5F7290"/><path d="M136 124c0-16 10-26 24-26s24 10 24 26z" fill="#5F7290"/><path d="M116 120c20-10 40 8 88-6v52h-88z" fill="#2F8F8A" opacity=".55"/><circle cx="128" cy="150" r="6" fill="#F59E0B"/><rect x="146" y="146" width="28" height="4" rx="2" fill="#4A2E1F"/><rect x="150" y="153" width="20" height="3" rx="1.5" fill="#4A2E1F" opacity=".6"/><path d="M226 44l4 9 10 1-7 7 2 10-9-5-9 5 2-10-7-7 10-1z" fill="#F59E0B"/>'],
   game: ["#132840","#5B4B8A", '<rect x="92" y="62" width="136" height="72" rx="36" fill="#FFFFFF"/><rect x="118" y="88" width="30" height="10" rx="3" fill="#1E3A5F"/><rect x="128" y="78" width="10" height="30" rx="3" fill="#1E3A5F"/><circle cx="188" cy="86" r="7" fill="#14B8A6"/><circle cx="204" cy="100" r="7" fill="#F59E0B"/><circle cx="172" cy="100" r="7" fill="#8B2C3B"/><circle cx="188" cy="114" r="7" fill="#0F6E56"/><path d="M228 40l4 9 10 1-7 7 2 10-9-5-9 5 2-10-7-7 10-1z" fill="#F59E0B"/><circle cx="84" cy="44" r="5" fill="#14B8A6"/><circle cx="246" cy="146" r="4" fill="#FFFFFF" opacity=".6"/>'],
   lesson: ["#1E3A5F","#0F6E56", '<rect x="114" y="30" width="92" height="128" rx="8" fill="#FFFFFF"/><rect x="140" y="22" width="40" height="16" rx="5" fill="#F59E0B"/><path d="M128 60h52M128 74h64" stroke="#1E3A5F" stroke-width="5" stroke-linecap="round" opacity=".5"/><rect x="128" y="90" width="64" height="8" rx="4" fill="#E2E8F0"/><rect x="128" y="90" width="12" height="8" rx="4" fill="#1E3A5F"/><rect x="141" y="90" width="20" height="8" fill="#0F6E56"/><rect x="162" y="90" width="18" height="8" fill="#14B8A6"/><path d="M130 116l6 6 12-12M130 138l6 6 12-12" stroke="#0F6E56" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M156 120h34M156 142h26" stroke="#1E3A5F" stroke-width="4" stroke-linecap="round" opacity=".4"/>'],
@@ -2499,7 +2686,7 @@ $$("[data-surprise]").forEach(b => b.addEventListener("click", () => surprise(b)
 /* ================= ค้นหาด่วน (Ctrl+K) ================= */
 (function(){
   const dlg = $("#cmdk"), inp = $("#cmdq"), list = $("#cmdList");
-  const PAGES = [["หน้าแรก","#home"],["คลัง Prompt","#library"],["Skill","#skills"],["เครื่องมือ","#tools"],["แผนการจัดการเรียนรู้","#lesson"],["Game Prompt Studio","#game"],["Cover Prompt Studio","#cover"],["วิธีใช้งาน","#how"],["เกี่ยวกับ","#about"]];
+  const PAGES = [["หน้าแรก","#home"],["คลัง Prompt","#library"],["Skill","#skills"],["เครื่องมือ","#tools"],["แผนการสอน","#lesson"],["แผนการสอนหน้าเดียว","#lesson-info"],["Game Prompt Studio","#game"],["Cover Prompt Studio","#cover"],["Research Infographic Studio","#research"],["วิธีใช้งาน","#how"],["เกี่ยวกับ","#about"]];
   let items = [], sel = 0;
   function show(){ if (typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open", ""); inp.value = ""; render(); setTimeout(() => inp.focus(), 0); }
   function hide(){ if (typeof dlg.close === "function") dlg.close(); else dlg.removeAttribute("open"); }
@@ -2676,6 +2863,7 @@ $$("[data-surprise]").forEach(b => b.addEventListener("click", () => surprise(b)
     g("lpErr").hidden = true;
     drawTimeline();
     g("lpOut").textContent = planPrompt();
+    if (typeof drawInfo === "function" && g("liOut")) drawInfo();
     const req = ["lpNo","lpTopic","lpCourse","lpTeacher"];
     g("lpBarFill").style.width = Math.round(req.filter(id => val(id)).length / req.length * 100) + "%";
   }
@@ -2687,6 +2875,127 @@ $$("[data-surprise]").forEach(b => b.addEventListener("click", () => surprise(b)
   g("lpReset").addEventListener("click", () => { allocate(); update(); toast("แบ่งเวลาใหม่แล้ว"); });
   g("lpCopy").addEventListener("click", () => { if (guardPlan()) copyText(planPrompt(), "คัดลอก Prompt เขียนแผนแล้ว"); });
   g("lpDl").addEventListener("click", () => { if (guardPlan()) download("lesson-plan-" + (val("lpNo") || "x") + ".txt", planPrompt()); });
+  /* ---------- แผนหน้าเดียว (อินโฟกราฟิก 2 แผ่น) ---------- */
+  const LI_STYLES = [
+    {k:"toon", l:"การ์ตูน 3D สดใส", t:"สไตล์อินโฟกราฟิกการศึกษาแบบการ์ตูน 3D สดใส มีตัวละครนักเรียนการ์ตูนและไอคอนประกอบที่สื่อเนื้อหา สีพาสเทลสดใสแต่อ่านง่าย"},
+    {k:"clean", l:"มินิมอลทางการ", t:"สไตล์อินโฟกราฟิกทางการ สะอาดตา พื้นหลังสีอ่อน จัดกริดเป็นระเบียบ ไอคอนเส้นเรียบ ใช้สีหลักกรมท่า เขียวอมฟ้า และสีเน้นอำพัน"},
+    {k:"paper", l:"สมุดภาพกระดาษตัด", t:"สไตล์อินโฟกราฟิกแบบสมุดภาพกระดาษตัดซ้อนชั้น มีพื้นผิวกระดาษ เทป และป้ายกระดาษสีสันสดใส"},
+    {k:"water", l:"สีน้ำอบอุ่น", t:"สไตล์อินโฟกราฟิกภาพประกอบสีน้ำโทนอบอุ่น นุ่มนวล ประดับภาพวาดสีน้ำบริเวณขอบอย่างพอเหมาะ"},
+    {k:"thai", l:"ไทยร่วมสมัย", t:"สไตล์อินโฟกราฟิกไทยร่วมสมัย โทนกรมท่า ทอง และครีม ประดับลายไทยเส้นบางเฉพาะขอบและหัวข้อ"}
+  ];
+  const LI = { style:"toon", logos:"0" };
+  const liOpt = (el, items, key) => {
+    g(el).innerHTML = items.map(x => `<button class="opt" type="button" data-v="${x.k}" aria-pressed="${LI[key] === x.k}">${esc(x.l)}</button>`).join("");
+    g(el).querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => { LI[key] = b.dataset.v; liOpt(el, items, key); update(); }));
+  };
+
+  function infoPrompt(){
+    const st = stepsOf(), total = totalMin(), hrs = +(total / 60).toFixed(2), grade = g("lpGrade").value;
+    const fill = (v, ph) => v || ph, sty = LI_STYLES.find(x => x.k === LI.style), nLogo = +LI.logos, photo = g("liPhoto").checked, notes = g("liNotes").checked;
+    const model = L.model === "custom" ? "กระบวนการที่ครูกำหนด" : MODELS.find(m => m.k === L.model).l;
+    const T = [];
+    T.push("คุณคือผู้เชี่ยวชาญด้านหลักสูตรและนักออกแบบอินโฟกราฟิกการศึกษา หน้าที่ของคุณคือจัดทำแผนการจัดการเรียนรู้แบบหน้าเดียวเป็นอินโฟกราฟิก A4 จำนวน 2 แผ่น ทำงาน 2 ขั้นตอนดังนี้", "");
+    T.push("ข้อมูลแผน (ใช้ตามนี้ทุกตัวอักษร)");
+    T.push(`- แผนการจัดการเรียนรู้ที่ ${fill(val("lpNo"), "[ลำดับแผน]")}  หน่วยการเรียนรู้ที่ ${fill(val("lpUnit"), "....")}`);
+    T.push(`- เรื่อง ${fill(val("lpTopic"), "[ชื่อเรื่อง]")}`);
+    T.push(`- รหัสวิชา ${fill(val("lpCode"), "....")}  รายวิชา ${fill(val("lpCourse"), "[รายวิชา]")}  กลุ่มสาระการเรียนรู้${g("lpArea").value}`);
+    T.push(`- ${grade}  ภาคเรียนที่ ${g("lpTerm").value}  เวลา ${hrs} ชั่วโมง (${total} นาที)`);
+    T.push(`- ครูผู้สอน ${fill(val("lpTeacher"), "[ชื่อครูผู้สอน]")}  ตำแหน่ง ${g("lpRank").value}`);
+    T.push(`- ผู้อำนวยการ ${fill(val("lpBoss"), "[ชื่อผู้อำนวยการ]")}  ตำแหน่ง ${fill(val("lpBossPos"), "[ตำแหน่งผู้อำนวยการ]")}`);
+    T.push(`- กระบวนการจัดการเรียนรู้: ${model}`);
+    T.push("- ขั้นตอนและเวลา: " + st.map((s, i) => `${s[0]} ${L.mins[i] || 0} นาที`).join(" → "), "");
+
+    T.push("ขั้นตอนที่ 1 เขียนเนื้อหาแบบย่อ (ยังไม่ต้องสร้างภาพ)");
+    T.push(`เขียนเนื้อหาสำหรับอินโฟกราฟิกให้กระชับ ข้อละ 1–2 บรรทัด เหมาะกับนักเรียน${grade} แล้วหยุดรอให้ฉันตรวจและยืนยัน`);
+    T.push("1. มาตรฐานการเรียนรู้และตัวชี้วัดที่สอดคล้องกับเรื่องนี้ตามหลักสูตรแกนกลางการศึกษาขั้นพื้นฐาน พุทธศักราช 2551 และฉบับที่มีการปรับปรุง (รายวิชาเพิ่มเติมให้ใช้ผลการเรียนรู้) หากค้นเว็บได้ให้ค้นจากแหล่งทางการและระบุแหล่ง หากไม่มั่นใจรหัสหรือข้อความ ให้ต่อท้ายว่า [โปรดตรวจสอบกับหลักสูตรสถานศึกษา]");
+    T.push("2. สาระสำคัญ ไม่เกิน 3 บรรทัด");
+    T.push("3. จุดประสงค์การเรียนรู้ ด้าน K S A ด้านละ 1 ข้อ ใช้คำกริยาที่วัดได้");
+    T.push("4. ชิ้นงานหรือภาระงาน");
+    T.push("5. สื่อการสอน 3–5 รายการ ที่โรงเรียนทั่วไปหาได้ง่าย");
+    T.push("6. กิจกรรมย่อของแต่ละขั้นตามขั้นตอนและเวลาข้างต้น ขั้นละ 1–2 บรรทัด ใช้ชื่อขั้นและเวลาตามที่กำหนดทุกขั้น");
+    T.push("7. การประเมินเป็นตาราง 4 คอลัมน์ ได้แก่ จุดประสงค์ วิธีการ เครื่องมือ เกณฑ์ ครอบคลุม K S A");
+    T.push("ห้ามสร้างผลการสอน จำนวนนักเรียน ร้อยละ หรือแหล่งอ้างอิงที่ไม่มีอยู่จริง", "");
+
+    T.push("ขั้นตอนที่ 2 สร้างภาพ (ทำหลังจากฉันยืนยันเนื้อหาแล้วเท่านั้น)");
+    T.push(`สร้างภาพอินโฟกราฟิกแผนการจัดการเรียนรู้ 2 แผ่น ทีละแผ่น แต่ละแผ่นขนาด A4 แนวตั้ง 2480×3508 px ความละเอียด 300 DPI สำหรับพิมพ์ ${sty.t} ทั้ง 2 แผ่นใช้สไตล์ สี ตัวอักษร และแถบหัวเดียวกันเป็นชุดเดียวกัน`);
+    if (photo || nLogo){
+      const refs = []; let n = 1;
+      if (photo) refs.push(`ภาพที่ ${n++} เป็นภาพครูผู้สอน ใช้อ้างอิงใบหน้าและเครื่องแต่งกาย`);
+      for (let i = 0; i < nLogo; i++) refs.push(`ภาพที่ ${n++} เป็นโลโก้หน่วยงาน${nLogo > 1 ? " ลำดับที่ " + (i + 1) : ""} ใช้ตามต้นฉบับ`);
+      T.push("ภาพที่แนบ: " + refs.join(" "));
+    }
+    T.push("");
+    T.push("แผ่นที่ 1 (มุมล่างขวาเขียนว่า หน้า 1/2)");
+    T.push(`- แถบหัว: “แผนการจัดการเรียนรู้ที่ ${fill(val("lpNo"), "....")}” และชื่อเรื่อง ตัวใหญ่ที่สุด${nLogo ? " พร้อมโลโก้" : ""}${photo ? " และภาพครูผู้สอนแบบไดคัตที่มุมขวา" : ""}`);
+    T.push("- กล่องข้อมูลแผน: หน่วยการเรียนรู้ รหัสวิชา รายวิชา กลุ่มสาระ ระดับชั้น ภาคเรียน เวลา และครูผู้สอน");
+    T.push("- กล่องมาตรฐานการเรียนรู้และตัวชี้วัด");
+    T.push("- กล่องสาระสำคัญ");
+    T.push("- กล่องจุดประสงค์การเรียนรู้ 3 กล่องย่อย K S A แยกสีและไอคอน");
+    T.push("- กล่องชิ้นงานหรือภาระงาน และกล่องสื่อการสอนวางคู่กัน", "");
+    T.push("แผ่นที่ 2 (มุมล่างขวาเขียนว่า หน้า 2/2)");
+    T.push("- แถบหัวแบบเดียวกับแผ่นที่ 1 แต่ขนาดเล็กกว่า แสดงแผนที่และชื่อเรื่อง");
+    T.push(`- กระบวนการเรียนรู้ (${total} นาที) แบบเส้นเวลาหรือขั้นบันได เรียงตามลำดับ แต่ละขั้นมีเลขขั้น ชื่อขั้น จำนวนนาที และกิจกรรมย่อ สีต่างกันทุกขั้น`);
+    T.push("- ตารางการประเมิน 4 คอลัมน์");
+    if (notes) T.push("- กล่องบันทึกหลังการสอน 3 กล่อง ได้แก่ “ผลการจัดการเรียนรู้” “ปัญหา/อุปสรรคและแนวทางแก้ไข” “ข้อเสนอแนะ” ภายในเป็นเส้นบรรทัดว่างสำหรับเขียนด้วยปากกา ห้ามใส่ข้อความใด ๆ ในเส้นบรรทัด");
+    T.push("- ส่วนท้ายเป็นช่องลงลายมือชื่อ 2 ช่องวางคู่กันด้านซ้ายและขวา ใช้ข้อความดังนี้ทุกตัวอักษร");
+    T.push("  ช่องซ้าย: “ลงชื่อ.................................................. ครูผู้สอน”");
+    T.push(`  “( ${fill(val("lpTeacher"), "..................................................")} )”`);
+    T.push(`  “ตำแหน่ง ${g("lpRank").value}”`);
+    T.push("  ช่องขวา: “ลงชื่อ.................................................. ผู้อำนวยการ”");
+    T.push(`  “( ${fill(val("lpBoss"), "..................................................")} )”`);
+    T.push(`  “${fill(val("lpBossPos"), "ตำแหน่ง ..................................................")}”`);
+    T.push("  เว้นพื้นที่เหนือเส้นจุดให้พอสำหรับเซ็นชื่อจริง", "");
+    T.push("ข้อกำหนดของภาพ",
+      "- ใช้เนื้อหาที่ฉันยืนยันในขั้นตอนที่ 1 เท่านั้น ห้ามเพิ่มหรือเปลี่ยนข้อความ ชื่อบุคคล ตัวเลข และเวลา",
+      "- ข้อความภาษาไทยต้องถูกต้องทุกตัวอักษร สระ และวรรณยุกต์ ห้ามสร้างคำที่ไม่มีความหมาย",
+      "- ตัวอักษรเนื้อหาต้องอ่านได้ชัดเมื่อพิมพ์ A4 หากพื้นที่ไม่พอให้ลดภาพตกแต่งก่อนลดขนาดตัวอักษร",
+      "- ภาพประกอบต้องไม่บังข้อความ ตาราง หรือช่องลงนาม",
+      nLogo ? "- ห้ามสร้างโลโก้เพิ่มนอกจากที่แนบ" : "- ห้ามสร้างโลโก้หรือตราหน่วยงานใด ๆ",
+      photo ? "- ห้ามเปลี่ยนใบหน้าครูผู้สอน ห้ามมือหรือนิ้วผิดรูป" : "- ห้ามใส่ภาพบุคคลจริง",
+      "- ห้ามใส่ลายน้ำหรือข้อความภาษาอังกฤษที่ไม่ได้กำหนด", "");
+    T.push("เริ่มขั้นตอนที่ 1 ได้เลย");
+    return T.join("\n");
+  }
+  function drawInfo(){
+    const st = stepsOf(), photo = g("liPhoto").checked;
+    const em = n => "<em></em>".repeat(n);
+    g("liPage1").innerHTML = `<div class="h">${+LI.logos ? "<i></i>" : ""}<em></em>${photo ? "<i style='background:#7B8CA3'></i>" : ""}</div>
+      <div class="r"><div class="b"><b>ข้อมูลแผน</b>${em(2)}</div></div>
+      <div class="r"><div class="b"><b>มาตรฐาน/ตัวชี้วัด</b>${em(3)}</div></div>
+      <div class="r"><div class="b"><b>สาระสำคัญ</b>${em(2)}</div></div>
+      <div class="r c3"><div class="b"><b>K</b>${em(2)}</div><div class="b"><b>S</b>${em(2)}</div><div class="b"><b>A</b>${em(2)}</div></div>
+      <div class="r c2"><div class="b"><b>ชิ้นงาน</b>${em(2)}</div><div class="b"><b>สื่อการสอน</b>${em(2)}</div></div><span class="pg">1/2</span>`;
+    const tl = st.map((s, i) => `<i style="flex:${L.mins[i] || 1};background:${STEP_COLORS[i % 8]}"></i>`).join("");
+    g("liPage2").innerHTML = `<div class="h" style="height:8%"><em></em></div>
+      <div class="r" style="flex:2.2 1 0"><div class="b"><b>กระบวนการเรียนรู้ ${totalMin()} นาที</b><div class="tlp">${tl}</div></div></div>
+      <div class="r"><div class="b"><b>การประเมิน</b>${em(3)}</div></div>
+      ${g("liNotes").checked ? `<div class="r c3"><div class="b lines"><b>ผล</b>${em(3)}</div><div class="b lines"><b>ปัญหา</b>${em(3)}</div><div class="b lines"><b>เสนอแนะ</b>${em(3)}</div></div>` : ""}
+      <div class="sig"><div><em></em><small>ครูผู้สอน</small></div><div><em></em><small>ผู้อำนวยการ</small></div></div><span class="pg">2/2</span>`;
+    g("liOut").textContent = infoPrompt();
+  }
+  function selTab(info){
+    g("lpH1").textContent = info ? "แผนการสอนหน้าเดียว" : "แผนการจัดการเรียนรู้";
+    g("lpLead").textContent = info
+      ? "กรอกข้อมูลส่วนหัวและเลือกกระบวนการจัดการเรียนรู้ แล้วรับ Prompt ให้ AI สร้างแผนการสอนเป็นอินโฟกราฟิก A4 จำนวน 2 แผ่น พร้อมช่องลงลายมือชื่อครูผู้สอนและผู้อำนวยการ"
+      : "กรอกข้อมูลส่วนหัวของแผนและเลือกกระบวนการจัดการเรียนรู้ แล้วนำ Prompt ไปให้ AI เขียนแผนเต็มรูปแบบตามแบบฟอร์ม Active-based Learning สำหรับยื่น PA ส่วนบันทึกหลังสอนจะเป็นช่องว่างไว้เขียนเอง";
+    document.querySelector('[data-view="lesson"]').setAttribute("aria-label", info ? "แผนการสอนหน้าเดียว" : "แผนการจัดการเรียนรู้");
+    g("lpTabFull").setAttribute("aria-selected", !info); g("lpTabInfo").setAttribute("aria-selected", info);
+    g("lpTabFull").tabIndex = info ? -1 : 0; g("lpTabInfo").tabIndex = info ? 0 : -1;
+    g("lpFullBox").hidden = info; g("lpInfoBox").hidden = !info;
+    g("lpInfoBox").style.display = info ? "grid" : "none";
+  }
+  g("lpTabFull").addEventListener("click", () => selTab(false));
+  g("lpTabInfo").addEventListener("click", () => selTab(true));
+  [g("lpTabFull"), g("lpTabInfo")].forEach(t => t.addEventListener("keydown", e => {
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft"){ const info = t.id === "lpTabFull"; selTab(info); (info ? g("lpTabInfo") : g("lpTabFull")).focus(); }
+  }));
+  liOpt("liStyle", LI_STYLES, "style");
+  liOpt("liLogos", [0,1,2,3].map(n => ({k:String(n), l: n ? n + " โลโก้" : "ไม่มี"})), "logos");
+  ["liNotes","liPhoto"].forEach(id => g(id).addEventListener("change", update));
+  g("liCopy").addEventListener("click", () => { if (guardPlan()) copyText(infoPrompt(), "คัดลอก Prompt แผนหน้าเดียวแล้ว"); });
+  g("liDl").addEventListener("click", () => { if (guardPlan()) download("lesson-infographic-" + (val("lpNo") || "x") + ".txt", infoPrompt()); });
+  window.lpMode = selTab;
+  selTab(location.hash === "#lesson-info");
   drawModels(); allocate(); update();
 })();
 
@@ -3063,6 +3372,188 @@ $$("[data-surprise]").forEach(b => b.addEventListener("click", () => surprise(b)
   ["cvAuthorOn","cvPose"].forEach(id => g(id).addEventListener("change", update));
   g("cvCopy").addEventListener("click", () => { if (guard()) copyText(prompt(), "คัดลอก Prompt ภาพปกแล้ว"); });
   g("cvDl").addEventListener("click", () => { if (guard()) download("cover-prompt.txt", prompt()); });
+  update();
+})();
+
+/* ================= Research Infographic Studio ================= */
+(function(){
+  const g = id => $("#" + id), val = id => g(id).value.trim();
+  const PARTS = [
+    ["ความเป็นมาและปัญหา","สภาพปัญหาที่พบ หลักฐาน และเหตุผลที่ต้องแก้"],
+    ["วัตถุประสงค์และตัวแปร","วัตถุประสงค์ ตัวแปรต้น และตัวแปรตาม"],
+    ["กลุ่มเป้าหมายและขอบเขต","กลุ่มเป้าหมาย จำนวน และขอบเขตเนื้อหา"],
+    ["ระยะเวลาและขั้นตอน","ระยะเวลา จำนวนครั้ง และลำดับขั้นตอน (คั่นด้วย → ได้)"],
+    ["นวัตกรรมและกิจกรรม","ชื่อนวัตกรรม องค์ประกอบ หรือกิจกรรมย่อย"],
+    ["เครื่องมือและการประเมิน","เครื่องมือที่ใช้ คะแนนเต็ม และเกณฑ์การผ่าน"],
+    ["ตัวอย่างกิจกรรมการเรียนรู้","ชื่อกิจกรรมเด่น 2–4 กิจกรรม"],
+    ["ผลการวิจัย","สรุปผลสั้น ๆ (ตัวเลขกราฟกรอกในข้อ 4)"],
+    ["สรุปผลและข้อจำกัด","สรุปผลตามวัตถุประสงค์ และข้อจำกัด"],
+    ["ข้อเสนอแนะ","ข้อเสนอแนะ 2–4 ข้อ"]
+  ];
+  const COLORS = ["#E8457A","#2F9E9A","#3E8E41","#E07A2F","#7B5CC4","#2C7BB6","#E8457A","#C2410C","#7B5CC4","#2F9E9A"];
+  const SOURCES = [
+    {k:"fill", ic:"✍️", l:"กรอกข้อมูลเอง", d:"กรอกเนื้อหาแต่ละส่วนและตัวเลขกราฟ ได้ Prompt สร้างภาพทันที"},
+    {k:"file", ic:"📎", l:"ให้ AI สรุปจากไฟล์", d:"แนบไฟล์รายงานวิจัย AI สรุป 10 ส่วนให้ตรวจก่อน แล้วจึงสร้างภาพ"}
+  ];
+  const RATIOS = [
+    {k:"a4p", l:"A4 แนวตั้ง", w:2480, h:3508, line:"ขนาด A4 แนวตั้ง 2480×3508 px ความละเอียด 300 DPI สำหรับพิมพ์"},
+    {k:"a4l", l:"A4 แนวนอน", w:3508, h:2480, line:"ขนาด A4 แนวนอน 3508×2480 px ความละเอียด 300 DPI สำหรับพิมพ์"},
+    {k:"a3p", l:"A3 โปสเตอร์", w:3508, h:4961, line:"ขนาด A3 แนวตั้ง 3508×4961 px ความละเอียด 300 DPI สำหรับพิมพ์โปสเตอร์"},
+    {k:"916", l:"9:16 โพสต์", w:2160, h:3840, line:"ภาพแนวตั้ง 9:16 ขนาด 2160×3840 px สำหรับเผยแพร่บนสื่อสังคมออนไลน์"}
+  ];
+  const STYLES = [
+    {k:"toon", l:"การ์ตูน 3D สดใส", t:"สไตล์อินโฟกราฟิกการศึกษาแบบการ์ตูน 3D สดใส น่ารัก มีตัวละครนักเรียนการ์ตูน 3D สีพาสเทลสดใส ฉากหลังเป็นเมืองการ์ตูนหรือโรงเรียนในนิทาน ประดับดอกไม้ หนังสือ และดินสออย่างพอเหมาะ"},
+    {k:"clean", l:"มินิมอลทางการ", t:"สไตล์อินโฟกราฟิกทางการ สะอาดตา พื้นหลังสีอ่อน จัดกริดเป็นระเบียบ ใช้ไอคอนเส้นเรียบและสีหลักไม่เกิน 4 สี"},
+    {k:"water", l:"สีน้ำอบอุ่น", t:"สไตล์อินโฟกราฟิกภาพประกอบสีน้ำโทนอบอุ่น นุ่มนวล ประดับภาพวาดสีน้ำของโรงเรียน ต้นไม้ และนักเรียนบริเวณขอบ"},
+    {k:"paper", l:"กระดาษตัดสไตล์สมุดภาพ", t:"สไตล์อินโฟกราฟิกแบบกระดาษตัดซ้อนชั้น (paper cut) และสมุดภาพ มีพื้นผิวกระดาษ เทป และป้ายกระดาษสีสันสดใส"},
+    {k:"thai", l:"ไทยร่วมสมัย", t:"สไตล์อินโฟกราฟิกไทยร่วมสมัย โทนกรมท่า ทอง และครีม ประดับลายไทยเส้นบางเฉพาะขอบและหัวข้อ สง่างามและเป็นทางการ"}
+  ];
+  const LOGOS = [0,1,2,3].map(n => ({k:String(n), l: n ? n + " โลโก้" : "ไม่มี"}));
+  const S = { source:"fill", ratio:"a4p", style:"toon", logos:"0" };
+
+  const opt = (el, items, key) => {
+    g(el).innerHTML = items.map(x => `<button class="opt" type="button" data-v="${x.k}" aria-pressed="${S[key] === x.k}">${esc(x.l)}</button>`).join("");
+    g(el).querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => { S[key] = b.dataset.v; opt(el, items, key); update(); }));
+  };
+  function drawSource(){
+    g("riSource").innerHTML = SOURCES.map(s => `<button type="button" class="gtype" data-k="${s.k}" aria-pressed="${S.source === s.k}"><span class="gi" aria-hidden="true">${s.ic}</span><b>${esc(s.l)}</b><small>${esc(s.d)}</small></button>`).join("");
+    g("riSource").querySelectorAll(".gtype").forEach(b => b.addEventListener("click", () => { S.source = b.dataset.k; drawSource(); update(); }));
+  }
+  g("riParts").innerHTML = PARTS.map((p, i) => `<div class="field"><label for="riP${i}"><span class="dot" style="background:${COLORS[i]};margin-right:6px">${i + 1}</span>${esc(p[0])}</label><textarea id="riP${i}" style="min-height:${i === 7 ? 56 : 72}px" placeholder="${esc(p[1])}"></textarea></div>`).join("");
+
+  // data
+  const num = id => { const v = g(id).value.trim(); return v === "" ? null : +v; };
+  const f2 = x => (Math.round(x * 100) / 100).toFixed(2).replace(/\.00$/, "");
+  const pairs = id => g(id).value.split("\n").map(l => l.split("=")).filter(a => a.length >= 2 && a[0].trim() && a[1].trim() !== "" && !isNaN(+a[1])).map(a => [a[0].trim(), +a[1]]);
+  function data(){
+    const d = {full:num("riFull"), nA:num("riNpre"), nB:num("riNpost"), mA:num("riMpre"), mB:num("riMpost"), pA:num("riPpre"), pB:num("riPpost"), warn:[]};
+    d.mean = d.mA !== null && d.mB !== null;
+    d.pass = d.pA !== null && d.pB !== null && d.nA && d.nB;
+    if (d.pass){ d.rA = d.pA / d.nA * 100; d.rB = d.pB / d.nB * 100; if (d.pA > d.nA || d.pB > d.nB) d.warn.push("จำนวนผู้ผ่านเกินจำนวนที่ประเมิน"); }
+    if (d.mean && d.full && (d.mA > d.full || d.mB > d.full)) d.warn.push("ค่าเฉลี่ยมากกว่าคะแนนเต็ม");
+    if (d.nA && d.nB && d.nA !== d.nB) d.warn.push(`จำนวนที่ประเมินก่อน (${d.nA}) และหลัง (${d.nB}) ไม่เท่ากัน ร้อยละใช้ฐานต่างกัน`);
+    d.trend = pairs("riTrend"); d.sat = pairs("riSat"); d.satMax = num("riSatMax");
+    if (d.sat.length) d.satAvg = d.sat.reduce((x, y) => x + y[1], 0) / d.sat.length;
+    if (d.sat.length && d.satMax && d.sat.some(s => s[1] > d.satMax)) d.warn.push("ค่าความพึงพอใจบางรายการเกินคะแนนเต็ม");
+    return d;
+  }
+  function drawCalc(d){
+    const rows = [];
+    if (d.mean) rows.push(["ค่าเฉลี่ย", `${f2(d.mA)} → ${f2(d.mB)} (${d.mB - d.mA >= 0 ? "เพิ่มขึ้น" : "ลดลง"} ${f2(Math.abs(d.mB - d.mA))} คะแนน)`]);
+    if (d.pass) rows.push(["ผู้ผ่านเกณฑ์", `${d.pA}/${d.nA} (${f2(d.rA)}%) → ${d.pB}/${d.nB} (${f2(d.rB)}%)`], ["ผลต่าง", `${d.rB - d.rA >= 0 ? "+" : ""}${f2(d.rB - d.rA)} จุดร้อยละ`]);
+    if (d.sat.length) rows.push(["ความพึงพอใจเฉลี่ย", `${f2(d.satAvg)}${d.satMax ? " / " + f2(d.satMax) : ""} (เฉลี่ยจาก ${d.sat.length} รายการ)`]);
+    g("riCalcOut").innerHTML = (rows.length ? `<dl>${rows.map(r => `<div><dt>${esc(r[0])}</dt><dd>${esc(r[1])}</dd></div>`).join("")}</dl>` : `<p class="note">กรอกตัวเลขเพื่อดูผลคำนวณที่จะใช้บนกราฟ</p>`)
+      + d.warn.map(w => `<p class="err" style="margin-top:6px">${esc(w)}</p>`).join("");
+  }
+
+  function chartsText(d){
+    const C = [];
+    if (d.mean) C.push(`- กราฟแท่ง "คะแนน${d.full ? " (เต็ม " + f2(d.full) + " คะแนน)" : ""}" 2 แท่ง: ก่อนเรียน ${f2(d.mA)} และหลังเรียน ${f2(d.mB)} แสดงตัวเลขบนแท่ง ความสูงของแท่งต้องได้สัดส่วนตามตัวเลข${d.full ? " แกนตั้ง 0 ถึง " + f2(d.full) : ""} ใต้กราฟมีป้ายลูกศร "${d.mB - d.mA >= 0 ? "เพิ่มขึ้น" : "ลดลง"} ${f2(Math.abs(d.mB - d.mA))} คะแนน"`);
+    if (d.pass) C.push(`- กราฟวงกลมโดนัท 2 วง "ผู้ผ่านเกณฑ์${val("riCrit") ? " " + val("riCrit") : ""}": ก่อนเรียน ${f2(d.rA)}% (${d.pA}/${d.nA} คน) → หลังเรียน ${f2(d.rB)}% (${d.pB}/${d.nB} คน) สัดส่วนสีในวงต้องตรงกับร้อยละ ใต้กราฟมีป้าย "${d.rB - d.rA >= 0 ? "เพิ่มขึ้น" : "ลดลง"} ${f2(Math.abs(d.rB - d.rA))} จุดร้อยละ"`);
+    if (d.trend.length >= 2) C.push(`- กราฟเส้น "พัฒนาการระหว่างกิจกรรม${val("riTrendLabel") ? " (" + val("riTrendLabel") + ")" : ""}": ${d.trend.map(t => `${t[0]} = ${f2(t[1])}`).join(", ")} แสดงค่าที่จุดทุกจุด`);
+    if (d.sat.length) C.push(`- กราฟแท่งแนวนอน "ความพึงพอใจ${d.satMax ? " (เต็ม " + f2(d.satMax) + " คะแนน)" : ""}": ${d.sat.map(s => `${s[0]} = ${f2(s[1])}`).join(", ")} และป้าย "เฉลี่ย ${f2(d.satAvg)}${d.satMax ? " / " + f2(d.satMax) : ""}"`);
+    return C;
+  }
+
+  function prompt(){
+    const d = data(), r = RATIOS.find(x => x.k === S.ratio), st = STYLES.find(x => x.k === S.style);
+    const person = g("riPerson").checked, nLogo = +S.logos, fileMode = S.source === "file";
+    const T = [];
+    if (fileMode){
+      T.push("ฉันแนบไฟล์รายงานวิจัยในชั้นเรียนมาด้วย ทำงาน 2 ขั้นตอนดังนี้", "",
+        "ขั้นตอนที่ 1 สรุปเนื้อหา (ยังไม่ต้องสร้างภาพ)",
+        "อ่านไฟล์แล้วสรุปเนื้อหา 10 ส่วนด้านล่าง ส่วนละไม่เกิน 3 บรรทัดสั้น ๆ ที่เหมาะกับอินโฟกราฟิก ใช้เฉพาะข้อมูลที่ปรากฏในไฟล์ ห้ามเติมหรือปรับตัวเลข ส่วนใดไม่พบในไฟล์ให้เขียนว่า [ไม่พบในรายงาน] และสรุปตัวเลขที่จะใช้ทำกราฟในส่วนที่ 8 แยกเป็นรายการ (ค่าเฉลี่ยก่อน–หลัง คะแนนเต็ม จำนวนผู้ผ่านเกณฑ์ก่อน–หลัง ข้อมูลระหว่างกิจกรรม และความพึงพอใจ ถ้ามี) จากนั้นหยุดรอให้ฉันตรวจและยืนยัน",
+        PARTS.map((p, i) => `${i + 1}. ${p[0]}`).join("\n"), "",
+        "ขั้นตอนที่ 2 สร้างภาพ (ทำหลังจากฉันยืนยันแล้วเท่านั้น)",
+        "ใช้เนื้อหาและตัวเลขที่ฉันยืนยัน สร้างภาพตามข้อกำหนดต่อไปนี้", "");
+    }
+    T.push(`สร้างภาพอินโฟกราฟิกสรุปงานวิจัยในชั้นเรียนแบบหน้าเดียว ${r.line} ${st.t}`, "");
+    if (person || nLogo){
+      T.push("ใช้ภาพที่แนบเป็นภาพอ้างอิง ตามลำดับดังนี้"); let n = 1;
+      if (person) T.push(`- ภาพที่ ${n++}: ภาพบุคคลของผู้วิจัย ใช้อ้างอิงใบหน้า ทรงผม สีผิว รูปร่าง และเครื่องแต่งกาย ให้เป็นภาพเหมือนจริง`);
+      for (let i = 0; i < nLogo; i++) T.push(`- ภาพที่ ${n++}: โลโก้หน่วยงาน${nLogo > 1 ? " ลำดับที่ " + (i + 1) : ""} ใช้ตามต้นฉบับ ห้ามดัดแปลง`);
+      T.push("");
+    }
+    T.push("ส่วนหัว");
+    if (val("riSchool")) T.push(`- ป้ายด้านบนสุด: “${val("riSchool")}”`);
+    if (nLogo) T.push(`- วางโลโก้${nLogo > 1 ? "ทั้งหมดเรียงกัน" : ""}ด้านบนใกล้ชื่อสถานศึกษา`);
+    T.push("- หัวเรื่องใหญ่ที่สุดของภาพ: “วิจัยในชั้นเรียน”");
+    T.push(`- ชื่อเรื่องใต้หัวเรื่อง: “${val("riTitle") || "[ชื่อเรื่องวิจัย]"}”`);
+    if (val("riInno")) T.push(`- ป้ายชื่อนวัตกรรมเด่นตรงกลาง: “${val("riInno")}”`);
+    if (val("riTag")) T.push(`- ริบบิ้นคำโปรยใต้ป้ายนวัตกรรม: “${val("riTag")}”`);
+    if (person) T.push("- มุมขวาบนเป็นภาพผู้วิจัยจากภาพอ้างอิง ครึ่งตัว ยิ้มสุภาพ ยืนกอดอกอย่างมั่นใจ ไดคัตไม่มีกรอบ กลมกลืนกับฉาก");
+    if (val("riName")) T.push(`- ป้ายชื่อใต้ภาพผู้วิจัย: “${val("riName")}”${val("riPos") ? ` และ “${val("riPos")}”` : ""}`);
+    if (val("riDeco")) T.push(`- ตัวละครหรือของประกอบด้านข้าง: ${val("riDeco")}`);
+    T.push("");
+    T.push("โครงสร้างเนื้อหา 10 ส่วน",
+      "จัดเป็นกล่องเนื้อหามุมโค้ง แต่ละกล่องมีเลขในวงกลมสีต่างกันและแถบหัวข้อสี พร้อมไอคอนหรือภาพประกอบเล็กที่สื่อความหมาย เรียงดังนี้ แถวที่ 1 ส่วนที่ 1–2 แถวที่ 2 ส่วนที่ 3–4 แถวที่ 3 ส่วนที่ 5–7 แถวที่ 4 ส่วนที่ 8 เต็มความกว้าง แถวที่ 5 ส่วนที่ 9–10", "");
+    if (!fileMode){
+      PARTS.forEach((p, i) => {
+        const v = val("riP" + i);
+        T.push(`ส่วนที่ ${i + 1} “${p[0]}”`);
+        if (i === 7) T.push(v ? `ข้อความสรุป: ${v}` : "แสดงกราฟตามข้อกำหนดด้านล่าง");
+        else T.push(v || "(ยังไม่มีข้อมูล ให้เว้นกล่องข้อความว่างพื้นเรียบไว้ ห้ามเติมข้อความเอง)");
+        T.push("");
+      });
+      const C = chartsText(d);
+      T.push("กราฟในส่วนที่ 8 (ใช้ตัวเลขตามนี้ทุกตัว)");
+      if (C.length) T.push(...C); else T.push("(ยังไม่มีข้อมูลผลการวิจัย ให้วาดกรอบกราฟเปล่าที่ไม่มีตัวเลข ห้ามสร้างตัวเลขเอง)");
+      T.push("");
+    } else {
+      T.push("ส่วนที่ 8 ให้สร้างกราฟจากตัวเลขที่ฉันยืนยันในขั้นตอนที่ 1 ได้แก่ กราฟแท่งค่าเฉลี่ยก่อน–หลัง กราฟโดนัทร้อยละผู้ผ่านเกณฑ์ก่อน–หลัง กราฟเส้นพัฒนาการระหว่างกิจกรรม และกราฟแท่งแนวนอนความพึงพอใจ เฉพาะกราฟที่มีข้อมูลจริง สัดส่วนของกราฟต้องตรงกับตัวเลข", "");
+    }
+    if (val("riSlogan")) T.push(`ด้านล่างสุดเป็นป้ายคำขวัญ: “${val("riSlogan")}”`, "");
+    T.push("ข้อกำหนด",
+      "- ข้อความภาษาไทยทุกตำแหน่งต้องถูกต้องตามที่กำหนดทุกตัวอักษร สระ วรรณยุกต์ และตัวเลข ห้ามสร้างคำที่ไม่มีความหมาย",
+      "- ใช้เนื้อหาและตัวเลขตามที่กำหนดเท่านั้น ห้ามเพิ่มข้อมูล ผลการวิจัย หรือตัวเลขใหม่ ห้ามปัดหรือเปลี่ยนตัวเลข",
+      "- กราฟทุกกราฟต้องมีสัดส่วนตรงกับตัวเลขจริง",
+      "- ตัวอักษรเนื้อหาต้องอ่านได้ชัดเมื่อพิมพ์หรือดูบนหน้าจอ หากพื้นที่ไม่พอ ให้ลดภาพตกแต่งก่อนลดขนาดตัวอักษร",
+      "- ภาพประกอบต้องไม่บังข้อความหรือกราฟ",
+      person ? "- ห้ามเปลี่ยนใบหน้าผู้วิจัย ห้ามมือหรือนิ้วผิดรูป" : "- ห้ามใส่ภาพบุคคลจริง",
+      nLogo ? "- ห้ามสร้างโลโก้เพิ่มนอกจากที่แนบ" : "- ห้ามสร้างโลโก้หรือตราหน่วยงานใด ๆ",
+      "- ห้ามใส่ลายน้ำหรือข้อความภาษาอังกฤษที่ไม่ได้กำหนด");
+    return T.join("\n");
+  }
+
+  function drawPreview(d){
+    const r = RATIOS.find(x => x.k === S.ratio), el = g("riPreview"), wide = r.w > r.h;
+    el.style.aspectRatio = r.w + " / " + r.h;
+    el.style.width = wide ? "100%" : (r.k === "916" ? "52%" : "64%");
+    const filled = i => S.source === "file" || !!val("riP" + i) || (i === 7 && (d.mean || d.pass));
+    const box = i => `<div class="ip-b${filled(i) ? " on" : ""}"><i style="background:${COLORS[i]}">${i + 1}</i><em></em><em></em></div>`;
+    const charts = [d.mean ? '<span class="c-bar"><b style="height:40%"></b><b style="height:80%"></b></span>' : "", d.pass ? '<span class="c-donut"></span>' : "", d.trend.length >= 2 ? '<span class="c-line"></span>' : "", d.sat.length ? '<span class="c-hbar"><b></b><b style="width:70%"></b><b style="width:85%"></b></span>' : ""].join("");
+    el.innerHTML = `<div class="ip-head"><div class="ip-t"><em class="ip-school"></em><em class="ip-big"></em><em></em><em class="ip-inno"></em></div>${g("riPerson").checked ? '<div class="ip-person"></div>' : ""}</div>
+      <div class="ip-row c2">${box(0)}${box(1)}</div><div class="ip-row c2">${box(2)}${box(3)}</div><div class="ip-row c3">${box(4)}${box(5)}${box(6)}</div>
+      <div class="ip-row"><div class="ip-b ip-8${filled(7) ? " on" : ""}"><i style="background:${COLORS[7]}">8</i><div class="ip-ch">${charts || "<small>กราฟ</small>"}</div></div></div>
+      <div class="ip-row c2">${box(8)}${box(9)}</div>${val("riSlogan") ? '<div class="ip-foot"></div>' : ""}`;
+    const n = PARTS.filter((_, i) => filled(i)).length;
+    g("riFill").textContent = S.source === "file" ? "AI สรุปจากไฟล์" : `มีข้อมูล ${n}/10 ส่วน`;
+  }
+
+  function update(){
+    const d = data(), fileMode = S.source === "file";
+    g("riPartsBox").hidden = fileMode;
+    g("riErr").hidden = true;
+    drawCalc(d);
+    const total = PARTS.reduce((a, _, i) => a + val("riP" + i).length, 0) + val("riTitle").length;
+    g("riLenWarn").innerHTML = !fileMode && total > 1500 ? `<div class="alert" style="margin-top:8px">ข้อความรวม ${total} ตัวอักษร ยิ่งข้อความยาว เครื่องมือสร้างภาพยิ่งสะกดผิดหรือตกหล่นได้ง่าย ควรย่อให้เหลือส่วนละ 2–3 บรรทัด</div>` : "";
+    drawPreview(d);
+    g("riOut").textContent = prompt();
+  }
+  function guard(){
+    if (!val("riTitle") && S.source === "fill"){
+      g("riErr").textContent = "กรอกชื่อเรื่องวิจัยก่อน"; g("riErr").hidden = false; toast("กรอกชื่อเรื่องวิจัยก่อน");
+      g("riTitle").scrollIntoView({behavior: reduced ? "auto" : "smooth", block:"center"}); setTimeout(() => g("riTitle").focus({preventScroll:true}), 300); return false;
+    }
+    const d = data(); if (d.warn.length && !confirm("ข้อมูลกราฟมีจุดที่ควรตรวจ: " + d.warn.join(", ") + " ต้องการคัดลอกต่อหรือไม่")) return false;
+    return true;
+  }
+
+  drawSource(); opt("riRatio", RATIOS, "ratio"); opt("riStyle", STYLES, "style"); opt("riLogos", LOGOS, "logos");
+  ["riTitle","riInno","riTag","riName","riPos","riSchool","riSlogan","riFull","riNpre","riNpost","riMpre","riMpost","riPpre","riPpost","riCrit","riTrend","riTrendLabel","riSatMax","riSat","riDeco", ...PARTS.map((_, i) => "riP" + i)].forEach(id => g(id).addEventListener("input", update));
+  g("riPerson").addEventListener("change", update);
+  g("riCopy").addEventListener("click", () => { if (guard()) copyText(prompt(), "คัดลอก Prompt อินโฟกราฟิกแล้ว"); });
+  g("riDl").addEventListener("click", () => { if (guard()) download("research-infographic-prompt.txt", prompt()); });
   update();
 })();
 
