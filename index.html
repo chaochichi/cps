@@ -381,6 +381,27 @@ dialog.cmdk{width:min(640px,calc(100vw - 24px));align-self:start;margin-top:12vh
 .flow-detail b{display:block;font-family:var(--f-display);font-size:18px;margin-bottom:6px}
 .flow-detail p{color:var(--muted);font-size:15px}
 
+/* game studio */
+.gtypes{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.gtype{all:unset;box-sizing:border-box;cursor:pointer;border:1px solid var(--line);background:var(--paper);border-radius:var(--r-md);padding:12px;display:grid;gap:4px;align-content:start;transition:border-color .15s ease,transform .15s ease}
+.gtype:hover{border-color:var(--teal-ink);transform:translateY(-2px)}
+.gtype:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.gtype[aria-pressed="true"]{border-color:var(--teal-ink);background:var(--mark);box-shadow:0 0 0 2px #14B8A633}
+.gtype .gi{font-size:26px;line-height:1.2}
+.gtype b{font-size:15px}
+.gtype small{font-size:12.5px;color:var(--muted);line-height:1.5}
+.gtype[aria-pressed="true"] .gi{animation:pop .35s ease}
+.gcard{margin-top:12px;border-radius:var(--r-md);background:linear-gradient(135deg,#1E3A5F,#0F6E56);color:#fff;padding:18px;display:grid;gap:12px}
+.gc-top{display:flex;gap:12px;align-items:center}
+.gc-ic{font-size:34px;width:56px;height:56px;display:grid;place-items:center;background:#FFFFFF1F;border-radius:14px;flex:none}
+.gc-top small{display:block;color:#B5D4F4;font-size:12.5px}
+.gc-top b{font-family:var(--f-display);font-size:18px;line-height:1.35}
+.gcard p{color:#DCE8F6;font-size:14px}
+.gc-tags{display:flex;flex-wrap:wrap;gap:6px}
+.gc-tags span{font-size:12px;background:#F59E0B;color:#412402;border-radius:999px;padding:2px 10px;font-weight:600}
+.gc-mech{display:flex;flex-wrap:wrap;gap:6px}
+.gc-mech i{font-style:normal;font-size:12px;border:1px solid #FFFFFF40;border-radius:999px;padding:2px 9px;color:#DCE8F6}
+
 footer{border-top:1px solid var(--line);padding:28px 0 36px;color:var(--muted);font-size:14px}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
@@ -856,6 +877,87 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   </div></div>
 </section>
 
+
+<!-- ================= GAME PROMPT STUDIO ================= -->
+<section class="view" data-view="game" aria-label="Game Prompt Studio">
+  <div class="page-hero"><div class="wrap">
+    <a class="link" href="#tools" style="color:#9FE1CB">กลับไปหน้าเครื่องมือ</a>
+    <h1 style="margin-top:10px">Game Prompt Studio</h1>
+    <p>ออกแบบเกมการศึกษาของคุณ เลือกวิชา ระดับชั้น ประเภทเกม และวิธีเล่น แล้วรับ Prompt ไปสั่งให้ AI สร้างเกมให้ ทั้งเกมบนเว็บ เกมพิมพ์เล่นบนกระดาษ และกิจกรรมเกมในห้องเรียน</p>
+  </div></div>
+
+  <div class="sec" style="padding-top:36px"><div class="wrap rp">
+    <div>
+      <div class="box">
+        <h2>1. เนื้อหาการเรียนรู้</h2>
+        <div class="inline">
+          <div class="field"><label for="gmArea">วิชา<span class="req">*</span></label><select id="gmArea"><option>ภาษาไทย</option><option>คณิตศาสตร์</option><option>วิทยาศาสตร์และเทคโนโลยี</option><option>สังคมศึกษา ศาสนาและวัฒนธรรม</option><option>สุขศึกษาและพลศึกษา</option><option>ศิลปะ</option><option>การงานอาชีพ</option><option>ภาษาอังกฤษ</option><option>ภาษาต่างประเทศอื่น</option><option>บูรณาการหลายวิชา</option></select></div>
+          <div class="field"><label for="gmGrade">ระดับชั้น<span class="req">*</span></label><select id="gmGrade"></select></div>
+        </div>
+        <div class="field"><label for="gmTopic">เรื่องหรือเนื้อหาที่ใช้ในเกม<span class="req">*</span></label><input id="gmTopic" placeholder="การบวกลบเศษส่วน, คำควบกล้ำ, ระบบสุริยะ"></div>
+        <div class="field"><label for="gmGoal">ผู้เล่นต้องทำอะไรได้หลังเล่นจบ</label><input id="gmGoal" placeholder="ไม่บังคับ เช่น อ่านคำควบกล้ำได้ถูกต้อง"></div>
+        <div class="field"><b style="display:block;font-size:14px;margin-bottom:8px">ที่มาของคำถามหรือโจทย์ในเกม</b><div class="opts" id="gmSource"></div></div>
+        <div class="field" id="gmBankWrap" hidden><label for="gmBank">คำถามหรือข้อมูลของคุณ (บรรทัดละ 1 ข้อ)</label><textarea id="gmBank" style="min-height:120px" placeholder="3/4 + 1/4 = ? | 1&#10;เศษส่วนใดมีค่ามากที่สุด 1/2, 1/3, 1/4 | 1/2"></textarea><div class="hint">ใส่คำตอบหลังเครื่องหมาย | ได้ ถ้ามี</div></div>
+      </div>
+
+      <div class="box">
+        <h2>2. ประเภทเกม</h2>
+        <div class="gtypes" id="gmTypes" role="group" aria-label="ประเภทเกม"></div>
+        <p class="hint" id="gmTypeNote" style="margin-top:10px"></p>
+      </div>
+
+      <div class="box">
+        <h2>3. รูปแบบผลงานและวิธีเล่น</h2>
+        <div class="group"><b>รูปแบบผลงานที่ต้องการ</b><div class="opts" id="gmMedium"></div><p class="hint" id="gmMediumNote" style="margin-top:8px"></p></div>
+        <div class="group"><b>วิธีการเล่น (เลือกได้หลายแบบ)</b><div class="opts" id="gmPlay"></div></div>
+        <div class="group"><b>อุปกรณ์ที่ใช้เล่น (เลือกได้หลายแบบ)</b><div class="opts" id="gmDevice"></div></div>
+        <div class="group"><b>ผู้เล่น</b><div class="opts" id="gmPlayers"></div></div>
+      </div>
+
+      <div class="box">
+        <h2>4. โครงสร้างเกม</h2>
+        <div class="inline">
+          <div class="field"><label for="gmLevels">จำนวนด่านหรือรอบ</label><input id="gmLevels" type="number" min="1" max="30" value="3"></div>
+          <div class="field"><label for="gmItems">โจทย์ต่อด่าน</label><input id="gmItems" type="number" min="1" max="50" value="5"></div>
+          <div class="field"><label for="gmTime">เวลาเล่นต่อรอบ (นาที)</label><input id="gmTime" type="number" min="1" max="60" value="10"></div>
+        </div>
+        <div class="group"><b>ระดับความยาก</b><div class="opts" id="gmDiff"></div></div>
+        <div class="group"><b>ระบบในเกม (เลือกได้หลายแบบ)</b><div class="opts" id="gmMech"></div></div>
+      </div>
+
+      <div class="box">
+        <h2>5. ธีมและบรรยากาศ</h2>
+        <div class="field"><label for="gmTheme">ธีมหรือเรื่องราว</label>
+          <div style="display:flex;gap:8px"><input id="gmTheme" placeholder="ผจญภัยในป่ามหัศจรรย์" style="flex:1"><button class="btn btn-line btn-sm" id="gmDice" type="button" aria-label="สุ่มธีม"><svg class="dice" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><circle cx="8.5" cy="8.5" r="1.3" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/></svg>สุ่ม</button></div></div>
+        <div class="field"><label for="gmHero">ตัวละครหลัก</label><input id="gmHero" placeholder="ไม่บังคับ เช่น น้องช้างนักสำรวจ"></div>
+        <div class="group"><b>สไตล์ภาพ</b><div class="opts" id="gmArt"></div></div>
+        <div class="group"><b>ภาษาในเกม</b><div class="opts" id="gmLang"></div></div>
+        <label class="toggle"><input type="checkbox" id="gmSpecial">รองรับผู้เรียนที่ต้องการความช่วยเหลือพิเศษ (ตัวอักษรใหญ่ ไม่จำกัดเวลา มีเสียงอ่านคำสั่ง)</label>
+      </div>
+
+      <div class="box">
+        <h2>6. รายละเอียดเพิ่มเติม</h2>
+        <div class="field"><label for="gmExtra">สิ่งที่ต้องการเพิ่มเติม</label><textarea id="gmExtra" style="min-height:110px" placeholder="ความต้องการอื่นที่ไม่มีในตัวเลือก เช่น ให้มีโหมดครูเพิ่มคำถามเอง ใช้ชื่อโรงเรียนในเกม มีใบเกียรติบัตรเมื่อเล่นจบ"></textarea></div>
+        <label class="toggle"><input type="checkbox" id="gmPlanFirst">ให้ AI สรุปแผนเกมให้ยืนยันก่อนสร้างจริง</label>
+      </div>
+    </div>
+
+    <div class="rp-side">
+      <div class="box" style="margin:0">
+        <div class="out-head"><b>การ์ดสรุปเกม</b><span class="note" id="gmFit"></span></div>
+        <div class="gcard" id="gmCard"></div>
+      </div>
+      <div class="box" style="margin:0">
+        <div class="out-head"><b>Prompt สร้างเกม</b>
+          <div class="row"><button class="btn btn-line btn-sm" id="gmDl">ดาวน์โหลด .txt</button><button class="btn btn-primary btn-sm" id="gmCopy">คัดลอก</button></div></div>
+        <div class="err" id="gmErr" hidden></div>
+        <div class="prompt-box" id="gmOut" style="margin-top:12px;max-height:300px;min-height:160px"></div>
+        <p class="note" style="margin-top:10px">เกมบนเว็บ AI จะส่งโค้ดไฟล์เดียวมาให้ บันทึกเป็นไฟล์ .html แล้วเปิดด้วยเบราว์เซอร์ หรืออัปโหลดขึ้น GitHub Pages ตรวจความถูกต้องของเนื้อหาและคำตอบทุกข้อก่อนใช้กับนักเรียน</p>
+      </div>
+    </div>
+  </div></div>
+</section>
+
 <!-- ================= HOW ================= -->
 <section class="view" data-view="how" aria-label="วิธีใช้งาน">
   <div class="page-hero"><div class="wrap"><h1>วิธีใช้งาน</h1><p>ใช้ได้ทันทีโดยไม่ต้องสมัครสมาชิก</p></div></div>
@@ -1266,6 +1368,11 @@ const PROMPTS = [
     tags:"แผนการสอน แผนการจัดการเรียนรู้ PA active learning 5E GPAS CIPPA ครู",
     content:"ข้อมูลส่วนหัว + {กระบวนการที่เลือก} → AI เขียน {ตัวชี้วัด} {สาระสำคัญ} {จุดประสงค์} {ชิ้นงาน} {กระบวนการ} {สื่อ} {การประเมิน} → ส่วนอื่นเว้นว่าง" },
 
+  { id:"game", type:"tool", route:"game", category:"การศึกษา", title:"Game Prompt Studio",
+    desc:"ออกแบบเกมการศึกษา เลือกวิชา ระดับชั้น ประเภทเกม และวิธีเล่น แล้วรับ Prompt ไปสั่ง AI สร้างเกมบนเว็บ เกมพิมพ์ หรือกิจกรรมในห้องเรียน",
+    tags:"เกมการศึกษา เกม AR ผจญภัย quiz บอร์ดเกม การ์ด gamification",
+    content:"{วิชา} + {ระดับชั้น} + {ประเภทเกม} + {วิธีเล่น} + {ธีม} → Prompt สร้างเกมที่เล่นได้จริง" },
+
   { id:"bp-skill", type:"skill", route:"skill-bp", category:"การศึกษา", title:"เขียนรายงาน Best Practice ของครู",
     desc:"Prompt เดียววางใน AI ได้ทันที AI สัมภาษณ์ทีละประเด็น ตอบคร่าว ๆ แล้วได้ร่าง ผลการดำเนินการและการเผยแพร่เป็นโครงว่างให้เติมเอง",
     tags:"best practice วิธีปฏิบัติที่เป็นเลิศ ประกวด ครู รายงาน skill",
@@ -1499,7 +1606,7 @@ function route(){
   const v = (location.hash || "#home").slice(1);
   const name = $$(".view").some(s => s.dataset.view === v) ? v : "home";
   $$(".view").forEach(s => s.classList.toggle("active", s.dataset.view === name));
-  const navName = name.startsWith("skill-") ? "skills" : (name === "trend" || name === "report") ? "tools" : name;
+  const navName = name.startsWith("skill-") ? "skills" : (name === "trend" || name === "report" || name === "game") ? "tools" : name;
   $$(".nav a").forEach(a => a.getAttribute("href") === "#" + navName ? a.setAttribute("aria-current","page") : a.removeAttribute("aria-current"));
   $("#nav").classList.remove("open"); $("#menuBtn").setAttribute("aria-expanded","false");
   window.scrollTo(0, 0);
@@ -1532,6 +1639,7 @@ const ART = {
   "งานเอกสาร": ["#0F2238","#1E3A5F", '<rect x="132" y="34" width="86" height="112" rx="6" fill="#FFFFFF" opacity=".55" transform="rotate(8 175 90)"/><rect x="112" y="32" width="86" height="114" rx="6" fill="#FFFFFF"/><rect x="122" y="44" width="50" height="8" rx="3" fill="#1E3A5F"/><path d="M122 64h66M122 76h66M122 88h44" stroke="#1E3A5F" stroke-width="4" stroke-linecap="round" opacity=".4"/><rect x="124" y="108" width="12" height="26" rx="2" fill="#14B8A6"/><rect x="142" y="98" width="12" height="36" rx="2" fill="#0F6E56"/><rect x="160" y="114" width="12" height="20" rx="2" fill="#F59E0B"/>']
 };
 const TOOL_ART = {
+  game: ["#132840","#5B4B8A", '<rect x="92" y="62" width="136" height="72" rx="36" fill="#FFFFFF"/><rect x="118" y="88" width="30" height="10" rx="3" fill="#1E3A5F"/><rect x="128" y="78" width="10" height="30" rx="3" fill="#1E3A5F"/><circle cx="188" cy="86" r="7" fill="#14B8A6"/><circle cx="204" cy="100" r="7" fill="#F59E0B"/><circle cx="172" cy="100" r="7" fill="#8B2C3B"/><circle cx="188" cy="114" r="7" fill="#0F6E56"/><path d="M228 40l4 9 10 1-7 7 2 10-9-5-9 5 2-10-7-7 10-1z" fill="#F59E0B"/><circle cx="84" cy="44" r="5" fill="#14B8A6"/><circle cx="246" cy="146" r="4" fill="#FFFFFF" opacity=".6"/>'],
   lesson: ["#1E3A5F","#0F6E56", '<rect x="114" y="30" width="92" height="128" rx="8" fill="#FFFFFF"/><rect x="140" y="22" width="40" height="16" rx="5" fill="#F59E0B"/><path d="M128 60h52M128 74h64" stroke="#1E3A5F" stroke-width="5" stroke-linecap="round" opacity=".5"/><rect x="128" y="90" width="64" height="8" rx="4" fill="#E2E8F0"/><rect x="128" y="90" width="12" height="8" rx="4" fill="#1E3A5F"/><rect x="141" y="90" width="20" height="8" fill="#0F6E56"/><rect x="162" y="90" width="18" height="8" fill="#14B8A6"/><path d="M130 116l6 6 12-12M130 138l6 6 12-12" stroke="#0F6E56" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M156 120h34M156 142h26" stroke="#1E3A5F" stroke-width="4" stroke-linecap="round" opacity=".4"/>'],
   trend: ["#132840","#0F6E56", '<path d="M70 132l40-30 30 18 44-46 36 24 30-38" stroke="#FFFFFF" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="250" cy="60" r="10" fill="#F59E0B"/><rect x="70" y="140" width="180" height="4" rx="2" fill="#FFFFFF" opacity=".3"/><g fill="#14B8A6"><circle cx="110" cy="102" r="6"/><circle cx="184" cy="74" r="6"/></g>'],
   report: ["#1E3A5F","#5B4B8A", '<rect x="108" y="22" width="104" height="146" rx="5" fill="#FBF6EA"/><rect x="108" y="22" width="14" height="146" fill="#E9DFC8"/><rect x="130" y="32" width="72" height="12" rx="2" fill="#1E3A5F"/><circle cx="134" cy="58" r="4" fill="#0F6E56"/><circle cx="134" cy="74" r="4" fill="#B45309"/><path d="M142 58h26M142 74h26" stroke="#8A7550" stroke-width="3" stroke-linecap="round"/><circle cx="190" cy="62" r="8" fill="#7B8CA3"/><path d="M176 86c0-10 6-16 14-16s14 6 14 16z" fill="#5F7290"/><rect x="130" y="98" width="34" height="25" fill="#E8E2D6" stroke="#B9AE98"/><rect x="168" y="98" width="34" height="25" fill="#E8E2D6" stroke="#B9AE98"/><path d="M160 146h40M168 154h24" stroke="#8A7550" stroke-width="3" stroke-linecap="round"/>']
@@ -2260,7 +2368,7 @@ $$("[data-surprise]").forEach(b => b.addEventListener("click", () => surprise(b)
 /* ================= ค้นหาด่วน (Ctrl+K) ================= */
 (function(){
   const dlg = $("#cmdk"), inp = $("#cmdq"), list = $("#cmdList");
-  const PAGES = [["หน้าแรก","#home"],["คลัง Prompt","#library"],["Skill","#skills"],["เครื่องมือ","#tools"],["แผนการจัดการเรียนรู้","#lesson"],["วิธีใช้งาน","#how"],["เกี่ยวกับ","#about"]];
+  const PAGES = [["หน้าแรก","#home"],["คลัง Prompt","#library"],["Skill","#skills"],["เครื่องมือ","#tools"],["แผนการจัดการเรียนรู้","#lesson"],["Game Prompt Studio","#game"],["วิธีใช้งาน","#how"],["เกี่ยวกับ","#about"]];
   let items = [], sel = 0;
   function show(){ if (typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open", ""); inp.value = ""; render(); setTimeout(() => inp.focus(), 0); }
   function hide(){ if (typeof dlg.close === "function") dlg.close(); else dlg.removeAttribute("open"); }
@@ -2449,6 +2557,194 @@ $$("[data-surprise]").forEach(b => b.addEventListener("click", () => surprise(b)
   g("lpCopy").addEventListener("click", () => { if (guardPlan()) copyText(planPrompt(), "คัดลอก Prompt เขียนแผนแล้ว"); });
   g("lpDl").addEventListener("click", () => { if (guardPlan()) download("lesson-plan-" + (val("lpNo") || "x") + ".txt", planPrompt()); });
   drawModels(); allocate(); update();
+})();
+
+/* ================= Game Prompt Studio ================= */
+(function(){
+  const g = id => $("#" + id), val = id => g(id).value.trim();
+  const GRADES = ["อนุบาล", ...[1,2,3,4,5,6].map(n => "ประถมศึกษาปีที่ " + n), ...[1,2,3,4,5,6].map(n => "มัธยมศึกษาปีที่ " + n)];
+  g("gmGrade").innerHTML = GRADES.map(x => `<option>${esc(x)}</option>`).join("");
+  g("gmGrade").selectedIndex = 4;
+
+  const TYPES = [
+    {k:"adv", l:"ผจญภัย", ic:"🗺️", d:"เดินทางตามเรื่องราว ผ่านด่านด้วยการตอบโจทย์", m:"web"},
+    {k:"quiz", l:"ตอบคำถามแข่งขัน", ic:"❓", d:"เกมโชว์ตอบคำถาม มีคะแนนและเวลา", m:"web"},
+    {k:"puzzle", l:"ปริศนา", ic:"🧩", d:"แก้ปริศนาหรือต่อภาพเพื่อเปิดคำตอบ", m:"web"},
+    {k:"match", l:"จับคู่ความจำ", ic:"🃏", d:"เปิดการ์ดจับคู่คำกับความหมายหรือภาพ", m:"web"},
+    {k:"drag", l:"ลากวางเรียงลำดับ", ic:"🧲", d:"ลากคำตอบไปวางให้ถูกตำแหน่งหรือถูกลำดับ", m:"web"},
+    {k:"sim", l:"จำลองสถานการณ์", ic:"🏪", d:"สวมบทบาทแก้ปัญหาในสถานการณ์จริง", m:"web"},
+    {k:"arcade", l:"แอ็กชันเร็ว", ic:"⚡", d:"เก็บคำตอบที่ถูก หลบคำตอบที่ผิด แข่งกับเวลา", m:"web"},
+    {k:"escape", l:"หนีออกจากห้อง", ic:"🔐", d:"ไขรหัสทีละขั้นเพื่อหาทางออก", m:"web"},
+    {k:"ar", l:"AR ความจริงเสริม", ic:"📷", d:"ส่องกล้องไปที่ภาพหรือการ์ด แล้วเห็นวัตถุหรือโจทย์ซ้อนบนภาพจริง", m:"web"},
+    {k:"board", l:"บอร์ดเกม", ic:"🎲", d:"กระดานเดินตามช่อง ทอยลูกเต๋า พิมพ์เล่นในห้อง", m:"print"},
+    {k:"card", l:"เกมการ์ด", ic:"🂠", d:"ชุดการ์ดคำถามหรือการ์ดภารกิจ พิมพ์ตัดเล่น", m:"print"},
+    {k:"active", l:"เกมเคลื่อนไหวในห้อง", ic:"🏃", d:"เกมกิจกรรมกลุ่ม ใช้ร่างกายและอุปกรณ์ง่าย ๆ", m:"class"}
+  ];
+  const MEDIUM = [
+    {k:"web", l:"เกมบนเว็บ (ไฟล์ HTML)", n:"AI จะเขียนโค้ดเกมไฟล์เดียว เปิดเล่นได้ในเบราว์เซอร์ทั้งคอมพิวเตอร์และโทรศัพท์"},
+    {k:"print", l:"เกมพิมพ์เล่นบนกระดาษ", n:"AI จะออกแบบกระดาน การ์ด กติกา และรายการอุปกรณ์ พร้อมขนาดสำหรับพิมพ์ A4"},
+    {k:"class", l:"กิจกรรมเกมในห้องเรียน", n:"AI จะออกแบบกติกา ขั้นตอน บทบาทครูและนักเรียน และอุปกรณ์ที่ใช้"}
+  ];
+  const PLAY = ["แตะหรือคลิกเลือกคำตอบ","ลากและวาง","พิมพ์คำตอบ","บังคับตัวละครด้วยปุ่มหรือคีย์บอร์ด","ส่องกล้อง (AR)","ทอยลูกเต๋าเดินตามช่อง","จั่วการ์ด","ครูควบคุมบนจอหน้าห้อง"];
+  const DEVICE = ["คอมพิวเตอร์","แท็บเล็ตหรือโทรศัพท์","จอโปรเจกเตอร์หรือสมาร์ททีวี","ไม่ใช้อุปกรณ์ดิจิทัล"];
+  const PLAYERS = ["เล่นคนเดียว","เล่นเป็นคู่","เล่นเป็นกลุ่ม","ทั้งห้องแข่งกัน"];
+  const DIFF = ["ง่าย","ปานกลาง","ยาก","ยากขึ้นตามด่าน"];
+  const MECH = ["คะแนน","ดาวหรือเหรียญรางวัล","ตัวจับเวลา","หัวใจหรือจำนวนชีวิต","คำใบ้","เฉลยพร้อมคำอธิบาย","เสียงประกอบ","สรุปผลเมื่อจบเกม","กระดานคะแนนในเครื่อง"];
+  const ART = ["การ์ตูนน่ารัก","พิกเซลอาร์ต","มินิมอลสะอาดตา","ภาพประกอบสีสันสดใส","ลายไทยร่วมสมัย"];
+  const LANG = ["ไทย","อังกฤษ","ไทยและอังกฤษ"];
+  const SOURCE = [{k:"ai", l:"ให้ AI สร้างตามเนื้อหา"},{k:"own", l:"ใช้คำถามของฉัน"}];
+  const THEMES = ["ผจญภัยในป่ามหัศจรรย์","ภารกิจกู้อวกาศ","ตลาดน้ำแสนสนุก","ตามหาสมบัติใต้ทะเล","เมืองหุ่นยนต์อัจฉริยะ","เดินทางย้อนเวลาสู่อดีต","ฟาร์มของคุณตา","เทศกาลประจำถิ่นอีสาน","ห้องทดลองนักวิทยาศาสตร์น้อย","ปราสาทปริศนาตัวเลข"];
+
+  const S = { type:"adv", medium:"web", mediumTouched:false, play:["แตะหรือคลิกเลือกคำตอบ"], device:["แท็บเล็ตหรือโทรศัพท์","คอมพิวเตอร์"], players:"เล่นคนเดียว", diff:"ยากขึ้นตามด่าน", mech:["คะแนน","ดาวหรือเหรียญรางวัล","เฉลยพร้อมคำอธิบาย","เสียงประกอบ","สรุปผลเมื่อจบเกม"], art:"การ์ตูนน่ารัก", lang:"ไทย", source:"ai" };
+
+  function single(el, items, key, after){
+    g(el).innerHTML = items.map((x, i) => { const v = x.k || x; const l = x.l || x; return `<button class="opt" type="button" data-v="${esc(v)}" aria-pressed="${S[key] === v}">${esc(l)}</button>`; }).join("");
+    g(el).querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => { S[key] = b.dataset.v; if (after) after(); single(el, items, key, after); update(); }));
+  }
+  function multi(el, items, key){
+    g(el).innerHTML = items.map(x => `<button class="opt" type="button" data-v="${esc(x)}" aria-pressed="${S[key].includes(x)}">${esc(x)}</button>`).join("");
+    g(el).querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+      const v = b.dataset.v; S[key] = S[key].includes(v) ? S[key].filter(x => x !== v) : [...S[key], v];
+      b.setAttribute("aria-pressed", S[key].includes(v)); update();
+    }));
+  }
+  function drawTypes(){
+    g("gmTypes").innerHTML = TYPES.map(t => `<button type="button" class="gtype" data-k="${t.k}" aria-pressed="${S.type === t.k}"><span class="gi" aria-hidden="true">${t.ic}</span><b>${esc(t.l)}</b><small>${esc(t.d)}</small></button>`).join("");
+    g("gmTypes").querySelectorAll(".gtype").forEach(b => b.addEventListener("click", () => {
+      S.type = b.dataset.k; const t = TYPES.find(x => x.k === S.type);
+      if (!S.mediumTouched){ S.medium = t.m; drawMedium(); }
+      if (S.type === "ar" && !S.play.includes("ส่องกล้อง (AR)")){ S.play = [...S.play, "ส่องกล้อง (AR)"]; multi("gmPlay", PLAY, "play"); }
+      drawTypes(); update();
+    }));
+    g("gmTypeNote").textContent = S.type === "ar"
+      ? "เกม AR ต้องใช้กล้องของอุปกรณ์ และต้องเปิดผ่านเว็บที่เป็น https เช่น GitHub Pages จึงจะใช้กล้องได้ ควรทดสอบบนโทรศัพท์หรือแท็บเล็ตจริงก่อนใช้ในห้องเรียน"
+      : "";
+  }
+  function drawMedium(){
+    single("gmMedium", MEDIUM, "medium", () => { S.mediumTouched = true; });
+    g("gmMediumNote").textContent = MEDIUM.find(m => m.k === S.medium).n;
+  }
+
+  function prompt(){
+    const t = TYPES.find(x => x.k === S.type), m = S.medium;
+    const grade = g("gmGrade").value, topic = val("gmTopic") || "[เรื่องหรือเนื้อหา]";
+    const lv = +g("gmLevels").value || 3, it = +g("gmItems").value || 5, tm = +g("gmTime").value || 10;
+    const L = [];
+    L.push(`คุณคือนักออกแบบเกมการศึกษาและนักพัฒนาที่เชี่ยวชาญการสร้างเกมสำหรับผู้เรียนไทย สร้างเกมการศึกษาตามข้อกำหนดด้านล่างให้ครบถ้วน และเล่นได้จริง`, "");
+    L.push("ข้อมูลการเรียนรู้");
+    L.push(`- วิชา: ${g("gmArea").value}`, `- ระดับชั้น: ${grade}`, `- เรื่อง: ${topic}`);
+    if (val("gmGoal")) L.push(`- ผู้เล่นต้องทำได้หลังเล่นจบ: ${val("gmGoal")}`);
+    L.push("");
+    L.push("ข้อกำหนดของเกม");
+    L.push(`- ประเภทเกม: ${t.l} (${t.d})`);
+    L.push(`- รูปแบบผลงาน: ${MEDIUM.find(x => x.k === m).l}`);
+    L.push(`- วิธีการเล่น: ${S.play.length ? S.play.join(", ") : "ตามความเหมาะสมของประเภทเกม"}`);
+    L.push(`- อุปกรณ์ที่ใช้เล่น: ${S.device.length ? S.device.join(", ") : "ตามความเหมาะสม"}`);
+    L.push(`- ผู้เล่น: ${S.players}`);
+    L.push(`- โครงสร้าง: ${lv} ด่านหรือรอบ ด่านละ ${it} โจทย์ เวลาเล่นต่อรอบประมาณ ${tm} นาที`);
+    L.push(`- ระดับความยาก: ${S.diff}`);
+    L.push(`- ระบบในเกม: ${S.mech.length ? S.mech.join(", ") : "ตามความเหมาะสม"}`);
+    L.push(`- ธีมหรือเรื่องราว: ${val("gmTheme") || "เลือกธีมที่เหมาะกับวัยและเนื้อหา"}`);
+    if (val("gmHero")) L.push(`- ตัวละครหลัก: ${val("gmHero")}`);
+    L.push(`- สไตล์ภาพ: ${S.art}`, `- ภาษาในเกม: ${S.lang}`);
+    if (g("gmSpecial").checked) L.push("- รองรับผู้เรียนที่ต้องการความช่วยเหลือพิเศษ: ตัวอักษรใหญ่ มีตัวเลือกไม่จำกัดเวลา และปุ่มอ่านคำสั่งออกเสียง");
+    L.push("");
+
+    L.push("เนื้อหาและคำถามในเกม");
+    if (S.source === "own" && val("gmBank")){
+      L.push("ใช้คำถามหรือข้อมูลต่อไปนี้ของครูเป็นหลัก (คำตอบอยู่หลังเครื่องหมาย | ถ้ามี) ห้ามแก้ความหมาย หากจำนวนไม่พอตามโครงสร้าง ให้สร้างเพิ่มในแนวเดียวกันและระบุว่าข้อใดสร้างเพิ่ม");
+      L.push('"""', val("gmBank"), '"""');
+    } else {
+      L.push(`สร้างคำถามหรือโจทย์ ${lv * it} ข้อ ให้ตรงกับเรื่อง "${topic}" และระดับ${grade} เรียงจากง่ายไปยาก ใช้ภาษาที่เหมาะกับวัย คำตอบต้องถูกต้องตามหลักวิชา ตัวเลือกที่ผิดต้องสมเหตุสมผลแต่ไม่กำกวม`);
+    }
+    L.push("");
+
+    L.push("หลักการออกแบบ");
+    L.push("1. เป้าหมายการเรียนรู้ต้องอยู่ในกลไกหลักของเกม ผู้เล่นต้องใช้ความรู้จึงจะผ่านด่านได้ ไม่ใช่เกมที่แทรกคำถามคั่นเฉย ๆ");
+    L.push("2. ให้ผลตอบกลับทันทีทุกครั้งที่ตอบ เมื่อตอบผิดให้อธิบายสั้น ๆ ว่าทำไม และให้โอกาสลองใหม่");
+    L.push(`3. คำสั่ง ข้อความ และขนาดตัวอักษรเหมาะกับผู้เรียน${grade} เข้าใจได้โดยไม่ต้องให้ครูอธิบายเพิ่ม`);
+    L.push("4. เนื้อหาเหมาะสมกับเด็ก ไม่มีความรุนแรง ไม่ล้อเลียน และเคารพความหลากหลาย");
+    L.push("5. ไม่เก็บหรือส่งข้อมูลส่วนบุคคลของผู้เล่น");
+    L.push("");
+
+    L.push("สิ่งที่ต้องส่งมอบ");
+    if (m === "web"){
+      L.push("1. โค้ดเกมเป็นไฟล์ HTML ไฟล์เดียว รวม CSS และ JavaScript ไว้ในไฟล์ ไม่ใช้ไฟล์ภาพภายนอก ให้วาดกราฟิกด้วย CSS, SVG หรือ Canvas หรือใช้อีโมจิ");
+      L.push("2. เปิดเล่นได้ทันทีในเบราว์เซอร์ รองรับทั้งเมาส์และการแตะหน้าจอ ปรับขนาดตามหน้าจอคอมพิวเตอร์ แท็บเล็ต และโทรศัพท์");
+      L.push("3. มีหน้าเริ่มเกม หน้าวิธีเล่น การเล่นตามด่าน และหน้าสรุปผลพร้อมปุ่มเล่นใหม่");
+      L.push("4. เก็บคำถามทั้งหมดไว้เป็นรายการข้อมูลที่ส่วนบนของโค้ด พร้อมคำอธิบายภาษาไทยว่าครูแก้ไขหรือเพิ่มคำถามได้ตรงไหน");
+      L.push("5. ใช้ฟอนต์ที่แสดงภาษาไทยได้ถูกต้อง");
+      if (S.type === "ar") L.push("6. ส่วน AR ให้ใช้ไลบรารี WebAR ที่โหลดผ่าน CDN เช่น AR.js หรือ MindAR พร้อมระบุภาพหรือการ์ดเป้าหมายที่ต้องพิมพ์ และมีโหมดสำรองที่เล่นได้โดยไม่ใช้กล้อง แจ้งด้วยว่าต้องเปิดผ่าน https จึงจะใช้กล้องได้");
+      L.push("หลังโค้ด ให้อธิบายสั้น ๆ ว่าบันทึกไฟล์และเปิดเล่นอย่างไร และวิธีแก้ไขคำถาม");
+    } else if (m === "print"){
+      L.push("1. กติกาการเล่นทีละขั้น จำนวนผู้เล่น และเงื่อนไขการชนะ");
+      L.push("2. ผังกระดานหรือแบบการ์ดทุกใบ พร้อมข้อความบนการ์ดครบทุกใบ จัดให้พิมพ์บนกระดาษ A4 ได้");
+      L.push("3. รายการอุปกรณ์ที่ต้องเตรียม และวิธีจัดทำจากวัสดุที่หาได้ในโรงเรียน");
+      L.push("4. เฉลยสำหรับครู และแนวทางสรุปบทเรียนหลังเล่น");
+      L.push("หากคุณสร้างไฟล์ได้ ให้จัดทำไฟล์สำหรับพิมพ์ (PDF หรือ Word) ด้วย");
+    } else {
+      L.push("1. ชื่อเกม เป้าหมาย และกติกาทีละขั้น");
+      L.push("2. การจัดพื้นที่ การแบ่งกลุ่ม บทบาทของครูและนักเรียน");
+      L.push("3. ลำดับกิจกรรมพร้อมเวลา โจทย์ทั้งหมด และเฉลย");
+      L.push("4. อุปกรณ์ที่ใช้ ข้อควรระวังด้านความปลอดภัย และแนวทางสรุปบทเรียนหลังเล่น");
+    }
+    L.push("");
+    if (val("gmExtra")) L.push("ความต้องการเพิ่มเติมของครู", val("gmExtra"), "");
+    L.push(g("gmPlanFirst").checked
+      ? "ก่อนสร้างเกม ให้สรุปแผนเกมสั้น ๆ ได้แก่ ชื่อเกม เรื่องราว กลไกหลัก ด่านทั้งหมด และตัวอย่างคำถาม 3 ข้อ แล้วรอให้ฉันยืนยันก่อน"
+      : "เริ่มสร้างเกมได้ทันที เมื่อเสร็จให้ระบุสิ่งที่ครูควรตรวจสอบก่อนนำไปใช้ โดยเฉพาะความถูกต้องของคำถามและคำตอบ");
+    return L.join("\n");
+  }
+
+  function drawCard(){
+    const t = TYPES.find(x => x.k === S.type);
+    const topic = val("gmTopic") || "เรื่องที่เลือก";
+    const tags = [MEDIUM.find(x => x.k === S.medium).l, S.players, `${+g("gmLevels").value || 3} ด่าน`, `${+g("gmTime").value || 10} นาที`, S.diff];
+    g("gmCard").innerHTML = `<div class="gc-top"><span class="gc-ic" aria-hidden="true">${t.ic}</span><div><small>${esc(g("gmArea").value)} · ${esc(g("gmGrade").value)}</small><b>${esc(t.l)}: ${esc(topic)}</b></div></div>
+      <p>${esc(val("gmTheme") || "ธีมตามความเหมาะสม")}${val("gmHero") ? " · ตัวละคร " + esc(val("gmHero")) : ""}</p>
+      <div class="gc-tags">${tags.map(x => `<span>${esc(x)}</span>`).join("")}</div>
+      <div class="gc-mech">${S.mech.map(x => `<i>${esc(x)}</i>`).join("")}</div>`;
+    // fit warning
+    const webOnly = ["ส่องกล้อง (AR)","บังคับตัวละครด้วยปุ่มหรือคีย์บอร์ด","ลากและวาง","พิมพ์คำตอบ"];
+    const conflict = S.medium !== "web" && S.play.some(p => webOnly.includes(p));
+    const noDev = S.medium === "web" && S.device.length === 1 && S.device[0] === "ไม่ใช้อุปกรณ์ดิจิทัล";
+    g("gmFit").textContent = conflict ? "วิธีเล่นบางแบบใช้ได้เฉพาะเกมบนเว็บ" : noDev ? "เกมบนเว็บต้องใช้อุปกรณ์ดิจิทัล" : "";
+    g("gmFit").style.color = (conflict || noDev) ? "var(--danger)" : "";
+  }
+
+  function update(){
+    g("gmBankWrap").hidden = S.source !== "own";
+    g("gmErr").hidden = true;
+    drawCard();
+    g("gmOut").textContent = prompt();
+  }
+  function guard(){
+    const miss = [];
+    if (!val("gmTopic")) miss.push("เรื่องหรือเนื้อหา");
+    if (S.source === "own" && !val("gmBank")) miss.push("คำถามของคุณ");
+    if (miss.length){
+      const msg = "กรอกข้อมูลก่อน: " + miss.join(", "); g("gmErr").textContent = msg; g("gmErr").hidden = false; toast(msg);
+      const f = !val("gmTopic") ? g("gmTopic") : g("gmBank");
+      f.scrollIntoView({behavior: reduced ? "auto" : "smooth", block:"center"}); setTimeout(() => f.focus({preventScroll:true}), 300);
+      return false;
+    }
+    return true;
+  }
+
+  drawTypes(); drawMedium();
+  single("gmSource", SOURCE, "source");
+  multi("gmPlay", PLAY, "play"); multi("gmDevice", DEVICE, "device"); single("gmPlayers", PLAYERS, "players");
+  single("gmDiff", DIFF, "diff"); multi("gmMech", MECH, "mech"); single("gmArt", ART, "art"); single("gmLang", LANG, "lang");
+  ["gmTopic","gmGoal","gmBank","gmLevels","gmItems","gmTime","gmTheme","gmHero","gmExtra"].forEach(id => g(id).addEventListener("input", update));
+  ["gmArea","gmGrade","gmSpecial","gmPlanFirst"].forEach(id => g(id).addEventListener("change", update));
+  g("gmDice").addEventListener("click", () => {
+    const d = g("gmDice").querySelector(".dice"); d.classList.remove("roll"); void d.offsetWidth; d.classList.add("roll");
+    let x; do { x = THEMES[Math.floor(Math.random() * THEMES.length)]; } while (x === val("gmTheme") && THEMES.length > 1);
+    g("gmTheme").value = x; update();
+  });
+  g("gmCopy").addEventListener("click", () => { if (guard()) copyText(prompt(), "คัดลอก Prompt สร้างเกมแล้ว"); });
+  g("gmDl").addEventListener("click", () => { if (guard()) download("game-prompt.txt", prompt()); });
+  update();
 })();
 
 route();
