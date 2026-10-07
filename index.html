@@ -402,6 +402,42 @@ dialog.cmdk{width:min(640px,calc(100vw - 24px));align-self:start;margin-top:12vh
 .gc-mech{display:flex;flex-wrap:wrap;gap:6px}
 .gc-mech i{font-style:normal;font-size:12px;border:1px solid #FFFFFF40;border-radius:999px;padding:2px 9px;color:#DCE8F6}
 
+/* cover studio */
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.sw{all:unset;box-sizing:border-box;cursor:pointer;border:1px solid var(--line);background:var(--paper);border-radius:var(--r-sm);padding:8px 10px;display:grid;gap:6px}
+.sw:hover{border-color:var(--teal-ink)}
+.sw:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.sw[aria-pressed="true"]{border-color:var(--teal-ink);box-shadow:0 0 0 2px #14B8A644}
+.sw-c{display:flex;height:18px;border-radius:4px;overflow:hidden;border:1px solid #0000001a}
+.sw-c i{flex:1}
+.sw small{font-size:12.5px;line-height:1.4}
+.cv{position:relative;border-radius:3px;overflow:hidden;box-shadow:0 8px 24px #1E3A5F33;max-height:360px;transition:aspect-ratio .25s ease,width .25s ease}
+.cv-head{position:absolute;top:5%;left:8%;right:8%;display:grid;gap:6px;justify-items:center;z-index:2}
+.cv-logos{display:flex;gap:5px}
+.cv-logos i{width:16px;height:16px;border-radius:50%;border:2px solid;background:#fff}
+.cv-title{display:grid;gap:4px;justify-items:center;width:100%}
+.cv-title em,.cv-author em{display:block;height:5px;border-radius:2px}
+.cv-title em:first-child{height:8px}
+.cv-title em.blank,.cv-author em.blank{height:10px;border:1px dashed currentColor;background:transparent!important;opacity:.6}
+.cv-subj{position:absolute;left:50%;transform:translateX(-50%);bottom:20%;width:42%;z-index:1;display:flex;justify-content:center;opacity:.9}
+.cv-subj svg{width:100%;height:auto}
+.cv-subj.team{width:70%;gap:2px}
+.cv-subj.team svg{width:33%}
+.cv-subj.sym{width:28%;aspect-ratio:1;border-radius:50%;bottom:34%;box-shadow:0 0 30px currentColor;opacity:.8}
+.cv-scene{position:absolute;left:0;right:0;bottom:0;height:42%;z-index:0}
+.cv-sym{position:absolute;left:6%;bottom:6%;width:12%;aspect-ratio:1;border-radius:50%;z-index:2;box-shadow:0 0 14px #C9A227}
+.cv-author{position:absolute;left:30%;right:30%;bottom:4%;display:grid;gap:3px;justify-items:center;z-index:2;background:#FFFFFFB3;border-radius:3px;padding:4px}
+.cv-right .cv-head{right:45%;justify-items:start}
+.cv-right .cv-title{justify-items:start}
+.cv-right .cv-subj{left:auto;right:4%;transform:none;width:44%;bottom:12%}
+.cv-right .cv-author{left:6%;right:55%;justify-items:start;bottom:16%}
+.cv-right .cv-sym{left:auto;right:6%}
+.cv-wide .cv-subj{width:26%}
+.cv-wide.cv-right .cv-subj{width:30%}
+.cv-wide .cv-subj.team{width:44%}
+.cv-wide .cv-author{left:36%;right:36%}
+.cv-wide.cv-right .cv-author{left:6%;right:60%}
+
 footer{border-top:1px solid var(--line);padding:28px 0 36px;color:var(--muted);font-size:14px}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
@@ -958,6 +994,95 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   </div></div>
 </section>
 
+
+<!-- ================= COVER PROMPT STUDIO ================= -->
+<section class="view" data-view="cover" aria-label="Cover Prompt Studio">
+  <div class="page-hero"><div class="wrap">
+    <a class="link" href="#tools" style="color:#9FE1CB">กลับไปหน้าเครื่องมือ</a>
+    <h1 style="margin-top:10px">Cover Prompt Studio</h1>
+    <p>สร้าง Prompt ภาพปกรายงานทุกประเภท เลือกประเภทเอกสาร สาขา รูปแบบการจัดวาง และสไตล์ภาพ ระบบจะปรับฉากกิจกรรมและสัญลักษณ์ให้เข้ากับงานของคุณ</p>
+  </div></div>
+
+  <div class="sec" style="padding-top:36px"><div class="wrap rp">
+    <div>
+      <div class="box">
+        <h2>1. ประเภทเอกสาร</h2>
+        <div class="opts" id="cvDoc"></div>
+        <div class="inline" style="margin-top:14px">
+          <div class="field"><label for="cvYear">ปี พ.ศ.</label><input id="cvYear" inputmode="numeric" value="2569"></div>
+        </div>
+        <div class="field"><label for="cvTitle">ข้อความหัวเรื่อง (บรรทัดละ 1 บรรทัดบนปก)<span class="req">*</span></label><textarea id="cvTitle" style="min-height:110px"></textarea><div class="hint">แก้ไขข้อความได้ทุกบรรทัด จุดไข่ปลาให้แทนด้วยข้อมูลจริง</div></div>
+      </div>
+
+      <div class="box">
+        <h2>2. ข้อมูลผู้จัดทำ</h2>
+        <label class="toggle"><input type="checkbox" id="cvAuthorOn" checked>แสดงกล่องผู้จัดทำบนปก</label>
+        <div id="cvAuthorWrap">
+          <div class="inline">
+            <div class="field"><label for="cvName">ชื่อผู้จัดทำ</label><input id="cvName" placeholder="นาย/นาง/นางสาว ชื่อ นามสกุล"></div>
+            <div class="field"><label for="cvPos">ตำแหน่งและวิทยฐานะ</label><input id="cvPos" placeholder="ตำแหน่ง ครู วิทยฐานะครูชำนาญการ"></div>
+          </div>
+          <div class="inline">
+            <div class="field"><label for="cvSchool">สถานศึกษา</label><input id="cvSchool" placeholder="โรงเรียน..."></div>
+            <div class="field"><label for="cvArea">สังกัด</label><input id="cvArea" placeholder="สำนักงานเขตพื้นที่การศึกษา..."></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="box">
+        <h2>3. ขนาดและการจัดวาง</h2>
+        <div class="group"><b>ขนาด</b><div class="opts" id="cvRatio"></div></div>
+        <div class="group"><b>รูปแบบการจัดวาง</b><div class="opts" id="cvLayout"></div></div>
+        <div class="group"><b>โหมดข้อความ</b><div class="opts" id="cvMode"></div><p class="hint" id="cvModeHint"></p></div>
+      </div>
+
+      <div class="box">
+        <h2>4. สาขาหรือบริบท</h2>
+        <div class="opts" id="cvField"></div>
+        <div class="field" style="margin-top:14px"><label for="cvScene">ฉากกิจกรรม</label><textarea id="cvScene"></textarea></div>
+        <div class="field"><label for="cvSymbol">สัญลักษณ์ประกอบ</label><input id="cvSymbol"></div>
+        <p class="hint">ระบบเติมฉากและสัญลักษณ์ให้ตามสาขา แก้ไขให้ตรงกับงานจริงได้</p>
+      </div>
+
+      <div class="box">
+        <h2>5. สไตล์และชุดสี</h2>
+        <div class="group"><b>สไตล์ภาพ</b><div class="opts" id="cvStyle"></div></div>
+        <div class="group"><b>ชุดสี</b><div class="swatches" id="cvPalette"></div></div>
+        <div class="field" id="cvPalCustomWrap" hidden><label for="cvPalCustom">ชุดสีที่ต้องการ</label><input id="cvPalCustom" placeholder="ม่วงอ่อน ขาว และเงิน"></div>
+      </div>
+
+      <div class="box">
+        <h2>6. ภาพอ้างอิง</h2>
+        <div id="cvPersonWrap">
+          <div class="field"><label for="cvPose">ท่าทางบุคคล</label><select id="cvPose"><option>มองกล้อง ยิ้มสุภาพ</option><option>ยืนกอดอกอย่างมั่นใจ</option><option>ถือแฟ้มเอกสารอย่างสง่างาม</option><option>ยืนผายมือแนะนำอย่างสุภาพ</option><option>กำหนดเอง</option></select></div>
+          <div class="field" id="cvPoseCustomWrap" hidden><label for="cvPoseCustom">ท่าทางที่ต้องการ</label><input id="cvPoseCustom" placeholder="นั่งที่โต๊ะทำงาน มองกล้อง"></div>
+        </div>
+        <div class="group"><b>จำนวนโลโก้จากภาพอ้างอิง</b><div class="opts" id="cvLogos"></div></div>
+        <p class="note">ใช้ภาพบุคคลของตนเองหรือที่ได้รับอนุญาต และใช้โลโก้หน่วยงานตามระเบียบของหน่วยงานนั้น</p>
+      </div>
+
+      <div class="box">
+        <h2>7. รายละเอียดเพิ่มเติม</h2>
+        <div class="field"><label for="cvExtra">สิ่งที่ต้องการเพิ่มเติม</label><textarea id="cvExtra" placeholder="ความต้องการอื่น เช่น ใส่ภาพอาคารเรียนของโรงเรียนจากภาพอ้างอิงเป็นฉากหลัง"></textarea></div>
+      </div>
+    </div>
+
+    <div class="rp-side">
+      <div class="box" style="margin:0">
+        <div class="out-head"><b>ผังจำลองปก</b><span class="note" id="cvSize"></span></div>
+        <div class="sheet-wrap" style="margin-top:12px"><div class="cv" id="cvPreview" role="img" aria-label="ผังจำลองปก"></div></div>
+      </div>
+      <div class="box" style="margin:0">
+        <div class="out-head"><b>Prompt ภาพปก</b>
+          <div class="row"><button class="btn btn-line btn-sm" id="cvDl">ดาวน์โหลด .txt</button><button class="btn btn-primary btn-sm" id="cvCopy">คัดลอก</button></div></div>
+        <div class="err" id="cvErr" hidden></div>
+        <div class="prompt-box" id="cvOut" style="margin-top:12px;max-height:300px;min-height:160px"></div>
+        <p class="note" style="margin-top:10px">แนบภาพอ้างอิงตามลำดับที่ระบุใน Prompt เครื่องมือสร้างภาพแต่ละตัวมีขีดจำกัดความละเอียดของตนเอง ควรขยายภาพ (upscale) ก่อนพิมพ์ และตรวจข้อความภาษาไทยทุกตำแหน่ง</p>
+      </div>
+    </div>
+  </div></div>
+</section>
+
 <!-- ================= HOW ================= -->
 <section class="view" data-view="how" aria-label="วิธีใช้งาน">
   <div class="page-hero"><div class="wrap"><h1>วิธีใช้งาน</h1><p>ใช้ได้ทันทีโดยไม่ต้องสมัครสมาชิก</p></div></div>
@@ -1373,6 +1498,11 @@ const PROMPTS = [
     tags:"เกมการศึกษา เกม AR ผจญภัย quiz บอร์ดเกม การ์ด gamification",
     content:"{วิชา} + {ระดับชั้น} + {ประเภทเกม} + {วิธีเล่น} + {ธีม} → Prompt สร้างเกมที่เล่นได้จริง" },
 
+  { id:"cover", type:"tool", route:"cover", category:"งานเอกสาร", title:"Cover Prompt Studio",
+    desc:"สร้าง Prompt ภาพปกรายงานทุกประเภท เลือกประเภทเอกสาร สาขา การจัดวาง สไตล์ และชุดสี พร้อมผังจำลองปก",
+    tags:"ปกรายงาน ปก PA SAR Best Practice วิจัย แฟ้มสะสมผลงาน หน้าปก",
+    content:"{ประเภทเอกสาร} + {ผู้จัดทำ} + {สาขา} + {การจัดวาง} + {สไตล์} → Prompt ภาพปกพร้อมพิมพ์" },
+
   { id:"bp-skill", type:"skill", route:"skill-bp", category:"การศึกษา", title:"เขียนรายงาน Best Practice ของครู",
     desc:"Prompt เดียววางใน AI ได้ทันที AI สัมภาษณ์ทีละประเด็น ตอบคร่าว ๆ แล้วได้ร่าง ผลการดำเนินการและการเผยแพร่เป็นโครงว่างให้เติมเอง",
     tags:"best practice วิธีปฏิบัติที่เป็นเลิศ ประกวด ครู รายงาน skill",
@@ -1606,7 +1736,7 @@ function route(){
   const v = (location.hash || "#home").slice(1);
   const name = $$(".view").some(s => s.dataset.view === v) ? v : "home";
   $$(".view").forEach(s => s.classList.toggle("active", s.dataset.view === name));
-  const navName = name.startsWith("skill-") ? "skills" : (name === "trend" || name === "report" || name === "game") ? "tools" : name;
+  const navName = name.startsWith("skill-") ? "skills" : (name === "trend" || name === "report" || name === "game" || name === "cover") ? "tools" : name;
   $$(".nav a").forEach(a => a.getAttribute("href") === "#" + navName ? a.setAttribute("aria-current","page") : a.removeAttribute("aria-current"));
   $("#nav").classList.remove("open"); $("#menuBtn").setAttribute("aria-expanded","false");
   window.scrollTo(0, 0);
@@ -1639,6 +1769,7 @@ const ART = {
   "งานเอกสาร": ["#0F2238","#1E3A5F", '<rect x="132" y="34" width="86" height="112" rx="6" fill="#FFFFFF" opacity=".55" transform="rotate(8 175 90)"/><rect x="112" y="32" width="86" height="114" rx="6" fill="#FFFFFF"/><rect x="122" y="44" width="50" height="8" rx="3" fill="#1E3A5F"/><path d="M122 64h66M122 76h66M122 88h44" stroke="#1E3A5F" stroke-width="4" stroke-linecap="round" opacity=".4"/><rect x="124" y="108" width="12" height="26" rx="2" fill="#14B8A6"/><rect x="142" y="98" width="12" height="36" rx="2" fill="#0F6E56"/><rect x="160" y="114" width="12" height="20" rx="2" fill="#F59E0B"/>']
 };
 const TOOL_ART = {
+  cover: ["#1E3A5F","#B45309", '<rect x="116" y="18" width="88" height="148" rx="4" fill="#F3E9D2"/><circle cx="160" cy="34" r="6" fill="#C9A227"/><rect x="132" y="46" width="56" height="7" rx="2" fill="#4A2E1F"/><rect x="140" y="57" width="40" height="4" rx="2" fill="#4A2E1F" opacity=".6"/><circle cx="160" cy="84" r="12" fill="#5F7290"/><path d="M136 124c0-16 10-26 24-26s24 10 24 26z" fill="#5F7290"/><path d="M116 120c20-10 40 8 88-6v52h-88z" fill="#2F8F8A" opacity=".55"/><circle cx="128" cy="150" r="6" fill="#F59E0B"/><rect x="146" y="146" width="28" height="4" rx="2" fill="#4A2E1F"/><rect x="150" y="153" width="20" height="3" rx="1.5" fill="#4A2E1F" opacity=".6"/><path d="M226 44l4 9 10 1-7 7 2 10-9-5-9 5 2-10-7-7 10-1z" fill="#F59E0B"/>'],
   game: ["#132840","#5B4B8A", '<rect x="92" y="62" width="136" height="72" rx="36" fill="#FFFFFF"/><rect x="118" y="88" width="30" height="10" rx="3" fill="#1E3A5F"/><rect x="128" y="78" width="10" height="30" rx="3" fill="#1E3A5F"/><circle cx="188" cy="86" r="7" fill="#14B8A6"/><circle cx="204" cy="100" r="7" fill="#F59E0B"/><circle cx="172" cy="100" r="7" fill="#8B2C3B"/><circle cx="188" cy="114" r="7" fill="#0F6E56"/><path d="M228 40l4 9 10 1-7 7 2 10-9-5-9 5 2-10-7-7 10-1z" fill="#F59E0B"/><circle cx="84" cy="44" r="5" fill="#14B8A6"/><circle cx="246" cy="146" r="4" fill="#FFFFFF" opacity=".6"/>'],
   lesson: ["#1E3A5F","#0F6E56", '<rect x="114" y="30" width="92" height="128" rx="8" fill="#FFFFFF"/><rect x="140" y="22" width="40" height="16" rx="5" fill="#F59E0B"/><path d="M128 60h52M128 74h64" stroke="#1E3A5F" stroke-width="5" stroke-linecap="round" opacity=".5"/><rect x="128" y="90" width="64" height="8" rx="4" fill="#E2E8F0"/><rect x="128" y="90" width="12" height="8" rx="4" fill="#1E3A5F"/><rect x="141" y="90" width="20" height="8" fill="#0F6E56"/><rect x="162" y="90" width="18" height="8" fill="#14B8A6"/><path d="M130 116l6 6 12-12M130 138l6 6 12-12" stroke="#0F6E56" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M156 120h34M156 142h26" stroke="#1E3A5F" stroke-width="4" stroke-linecap="round" opacity=".4"/>'],
   trend: ["#132840","#0F6E56", '<path d="M70 132l40-30 30 18 44-46 36 24 30-38" stroke="#FFFFFF" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="250" cy="60" r="10" fill="#F59E0B"/><rect x="70" y="140" width="180" height="4" rx="2" fill="#FFFFFF" opacity=".3"/><g fill="#14B8A6"><circle cx="110" cy="102" r="6"/><circle cx="184" cy="74" r="6"/></g>'],
@@ -2368,7 +2499,7 @@ $$("[data-surprise]").forEach(b => b.addEventListener("click", () => surprise(b)
 /* ================= ค้นหาด่วน (Ctrl+K) ================= */
 (function(){
   const dlg = $("#cmdk"), inp = $("#cmdq"), list = $("#cmdList");
-  const PAGES = [["หน้าแรก","#home"],["คลัง Prompt","#library"],["Skill","#skills"],["เครื่องมือ","#tools"],["แผนการจัดการเรียนรู้","#lesson"],["Game Prompt Studio","#game"],["วิธีใช้งาน","#how"],["เกี่ยวกับ","#about"]];
+  const PAGES = [["หน้าแรก","#home"],["คลัง Prompt","#library"],["Skill","#skills"],["เครื่องมือ","#tools"],["แผนการจัดการเรียนรู้","#lesson"],["Game Prompt Studio","#game"],["Cover Prompt Studio","#cover"],["วิธีใช้งาน","#how"],["เกี่ยวกับ","#about"]];
   let items = [], sel = 0;
   function show(){ if (typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open", ""); inp.value = ""; render(); setTimeout(() => inp.focus(), 0); }
   function hide(){ if (typeof dlg.close === "function") dlg.close(); else dlg.removeAttribute("open"); }
@@ -2744,6 +2875,194 @@ $$("[data-surprise]").forEach(b => b.addEventListener("click", () => surprise(b)
   });
   g("gmCopy").addEventListener("click", () => { if (guard()) copyText(prompt(), "คัดลอก Prompt สร้างเกมแล้ว"); });
   g("gmDl").addEventListener("click", () => { if (guard()) download("game-prompt.txt", prompt()); });
+  update();
+})();
+
+/* ================= Cover Prompt Studio ================= */
+(function(){
+  const g = id => $("#" + id), val = id => g(id).value.trim();
+  const DOCS = [
+    {k:"pa", l:"รายงาน PA", d:"รายงานผลการพัฒนางานตามข้อตกลง (PA)", t:["รายงานผลการพัฒนางานตามข้อตกลง (PA)","สำหรับข้าราชการครูและบุคลากรทางการศึกษา","ประจำปีงบประมาณ พ.ศ. {ปี}"]},
+    {k:"sar", l:"SAR", d:"รายงานผลการประเมินตนเองของสถานศึกษา", t:["รายงานผลการประเมินตนเองของสถานศึกษา","(Self-Assessment Report: SAR)","ปีการศึกษา {ปี}"]},
+    {k:"bp", l:"Best Practice", d:"รายงานวิธีปฏิบัติที่เป็นเลิศ", t:["รายงานวิธีปฏิบัติที่เป็นเลิศ (Best Practice)","ชื่อผลงาน ..........","ปีการศึกษา {ปี}"]},
+    {k:"res", l:"วิจัยในชั้นเรียน", d:"รายงานการวิจัยในชั้นเรียน", t:["รายงานการวิจัยในชั้นเรียน","เรื่อง ..........","ปีการศึกษา {ปี}"]},
+    {k:"proj", l:"รายงานโครงการ", d:"รายงานผลการดำเนินโครงการ", t:["รายงานผลการดำเนินโครงการ","โครงการ ..........","ปีงบประมาณ พ.ศ. {ปี}"]},
+    {k:"plan", l:"แผนการจัดการเรียนรู้", d:"แผนการจัดการเรียนรู้", t:["แผนการจัดการเรียนรู้","รายวิชา .......... ชั้น ..........","ภาคเรียนที่ .... ปีการศึกษา {ปี}"]},
+    {k:"port", l:"แฟ้มสะสมผลงาน", d:"แฟ้มสะสมผลงาน", t:["แฟ้มสะสมผลงาน","(Portfolio)","ปีการศึกษา {ปี}"]},
+    {k:"custom", l:"กำหนดเอง", d:"เอกสาร", t:["ชื่อเอกสาร .........."]}
+  ];
+  const RATIOS = [
+    {k:"a4p", l:"A4 แนวตั้ง", w:2480, h:3508, line:"ขนาด A4 แนวตั้ง 2480×3508 px ความละเอียด 300 DPI สำหรับงานพิมพ์"},
+    {k:"a4l", l:"A4 แนวนอน", w:3508, h:2480, line:"ขนาด A4 แนวนอน 3508×2480 px ความละเอียด 300 DPI สำหรับงานพิมพ์"},
+    {k:"11", l:"1:1 โพสต์", w:2160, h:2160, line:"ภาพสี่เหลี่ยมจัตุรัสอัตราส่วน 1:1 ขนาด 2160×2160 px สำหรับโพสต์บนสื่อสังคมออนไลน์"},
+    {k:"169", l:"16:9 สไลด์", w:3840, h:2160, line:"ภาพแนวนอนอัตราส่วน 16:9 ขนาด 3840×2160 px สำหรับสไลด์นำเสนอและหน้าปกวีดิทัศน์"}
+  ];
+  const LAYOUTS = [
+    {k:"center", l:"บุคคลกึ่งกลาง"},
+    {k:"right", l:"บุคคลขวา ข้อความซ้าย"},
+    {k:"team", l:"ภาพหมู่หรือทีมงาน"},
+    {k:"symbol", l:"ไม่มีบุคคล ใช้สัญลักษณ์"}
+  ];
+  const FIELDS = [
+    {k:"gen", l:"ทั่วไป", sc:"ครูกำลังดูแลนักเรียนทำกิจกรรมกลุ่ม นักเรียนใช้หนังสือ ใบงาน Laptop และ Tablet ฉากหลังเห็นอาคารโรงเรียน ต้นไม้ และห้องเรียน", sy:"หนังสือเปิดเรืองแสงสีทอง พร้อมประกายและเส้นแสงบาง ๆ สื่อถึงความรู้และการพัฒนาผู้เรียน"},
+    {k:"early", l:"ปฐมวัย", sc:"เด็กปฐมวัยเล่นและเรียนรู้กับบล็อกไม้ ของเล่นไม้ และมุมประสบการณ์ในห้องเรียนที่สดใสปลอดภัย โดยมีครูดูแลอย่างใกล้ชิด", sy:"บล็อกไม้ตัวอักษรและดินสอสีที่เรืองแสงอ่อน ๆ"},
+    {k:"thai", l:"ภาษาไทย", sc:"นักเรียนอ่านหนังสือ ฝึกเขียนลายมือ และนำเสนอผลงานหน้าชั้นเรียน", sy:"หนังสือเปิดพร้อมตัวอักษรไทยลอยขึ้นเป็นประกาย"},
+    {k:"math", l:"คณิตศาสตร์", sc:"นักเรียนใช้สื่อรูปทรงเรขาคณิต ไม้บรรทัด และกระดานคิดเลข ทำงานร่วมกันเป็นกลุ่ม", sy:"รูปทรงเรขาคณิตและสัญลักษณ์คณิตศาสตร์เรืองแสง"},
+    {k:"sci", l:"วิทยาศาสตร์", sc:"นักเรียนทำการทดลองในห้องปฏิบัติการ ใช้แว่นขยายและอุปกรณ์วิทยาศาสตร์อย่างปลอดภัย", sy:"แบบจำลองอะตอมและหลอดทดลองเรืองแสง"},
+    {k:"tech", l:"เทคโนโลยีและวิทยาการคำนวณ", sc:"นักเรียนเขียนโปรแกรม ประกอบหุ่นยนต์ และใช้คอมพิวเตอร์แก้ปัญหา", sy:"หุ่นยนต์ขนาดเล็กและเส้นวงจรเรืองแสง"},
+    {k:"social", l:"สังคมศึกษา", sc:"นักเรียนเรียนรู้วัฒนธรรมท้องถิ่น ศึกษาแผนที่ และทำกิจกรรมจิตอาสาในชุมชน", sy:"ลูกโลกและแผนที่เรืองแสง"},
+    {k:"eng", l:"ภาษาต่างประเทศ", sc:"นักเรียนสนทนาภาษาอังกฤษเป็นคู่ และเรียนรู้ผ่านสื่อดิจิทัล", sy:"ลูกโลกพร้อมกรอบคำพูดหลายภาษา"},
+    {k:"art", l:"ศิลปะ", sc:"นักเรียนวาดภาพ เล่นดนตรี และแสดงนาฏศิลป์ไทย", sy:"จานสีและตัวโน้ตดนตรีลอยเป็นประกาย"},
+    {k:"pe", l:"สุขศึกษาและพลศึกษา", sc:"นักเรียนเล่นกีฬาและออกกำลังกายกลางแจ้งอย่างสดชื่น", sy:"ลูกบอลและถ้วยรางวัลเรืองแสง"},
+    {k:"career", l:"การงานอาชีพ", sc:"นักเรียนปลูกผักในแปลงเกษตร ทำอาหาร และงานประดิษฐ์", sy:"ต้นกล้าในฝ่ามือเรืองแสงสีทอง"},
+    {k:"admin", l:"ผู้บริหาร", sc:"ภาพรวมโรงเรียน การประชุมครู การนิเทศชั้นเรียน และความร่วมมือกับผู้ปกครองและชุมชน", sy:"อาคารเรียนและเส้นแสงที่เชื่อมโยงเครือข่ายความร่วมมือ"}
+  ];
+  const STYLES = [
+    {k:"cine", l:"Cinematic Double Exposure", head:"Cinematic Educational Portfolio + Photorealistic Teacher + Double Exposure", mood:"บรรยากาศ Golden Hour อบอุ่น สง่างาม เป็นทางการ และสร้างแรงบันดาลใจ", light:"ใช้แสงอาทิตย์สีทองจากด้านหลังสร้าง Golden Rim Light ให้บุคคลโดดเด่น", blend:"double", q:"Ultra Photorealistic, Cinematic Golden Hour, Premium Academic Cover, Soft Lens Flare, Atmospheric Perspective, Professional Color Grading, Print-ready"},
+    {k:"modern", l:"โมเดิร์นมินิมอล", head:"Modern Minimal Academic Cover + Photorealistic Portrait", mood:"บรรยากาศสะอาดตา ทันสมัย เป็นทางการ มีพื้นที่ว่างเพียงพอ", light:"ใช้แสงนุ่มสม่ำเสมอแบบสตูดิโอ", blend:"soft", q:"Clean Layout, Photorealistic, Soft Studio Lighting, Geometric Accents, Professional Color Grading, Print-ready"},
+    {k:"thai", l:"ไทยร่วมสมัยหรูหรา", head:"Thai Contemporary Luxury Cover + Photorealistic Portrait", mood:"บรรยากาศสง่างาม หรูหรา เป็นทางการ ประดับลายไทยเส้นบางเฉพาะขอบและมุม", light:"ใช้แสงอบอุ่นนุ่มนวลด้านข้าง", blend:"soft", q:"Elegant Thai Ornament, Fine Gold Line Art, Photorealistic, Premium Academic Cover, Print-ready"},
+    {k:"water", l:"ภาพประกอบสีน้ำ", head:"Watercolor Illustration Academic Cover", mood:"บรรยากาศอบอุ่น นุ่มนวล เป็นมิตร แต่ยังเป็นทางการ", light:"ใช้แสงธรรมชาติอ่อนโยน", blend:"soft", q:"Watercolor Texture, Soft Edges, Hand-painted Look, Harmonious Colors, Print-ready"},
+    {k:"3d", l:"3D การ์ตูน", head:"3D Animated Movie Style Academic Cover", mood:"บรรยากาศสดใส อบอุ่น เป็นมิตร เหมาะกับงานด้านเด็กและการเรียนรู้", light:"ใช้แสงนุ่มแบบภาพยนตร์แอนิเมชัน", blend:"soft", q:"High-quality 3D Render, Soft Global Illumination, Vibrant Yet Balanced Colors, Print-ready"}
+  ];
+  const PALETTES = [
+    {k:"teal", l:"ฟ้าอมเขียว ครีม ทอง น้ำตาลเข้ม", c:["#2F8F8A","#F3E9D2","#C9A227","#4A2E1F"], tx:"น้ำตาลเข้ม", txc:"#4A2E1F", bg:"#F3E9D2"},
+    {k:"navy", l:"กรมท่า ขาว ทอง", c:["#1E3A5F","#FFFFFF","#C9A227","#0F2238"], tx:"กรมท่าเข้ม", txc:"#0F2238", bg:"#EEF2F7"},
+    {k:"green", l:"เขียวธรรมชาติ ครีม น้ำตาลอ่อน", c:["#3E7C3A","#F5EFDF","#A67C52","#2D4A22"], tx:"เขียวเข้ม", txc:"#2D4A22", bg:"#F5EFDF"},
+    {k:"pastel", l:"ชมพูพาสเทล ม่วงอ่อน ขาว", c:["#F2B5C4","#D9C9F0","#FFFFFF","#5B3A73"], tx:"ม่วงเข้ม", txc:"#5B3A73", bg:"#FBF1F5"},
+    {k:"orange", l:"ส้มอบอุ่น ครีม น้ำตาล", c:["#E07A2F","#FBEBD3","#8B5A2B","#4A2A12"], tx:"น้ำตาลเข้ม", txc:"#4A2A12", bg:"#FBEBD3"},
+    {k:"custom", l:"กำหนดเอง", c:["#CBD5E1","#E2E8F0","#94A3B8","#334155"], tx:"สีเข้มที่ตัดกับพื้นหลัง", txc:"#334155", bg:"#F1F5F9"}
+  ];
+  const MODES = [{k:"full", l:"ใส่ข้อความครบ"},{k:"space", l:"เว้นพื้นที่ข้อความ"}];
+  const LOGOS = [0,1,2,3].map(n => ({k:String(n), l: n ? n + " โลโก้" : "ไม่มี"}));
+  const S = { doc:"pa", ratio:"a4p", layout:"center", mode:"full", field:"gen", style:"cine", pal:"teal", logos:"1" };
+
+  function opts(el, items, key, after){
+    g(el).innerHTML = items.map(x => `<button class="opt" type="button" data-v="${x.k}" aria-pressed="${S[key] === x.k}">${esc(x.l)}</button>`).join("");
+    g(el).querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => { S[key] = b.dataset.v; if (after) after(); opts(el, items, key, after); update(); }));
+  }
+  const fillDoc = () => { const d = DOCS.find(x => x.k === S.doc); g("cvTitle").value = d.t.map(l => l.replace("{ปี}", val("cvYear") || "....")).join("\n"); };
+  const fillField = () => { const f = FIELDS.find(x => x.k === S.field); g("cvScene").value = f.sc; g("cvSymbol").value = f.sy; };
+  function drawPalette(){
+    g("cvPalette").innerHTML = PALETTES.map(p => `<button type="button" class="sw" data-v="${p.k}" aria-pressed="${S.pal === p.k}" aria-label="${esc(p.l)}"><span class="sw-c">${p.c.map(c => `<i style="background:${c}"></i>`).join("")}</span><small>${esc(p.l)}</small></button>`).join("");
+    g("cvPalette").querySelectorAll(".sw").forEach(b => b.addEventListener("click", () => { S.pal = b.dataset.v; drawPalette(); update(); }));
+    g("cvPalCustomWrap").hidden = S.pal !== "custom";
+  }
+
+  function prompt(){
+    const doc = DOCS.find(x => x.k === S.doc), r = RATIOS.find(x => x.k === S.ratio), st = STYLES.find(x => x.k === S.style), pal = PALETTES.find(x => x.k === S.pal);
+    const palTxt = S.pal === "custom" ? (val("cvPalCustom") || "[ชุดสีที่ต้องการ]") : pal.l;
+    const person = S.layout !== "symbol", nLogo = +S.logos, full = S.mode === "full";
+    const pose = val("cvPose") === "กำหนดเอง" ? (val("cvPoseCustom") || "ท่าทางสุภาพและมั่นใจ") : val("cvPose");
+    const title = val("cvTitle").split("\n").map(x => x.trim()).filter(Boolean);
+    const scene = val("cvScene") || "[ฉากกิจกรรม]", symbol = val("cvSymbol") || "[สัญลักษณ์ประกอบ]";
+    const L = [];
+    L.push(`สร้างภาพปก${doc.d} ระดับพรีเมียม ${r.line} สไตล์ ${st.head} โทน${palTxt} ${st.mood}`, "");
+    // references
+    if (person || nLogo){
+      L.push("ใช้ภาพที่แนบเป็นภาพอ้างอิง ตามลำดับดังนี้");
+      let n = 1;
+      if (person) L.push(`- ภาพที่ ${n++}: ${S.layout === "team" ? "ภาพหมู่บุคคล" : "ภาพบุคคล"} ใช้อ้างอิงใบหน้า ทรงผม สีผิว รูปร่าง และเครื่องแต่งกาย`);
+      for (let i = 0; i < nLogo; i++) L.push(`- ภาพที่ ${n++}: โลโก้หน่วยงาน${nLogo > 1 ? " ลำดับที่ " + (i + 1) : ""} ใช้ตามต้นฉบับ ห้ามดัดแปลง`);
+      L.push("");
+    }
+    // top text
+    const align = S.layout === "right" ? "ชิดซ้ายในครึ่งซ้ายของภาพ" : "กึ่งกลาง";
+    const logoTxt = nLogo ? `วางโลโก้หน่วยงานจากภาพอ้างอิง${nLogo > 1 ? ` ${nLogo} โลโก้เรียงในแถวเดียวขนาดเท่ากัน` : ""} ` : "";
+    if (full){
+      L.push(`ด้านบน${align === "กึ่งกลาง" ? "กึ่งกลาง" : "ซ้าย"}${logoTxt ? logoTxt + "และ" : ""}ใส่ข้อความ${align === "กึ่งกลาง" ? "" : "จัด" + align}:`);
+      title.forEach(t => L.push(`“${t}”`));
+      L.push(`ตัวอักษรสี${pal.tx} เรียบหรู อ่านชัด หัวเรื่องบรรทัดแรกใหญ่ที่สุด`, "");
+    } else {
+      L.push(`ด้านบน${logoTxt ? logoTxt + "และ" : ""}เว้นพื้นที่ว่างพื้นเรียบสำหรับพิมพ์หัวเรื่องภายหลัง ${title.length} บรรทัด ห้ามใส่ตัวอักษรหรือตัวอักษรจำลองใด ๆ`, "");
+    }
+    // main subject
+    if (S.layout === "center") L.push(`กึ่งกลางภาพเป็นภาพบุคคลจากภาพอ้างอิงขนาดใหญ่ ครึ่งตัว ${pose} รายละเอียดสมจริง ${st.light}`);
+    else if (S.layout === "right") L.push(`ด้านขวาของภาพเป็นภาพบุคคลจากภาพอ้างอิงขนาดใหญ่ ครึ่งตัว หันเข้าหาข้อความเล็กน้อย ${pose} รายละเอียดสมจริง ${st.light}`);
+    else if (S.layout === "team") L.push(`กึ่งกลางภาพเป็นภาพหมู่บุคคลจากภาพอ้างอิง จัดเรียงอย่างเป็นระเบียบ ทุกคนมองกล้อง ยิ้มสุภาพ ${st.light}`);
+    else L.push(`กึ่งกลางภาพเป็น${symbol} ขนาดใหญ่ เป็นจุดเด่นที่สุดของภาพ ${st.light}`);
+    if (person) L.push("รักษาเอกลักษณ์ของบุคคลให้ใกล้เคียงภาพอ้างอิงมากที่สุด ได้แก่ รูปหน้า ดวงตา จมูก ริมฝีปาก ทรงผม สีผิว อายุ และเครื่องแต่งกาย");
+    L.push("");
+    // scene
+    if (st.blend === "double" && person) L.push(`ใช้เทคนิค Cinematic Double Exposure ผสมช่วงล่างของภาพบุคคลกับฉากการจัดการเรียนรู้แบบไร้รอยต่อ: ${scene}`);
+    else L.push(`ฉากหลังช่วงล่างของภาพเป็น ${scene} แสดงอย่างนุ่มนวลกลมกลืน ไม่แย่งความเด่นของ${person ? "บุคคล" : "สัญลักษณ์หลัก"}`);
+    if (person) L.push(`ด้านล่างซ้ายมี${symbol}`);
+    L.push("");
+    // author
+    if (g("cvAuthorOn").checked){
+      const pos = S.layout === "right" ? "ด้านล่างซ้าย" : "ด้านล่างกึ่งกลาง";
+      if (full){
+        L.push(`${pos}ใส่:`, "“จัดทำโดย”");
+        [val("cvName") || "[ชื่อผู้จัดทำ]", val("cvPos"), val("cvSchool"), val("cvArea")].filter(Boolean).forEach(t => L.push(`“${t}”`));
+      } else L.push(`${pos}เว้นพื้นที่ว่างพื้นเรียบสำหรับพิมพ์ข้อมูลผู้จัดทำภายหลัง ห้ามใส่ตัวอักษร`);
+      L.push("");
+    }
+    L.push(`คุณภาพ ${st.q}`, "");
+    if (val("cvExtra")) L.push("ความต้องการเพิ่มเติม: " + val("cvExtra"), "");
+    // rules
+    const rules = [];
+    rules.push(person ? (S.layout === "team" ? "เน้นภาพหมู่เป็นจุดเด่นที่สุด" : "เน้นบุคคลเป็นจุดเด่นที่สุด") : "เน้นสัญลักษณ์หลักเป็นจุดเด่นที่สุด");
+    if (st.blend === "double" && person) rules.push("ภาพกิจกรรมต้องหลอมรวมแบบ Double Exposure ไม่มีกรอบสี่เหลี่ยม");
+    if (person) rules.push("ห้ามข้อความหรือกราฟิกบังใบหน้า", "ห้ามเปลี่ยนใบหน้าบุคคล", "ห้ามมือหรือนิ้วผิดรูป");
+    rules.push(nLogo ? "ห้ามสร้างโลโก้เพิ่มเติมนอกจากที่แนบ" : "ห้ามสร้างโลโก้หรือตราสัญลักษณ์ของหน่วยงานใด ๆ");
+    if (full) rules.push("ข้อความภาษาไทยต้องถูกต้องทุกตัวอักษร สระ และวรรณยุกต์ ใช้ตามที่กำหนดเท่านั้น ห้ามเพิ่มคำขวัญหรือข้อความอื่น");
+    rules.push("ห้ามใส่ลายน้ำหรือข้อความภาษาอังกฤษที่ไม่ได้กำหนด", "จัดองค์ประกอบให้สะอาด ไม่รก");
+    L.push(rules.join(" "));
+    return L.join("\n");
+  }
+
+  const PERSON_SVG = '<svg viewBox="0 0 60 80" aria-hidden="true"><circle cx="30" cy="20" r="12" fill="currentColor"/><path d="M6 80c0-22 10-36 24-36s24 14 24 36z" fill="currentColor"/></svg>';
+  function drawPreview(){
+    const r = RATIOS.find(x => x.k === S.ratio), pal = PALETTES.find(x => x.k === S.pal);
+    const el = g("cvPreview"), wide = r.w > r.h;
+    el.style.aspectRatio = r.w + " / " + r.h;
+    el.style.width = wide ? "100%" : (r.w === r.h ? "72%" : "62%");
+    el.style.background = `linear-gradient(180deg, ${pal.bg} 0%, ${pal.bg} 55%, ${pal.c[0]}55 100%)`;
+    el.style.color = pal.txc;
+    el.className = "cv cv-" + S.layout + (wide ? " cv-wide" : "");
+    const full = S.mode === "full";
+    const lines = val("cvTitle").split("\n").filter(x => x.trim()).length || 1;
+    const logos = +S.logos ? `<div class="cv-logos">${'<i style="border-color:' + pal.c[2] + '"></i>'.repeat(+S.logos)}</div>` : "";
+    const title = `<div class="cv-title">${[...Array(lines)].map((_, i) => `<em class="${full ? "" : "blank"}" style="width:${i ? 70 - i * 8 : 92}%;${full ? "background:" + pal.txc : ""}"></em>`).join("")}</div>`;
+    const subj = S.layout === "symbol" ? `<div class="cv-subj sym" style="background:${pal.c[2]}"></div>`
+      : S.layout === "team" ? `<div class="cv-subj team" style="color:${pal.c[3]}">${PERSON_SVG.repeat(3)}</div>`
+      : `<div class="cv-subj" style="color:${pal.c[3]}">${PERSON_SVG}</div>`;
+    const sym = S.layout !== "symbol" ? `<i class="cv-sym" style="background:${pal.c[2]}"></i>` : "";
+    const author = g("cvAuthorOn").checked ? `<div class="cv-author">${[100, 80, 70, 85].map(w => `<em class="${full ? "" : "blank"}" style="width:${w}%;${full ? "background:" + pal.txc : ""}"></em>`).join("")}</div>` : "";
+    el.innerHTML = `<div class="cv-head">${logos}${title}</div>${subj}<div class="cv-scene" style="background:linear-gradient(180deg,transparent,${pal.c[0]}88)"></div>${sym}${author}`;
+    g("cvSize").textContent = `${r.l} · ${r.w}×${r.h} px`;
+  }
+
+  function update(){
+    g("cvAuthorWrap").hidden = !g("cvAuthorOn").checked;
+    g("cvPersonWrap").hidden = S.layout === "symbol";
+    g("cvPoseCustomWrap").hidden = val("cvPose") !== "กำหนดเอง";
+    g("cvModeHint").textContent = S.mode === "full" ? "AI จะใส่ข้อความทั้งหมดลงบนปก ควรตรวจคำสะกดภาษาไทยทุกตำแหน่ง" : "AI สร้างเฉพาะภาพและการจัดวาง แล้วคุณพิมพ์ข้อความเองใน Canva หรือ PowerPoint ได้ข้อความถูกต้องแน่นอนกว่า";
+    g("cvErr").hidden = true;
+    drawPreview();
+    g("cvOut").textContent = prompt();
+  }
+  function guard(){
+    if (!val("cvTitle")){
+      g("cvErr").textContent = "กรอกข้อความหัวเรื่องก่อน"; g("cvErr").hidden = false; toast("กรอกข้อความหัวเรื่องก่อน");
+      g("cvTitle").scrollIntoView({behavior: reduced ? "auto" : "smooth", block:"center"}); setTimeout(() => g("cvTitle").focus({preventScroll:true}), 300); return false;
+    }
+    if (/\.{5,}/.test(val("cvTitle")) && !confirm("ข้อความหัวเรื่องยังมีจุดไข่ปลา ต้องการคัดลอกต่อหรือไม่")) return false;
+    return true;
+  }
+
+  opts("cvDoc", DOCS, "doc", fillDoc);
+  opts("cvRatio", RATIOS, "ratio");
+  opts("cvLayout", LAYOUTS, "layout");
+  opts("cvMode", MODES, "mode");
+  opts("cvField", FIELDS, "field", fillField);
+  opts("cvStyle", STYLES, "style");
+  opts("cvLogos", LOGOS, "logos");
+  drawPalette(); fillDoc(); fillField();
+  g("cvYear").addEventListener("input", () => { fillDoc(); update(); });
+  ["cvTitle","cvName","cvPos","cvSchool","cvArea","cvScene","cvSymbol","cvPalCustom","cvPoseCustom","cvExtra"].forEach(id => g(id).addEventListener("input", update));
+  ["cvAuthorOn","cvPose"].forEach(id => g(id).addEventListener("change", update));
+  g("cvCopy").addEventListener("click", () => { if (guard()) copyText(prompt(), "คัดลอก Prompt ภาพปกแล้ว"); });
+  g("cvDl").addEventListener("click", () => { if (guard()) download("cover-prompt.txt", prompt()); });
   update();
 })();
 
