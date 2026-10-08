@@ -499,6 +499,20 @@ dialog.cmdk{width:min(640px,calc(100vw - 24px));align-self:start;margin-top:12vh
 .lpi .sig small{font-size:6px;color:#5B6474;line-height:1.2;text-align:center}
 .lpi .pg{position:absolute;right:5%;bottom:2%;font-size:7px;color:#5B6474}
 
+/* shorts studio */
+.stepnum{display:flex;gap:6px;align-items:center}
+.stepnum input{width:70px;text-align:center;border:1px solid var(--line);background:var(--paper);border-radius:var(--r-sm);padding:8px}
+.stepnum .rm{font-size:18px;padding:4px 12px}
+.sb{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;margin-top:12px}
+.sb-card{border:1px solid var(--line);border-top:3px solid var(--rc);border-radius:var(--r-sm);padding:8px;display:grid;gap:6px;justify-items:center;background:var(--paper);animation:rise .2s ease}
+.sb-frame{width:100%;border-radius:4px;background:linear-gradient(160deg,#1E3A5F,#2F6B8F);display:grid;place-items:center;color:#fff;font-size:12px;font-weight:600}
+.sb-frame.v{aspect-ratio:9/16;width:60%}.sb-frame.h{aspect-ratio:16/9}.sb-frame.sq{aspect-ratio:1;width:80%}
+.sb-role{all:unset;cursor:pointer;font-size:12px;font-weight:700;color:#fff;background:var(--rc);border-radius:999px;padding:2px 10px}
+.sb-role:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.sb-time{font-size:12px;color:var(--muted);font-family:var(--f-mono)}
+.sb-card .tl-min input{width:42px;padding:3px}
+.sb-card .tl-min .rm{padding:1px 6px}
+
 footer{border-top:1px solid var(--line);padding:28px 0 36px;color:var(--muted);font-size:14px}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
@@ -1256,6 +1270,89 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   </div></div>
 </section>
 
+
+<!-- ================= SHORTS STORYBOARD STUDIO ================= -->
+<section class="view" data-view="shorts" aria-label="Shorts Storyboard Studio">
+  <div class="page-hero"><div class="wrap">
+    <a class="link" href="#tools" style="color:#9FE1CB">กลับไปหน้าเครื่องมือ</a>
+    <h1 style="margin-top:10px">Shorts Storyboard Studio</h1>
+    <p>วางโครงคลิปสั้น Hook–สาระ–สรุป เลือกจำนวนฉาก ความยาวแต่ละฉาก และสไตล์ภาพ แล้วรับ Prompt ให้ AI สร้าง Storyboard, Image Prompt และ Motion Prompt พร้อมเสียงรายฉาก โดยมี Master Prompt ล็อกตัวละครไม่ให้เพี้ยน</p>
+  </div></div>
+
+  <div class="sec" style="padding-top:36px"><div class="wrap rp">
+    <div>
+      <div class="box">
+        <h2>1. เนื้อหาคลิป</h2>
+        <div class="field"><label for="shTopic">หัวข้อ<span class="req">*</span></label><input id="shTopic" placeholder="วิธีเลือกซื้อผลไม้ให้หวาน"></div>
+        <div class="field"><label for="shFacts">ข้อมูลสำคัญที่ต้องสื่อ<span class="req">*</span></label><textarea id="shFacts" style="min-height:110px" placeholder="ข้อเท็จจริงหรือประเด็นที่ตรวจสอบแล้ว ยิ่งเจาะจง คลิปยิ่งมีสาระ"></textarea></div>
+        <div class="inline">
+          <div class="field"><label for="shAud">กลุ่มผู้ชม</label><input id="shAud" placeholder="พ่อแม่ที่ซื้อของเข้าบ้าน"></div>
+          <div class="field"><label for="shCta">คำชวนท้ายคลิป</label><input id="shCta" placeholder="ไม่บังคับ เช่น กดติดตามเพื่อดูตอนต่อไป"></div>
+        </div>
+        <div class="group"><b>แพลตฟอร์ม</b><div class="opts" id="shPlat"></div></div>
+        <div class="group"><b>อัตราส่วนภาพ</b><div class="opts" id="shRatio"></div></div>
+      </div>
+
+      <div class="box">
+        <h2>2. จำนวนฉากและความยาว</h2>
+        <div class="inline">
+          <div class="field"><label for="shScenes">จำนวนฉาก</label>
+            <div class="stepnum"><button type="button" class="rm" id="shMinus" aria-label="ลดจำนวนฉาก">−</button><input id="shScenes" type="number" min="1" max="10" value="4"><button type="button" class="rm" id="shPlus" aria-label="เพิ่มจำนวนฉาก">+</button></div></div>
+          <div class="field"><label>วินาทีต่อฉาก (ใช้กับทุกฉาก)</label><div class="opts" id="shSecAll"></div></div>
+        </div>
+        <p class="hint">ปรับวินาทีรายฉากได้ที่ Storyboard ทางขวา ฉากแรกเป็น Hook ฉากสุดท้ายเป็นสรุป ฉากกลางเป็นสาระ เปลี่ยนบทบาทได้โดยแตะป้าย</p>
+      </div>
+
+      <div class="box">
+        <h2>3. ตัวละคร</h2>
+        <p class="note" style="margin-bottom:12px">ตัวละครจะถูกล็อกไว้ใน Master Prompt และถูกคัดลอกลักษณะเดิมไปทุกฉาก ยิ่งระบุละเอียด ตัวละครยิ่งไม่เพี้ยน</p>
+        <div id="shChars"></div>
+        <div class="row"><button class="btn btn-line btn-sm" type="button" id="shAddChar">เพิ่มตัวละคร</button><button class="btn btn-line btn-sm" type="button" id="shAiChar">ให้ AI ออกแบบตัวละคร</button></div>
+        <label class="toggle" style="margin-top:12px"><input type="checkbox" id="shRef">มีภาพอ้างอิงตัวละครจะแนบไปด้วย</label>
+        <div class="field"><label for="shPlace">สถานที่หลัก</label><input id="shPlace" placeholder="ไม่บังคับ เช่น แผงผลไม้ในตลาดเช้า"></div>
+      </div>
+
+      <div class="box">
+        <h2>4. สไตล์ภาพ</h2>
+        <div class="gtypes" id="shStyle" role="group" aria-label="สไตล์ภาพ"></div>
+        <div class="field" id="shStyleCustomWrap" hidden style="margin-top:12px"><label for="shStyleCustom">สไตล์ที่ต้องการ</label><input id="shStyleCustom" placeholder="ภาพวาดดินสอสี โทนพาสเทล"></div>
+        <div class="group" style="margin-top:12px"><b>อารมณ์และแสง</b><div class="opts" id="shMood"></div></div>
+      </div>
+
+      <div class="box">
+        <h2>5. เสียงและข้อความบนจอ</h2>
+        <div class="group"><b>เสียงพูด</b><div class="opts" id="shVoice"></div></div>
+        <div class="group" id="shToneWrap"><b>น้ำเสียง</b><div class="opts" id="shTone"></div></div>
+        <div class="group"><b>ดนตรีประกอบ</b><div class="opts" id="shMusic"></div></div>
+        <label class="toggle"><input type="checkbox" id="shSfx" checked>ใส่เสียงประกอบบรรยากาศรายฉาก</label>
+        <div class="group"><b>ข้อความบนจอ</b><div class="opts" id="shText"></div><p class="hint" id="shTextHint"></p></div>
+      </div>
+
+      <div class="box">
+        <h2>6. เพิ่มเติม</h2>
+        <div class="field"><label for="shTool">เครื่องมือสร้างวิดีโอที่จะใช้</label><input id="shTool" placeholder="ไม่บังคับ เช่น Veo, Kling, Sora"></div>
+        <div class="field"><label for="shExtra">ความต้องการอื่น</label><textarea id="shExtra" placeholder="ไม่บังคับ เช่น ให้ตัวละครหันมาพูดกับกล้องในฉากแรก"></textarea></div>
+      </div>
+    </div>
+
+    <div class="rp-side">
+      <div class="box" style="margin:0">
+        <div class="out-head"><b>Storyboard</b><span class="note" id="shTotal"></span></div>
+        <div class="sb" id="shBoard"></div>
+        <div class="tl" id="shBar" aria-hidden="true"></div>
+        <div id="shWarn"></div>
+      </div>
+      <div class="box" style="margin:0">
+        <div class="out-head"><b>Prompt สร้าง Storyboard</b>
+          <div class="row"><button class="btn btn-line btn-sm" id="shDl">ดาวน์โหลด .txt</button><button class="btn btn-primary btn-sm" id="shCopy">คัดลอก</button></div></div>
+        <div class="err" id="shErr" hidden></div>
+        <div class="prompt-box" id="shOut" style="margin-top:12px;max-height:300px;min-height:160px"></div>
+        <p class="note" style="margin-top:10px">วาง Prompt นี้ใน Claude, ChatGPT หรือ Gemini เพื่อรับ Master Prompt, Storyboard, Image Prompt และ Motion Prompt แล้วนำไปใช้ในเครื่องมือสร้างภาพและวิดีโอตามลำดับที่ AI แนะนำ ตรวจความยาวสูงสุดต่อคลิปของเครื่องมือที่ใช้ หากฉากยาวกว่านั้นให้แบ่งฉาก</p>
+      </div>
+    </div>
+  </div></div>
+</section>
+
 <!-- ================= HOW ================= -->
 <section class="view" data-view="how" aria-label="วิธีใช้งาน">
   <div class="page-hero"><div class="wrap"><h1>วิธีใช้งาน</h1><p>ใช้ได้ทันทีโดยไม่ต้องสมัครสมาชิก</p></div></div>
@@ -1720,31 +1817,10 @@ const PROMPTS = [
 
 ส่งผลลัพธ์ 3 เวอร์ชัน ได้แก่ แบบสั้นไม่เกิน 3 บรรทัด แบบปานกลาง และแบบเล่าเรื่อง พร้อมแฮชแท็กที่เกี่ยวข้อง 5 คำ` },
 
-  { id:"shorts", type:"prompt", category:"คอนเทนต์", title:"สคริปต์คลิปสั้น Hook–สาระ–สรุป",
-    desc:"วางโครงคลิปแนวตั้งให้กระชับ ดูต่อจนจบ พร้อมข้อความบนจอทุกช่วง",
-    tools:"Claude, ChatGPT, Gemini", tags:"youtube shorts reels tiktok สคริปต์",
-    how:"ใส่ข้อมูลสำคัญที่ตรวจสอบแล้ว ยิ่งเจาะจง สคริปต์ยิ่งมีสาระ",
-    fields:[
-      {key:"หัวข้อ",type:"text",ph:"วิธีเลือกซื้อผลไม้ให้หวาน",req:true},
-      {key:"กลุ่มผู้ชม",type:"text",ph:"พ่อแม่ที่ซื้อของเข้าบ้าน",req:true},
-      {key:"ข้อมูลสำคัญ",type:"textarea",ph:"ประเด็นหรือข้อเท็จจริงที่ต้องการสื่อ",req:true},
-      {key:"ความยาว",type:"select",options:["15 วินาที","30 วินาที","45 วินาที","60 วินาที"]},
-      {key:"แพลตฟอร์ม",type:"select",options:["YouTube Shorts","TikTok","Facebook Reels","Instagram Reels"]}
-    ],
-    content:`คุณคือผู้เขียนบทคลิปสั้นแนวสาระ
-เขียนสคริปต์คลิปแนวตั้งความยาว {ความยาว} สำหรับ {แพลตฟอร์ม}
-หัวข้อ: {หัวข้อ}
-กลุ่มผู้ชม: {กลุ่มผู้ชม}
-ข้อมูลที่ต้องใช้:
-{ข้อมูลสำคัญ}
-
-โครงสร้าง
-1. Hook ใน 3 วินาทีแรก ตั้งคำถามหรือภาพที่ทำให้หยุดดู
-2. สาระสำคัญ เรียงลำดับให้เข้าใจง่าย ใช้เฉพาะข้อมูลที่ให้ไว้
-3. สรุปหนึ่งประโยค และคำชวนติดตามที่ไม่ยัดเยียด
-
-ส่งผลลัพธ์เป็นตาราง ได้แก่ ช่วงเวลา / บทพูด / ข้อความบนจอ / ภาพที่ควรใช้
-บทพูดต้องอ่านทันในเวลาที่กำหนด หากข้อมูลไม่เพียงพอให้แจ้งว่าต้องการข้อมูลใดเพิ่ม` },
+  { id:"shorts", type:"tool", route:"shorts", category:"คอนเทนต์", title:"Shorts Storyboard Studio",
+    desc:"สคริปต์คลิปสั้น Hook–สาระ–สรุป เลือกจำนวนฉาก วินาทีต่อฉาก และสไตล์ภาพ ได้ Storyboard, Image Prompt, Motion Prompt พร้อมเสียง และ Master Prompt ล็อกตัวละคร",
+    tags:"สคริปต์คลิปสั้น youtube shorts reels tiktok storyboard motion prompt ตัวละคร hook",
+    content:"{หัวข้อ} + {จำนวนฉาก} + {วินาที} + {สไตล์} + {ตัวละคร} → Master Prompt + Storyboard + Image/Motion Prompt รายฉาก" },
 
   { id:"portrait", type:"prompt", category:"สร้างภาพ", title:"ภาพบุคคลมืออาชีพ 9:16",
     desc:"ภาพบุคคลที่ดูเป็นธรรมชาติ ควบคุมบุคลิก เสื้อผ้า ฉาก แสง และมุมกล้อง",
@@ -1921,7 +1997,7 @@ function route(){
   const name = $$(".view").some(s => s.dataset.view === v) ? v : "home";
   if (name === "lesson" && window.lpMode) window.lpMode(raw === "lesson-info");
   $$(".view").forEach(s => s.classList.toggle("active", s.dataset.view === name));
-  const navName = raw === "lesson-info" ? "lesson-info" : name.startsWith("skill-") ? "skills" : (name === "trend" || name === "report" || name === "game" || name === "cover" || name === "research") ? "tools" : name;
+  const navName = raw === "lesson-info" ? "lesson-info" : name.startsWith("skill-") ? "skills" : (name === "trend" || name === "report" || name === "game" || name === "cover" || name === "research" || name === "shorts") ? "tools" : name;
   $$(".nav a").forEach(a => a.getAttribute("href") === "#" + navName ? a.setAttribute("aria-current","page") : a.removeAttribute("aria-current"));
   $("#nav").classList.remove("open"); $("#menuBtn").setAttribute("aria-expanded","false");
   window.scrollTo(0, 0);
@@ -1954,6 +2030,7 @@ const ART = {
   "งานเอกสาร": ["#0F2238","#1E3A5F", '<rect x="132" y="34" width="86" height="112" rx="6" fill="#FFFFFF" opacity=".55" transform="rotate(8 175 90)"/><rect x="112" y="32" width="86" height="114" rx="6" fill="#FFFFFF"/><rect x="122" y="44" width="50" height="8" rx="3" fill="#1E3A5F"/><path d="M122 64h66M122 76h66M122 88h44" stroke="#1E3A5F" stroke-width="4" stroke-linecap="round" opacity=".4"/><rect x="124" y="108" width="12" height="26" rx="2" fill="#14B8A6"/><rect x="142" y="98" width="12" height="36" rx="2" fill="#0F6E56"/><rect x="160" y="114" width="12" height="20" rx="2" fill="#F59E0B"/>']
 };
 const TOOL_ART = {
+  shorts: ["#132840","#8B2C3B", '<rect x="60" y="40" width="44" height="78" rx="6" fill="#FFFFFF"/><rect x="66" y="48" width="32" height="50" rx="3" fill="#E8457A"/><rect x="112" y="40" width="44" height="78" rx="6" fill="#FFFFFF"/><rect x="118" y="48" width="32" height="50" rx="3" fill="#2F9E9A"/><rect x="164" y="40" width="44" height="78" rx="6" fill="#FFFFFF"/><rect x="170" y="48" width="32" height="50" rx="3" fill="#2F9E9A"/><rect x="216" y="40" width="44" height="78" rx="6" fill="#FFFFFF"/><rect x="222" y="48" width="32" height="50" rx="3" fill="#E07A2F"/><path d="M76 66l12 7-12 7z" fill="#FFFFFF"/><path d="M60 136h200" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity=".35"/><circle cx="120" cy="136" r="6" fill="#F59E0B"/>'],
   "lesson-info": ["#1E3A5F","#0F6E56", '<rect x="74" y="26" width="80" height="128" rx="4" fill="#FFF8E6"/><rect x="82" y="34" width="64" height="12" rx="2" fill="#1E3A5F"/><rect x="82" y="54" width="64" height="16" rx="2" fill="#FFFFFF" stroke="#DCE3EC"/><rect x="82" y="76" width="19" height="22" rx="2" fill="#14B8A6"/><rect x="104" y="76" width="19" height="22" rx="2" fill="#2F6B8F"/><rect x="126" y="76" width="20" height="22" rx="2" fill="#B45309"/><rect x="82" y="104" width="64" height="40" rx="2" fill="#FFFFFF" stroke="#DCE3EC"/><rect x="166" y="26" width="80" height="128" rx="4" fill="#EAF6F4"/><rect x="174" y="34" width="64" height="8" rx="2" fill="#1E3A5F"/><rect x="174" y="50" width="12" height="8" fill="#1E3A5F"/><rect x="187" y="50" width="20" height="8" fill="#0F6E56"/><rect x="208" y="50" width="18" height="8" fill="#14B8A6"/><rect x="227" y="50" width="11" height="8" fill="#B45309"/><rect x="174" y="66" width="64" height="36" rx="2" fill="#FFFFFF" stroke="#DCE3EC"/><path d="M178 136h24M212 136h24" stroke="#1E3A5F" stroke-width="2"/><path d="M180 128c4-6 8 4 12-2 3-4 6 2 8 0M214 128c4-6 8 4 12-2 3-4 6 2 8 0" stroke="#F59E0B" stroke-width="2" fill="none"/>'],
   research: ["#0F2238","#0F6E56", '<rect x="96" y="30" width="96" height="124" rx="6" fill="#FFFFFF"/><path d="M108 50h56M108 62h70M108 74h48" stroke="#1E3A5F" stroke-width="5" stroke-linecap="round" opacity=".45"/><rect x="110" y="118" width="14" height="24" rx="2" fill="#94A3B8"/><rect x="132" y="96" width="14" height="46" rx="2" fill="#14B8A6"/><circle cx="208" cy="96" r="30" fill="none" stroke="#F59E0B" stroke-width="8"/><path d="M229 117l22 22" stroke="#F59E0B" stroke-width="10" stroke-linecap="round"/><path d="M196 96l8 8 14-16" stroke="#FFFFFF" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'],
   cover: ["#1E3A5F","#B45309", '<rect x="116" y="18" width="88" height="148" rx="4" fill="#F3E9D2"/><circle cx="160" cy="34" r="6" fill="#C9A227"/><rect x="132" y="46" width="56" height="7" rx="2" fill="#4A2E1F"/><rect x="140" y="57" width="40" height="4" rx="2" fill="#4A2E1F" opacity=".6"/><circle cx="160" cy="84" r="12" fill="#5F7290"/><path d="M136 124c0-16 10-26 24-26s24 10 24 26z" fill="#5F7290"/><path d="M116 120c20-10 40 8 88-6v52h-88z" fill="#2F8F8A" opacity=".55"/><circle cx="128" cy="150" r="6" fill="#F59E0B"/><rect x="146" y="146" width="28" height="4" rx="2" fill="#4A2E1F"/><rect x="150" y="153" width="20" height="3" rx="1.5" fill="#4A2E1F" opacity=".6"/><path d="M226 44l4 9 10 1-7 7 2 10-9-5-9 5 2-10-7-7 10-1z" fill="#F59E0B"/>'],
@@ -2686,7 +2763,7 @@ $$("[data-surprise]").forEach(b => b.addEventListener("click", () => surprise(b)
 /* ================= ค้นหาด่วน (Ctrl+K) ================= */
 (function(){
   const dlg = $("#cmdk"), inp = $("#cmdq"), list = $("#cmdList");
-  const PAGES = [["หน้าแรก","#home"],["คลัง Prompt","#library"],["Skill","#skills"],["เครื่องมือ","#tools"],["แผนการสอน","#lesson"],["แผนการสอนหน้าเดียว","#lesson-info"],["Game Prompt Studio","#game"],["Cover Prompt Studio","#cover"],["Research Infographic Studio","#research"],["วิธีใช้งาน","#how"],["เกี่ยวกับ","#about"]];
+  const PAGES = [["หน้าแรก","#home"],["คลัง Prompt","#library"],["Skill","#skills"],["เครื่องมือ","#tools"],["แผนการสอน","#lesson"],["แผนการสอนหน้าเดียว","#lesson-info"],["Game Prompt Studio","#game"],["Cover Prompt Studio","#cover"],["Research Infographic Studio","#research"],["Shorts Storyboard Studio","#shorts"],["วิธีใช้งาน","#how"],["เกี่ยวกับ","#about"]];
   let items = [], sel = 0;
   function show(){ if (typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open", ""); inp.value = ""; render(); setTimeout(() => inp.focus(), 0); }
   function hide(){ if (typeof dlg.close === "function") dlg.close(); else dlg.removeAttribute("open"); }
@@ -3554,6 +3631,184 @@ $$("[data-surprise]").forEach(b => b.addEventListener("click", () => surprise(b)
   g("riPerson").addEventListener("change", update);
   g("riCopy").addEventListener("click", () => { if (guard()) copyText(prompt(), "คัดลอก Prompt อินโฟกราฟิกแล้ว"); });
   g("riDl").addEventListener("click", () => { if (guard()) download("research-infographic-prompt.txt", prompt()); });
+  update();
+})();
+
+/* ================= Shorts Storyboard Studio ================= */
+(function(){
+  const g = id => $("#" + id), val = id => g(id).value.trim();
+  const PLATS = ["TikTok","YouTube Shorts","Facebook Reels","Instagram Reels"].map(x => ({k:x, l:x}));
+  const RATIOS = [{k:"9:16", l:"9:16 แนวตั้ง"},{k:"16:9", l:"16:9 แนวนอน"},{k:"1:1", l:"1:1 สี่เหลี่ยม"}];
+  const SECS = [5,8,10,15].map(n => ({k:String(n), l:n + " วินาที"}));
+  const STYLES = [
+    {k:"cine", ic:"🎬", l:"ภาพยนตร์สมจริง", d:"Cinematic photorealistic", t:"cinematic photorealistic live-action style, natural skin texture, shallow depth of field, film color grading"},
+    {k:"3d", ic:"🧸", l:"3D แอนิเมชัน", d:"แบบภาพยนตร์แอนิเมชัน", t:"high-quality 3D animated feature film style, soft global illumination, expressive characters, smooth stylized materials"},
+    {k:"2d", ic:"✏️", l:"การ์ตูน 2D", d:"เส้นชัด สีแบน สดใส", t:"clean 2D cartoon animation style, bold outlines, flat vibrant colors, simple shading"},
+    {k:"anime", ic:"🌸", l:"อนิเมะ", d:"ลายเส้นแบบอนิเมะญี่ปุ่น", t:"Japanese anime style, cel shading, detailed backgrounds, expressive eyes"},
+    {k:"clay", ic:"🟠", l:"เคลย์แอนิเมชัน", d:"ดินน้ำมันสต็อปโมชัน", t:"claymation stop-motion style, handmade clay textures, miniature set, soft studio lighting"},
+    {k:"doc", ic:"📷", l:"สารคดีข่าว", d:"ภาพจริงเรียบง่าย น่าเชื่อถือ", t:"documentary realistic style, natural light, handheld camera feel, authentic everyday setting"},
+    {k:"water", ic:"🎨", l:"สีน้ำ", d:"ภาพวาดสีน้ำนุ่มนวล", t:"animated watercolor illustration style, soft paper texture, gentle color washes"},
+    {k:"custom", ic:"⚙️", l:"กำหนดเอง", d:"พิมพ์สไตล์ที่ต้องการ", t:""}
+  ];
+  const MOODS = ["สดใสเป็นกันเอง","อบอุ่นชวนคิด","ตื่นเต้นเร้าใจ","สงบน่าเชื่อถือ","ตลกขบขัน"].map(x => ({k:x, l:x}));
+  const VOICES = [{k:"vo", l:"เสียงบรรยาย (VOICEOVER)"},{k:"talk", l:"ตัวละครพูด"},{k:"mix", l:"บรรยายและตัวละครพูด"},{k:"none", l:"ไม่มีเสียงพูด"}];
+  const TONES = ["เป็นกันเอง","มืออาชีพ","ตื่นเต้น","อบอุ่น","ตลก"].map(x => ({k:x, l:x}));
+  const MUSIC = ["สดใสร่าเริง","อบอุ่นนุ่มนวล","เร้าใจจังหวะเร็ว","ลึกลับชวนติดตาม","ไม่มีดนตรี"].map(x => ({k:x, l:x}));
+  const TEXTS = [{k:"edit", l:"ใส่เองตอนตัดต่อ (แนะนำ)"},{k:"ai", l:"ให้ AI สร้างในวิดีโอ"},{k:"none", l:"ไม่มีข้อความบนจอ"}];
+  const ROLES = [{k:"hook", l:"Hook", c:"#E8457A"},{k:"body", l:"สาระ", c:"#2F9E9A"},{k:"end", l:"สรุป", c:"#E07A2F"}];
+  const S = { plat:"TikTok", ratio:"9:16", secAll:"8", style:"3d", mood:"สดใสเป็นกันเอง", voice:"vo", tone:"เป็นกันเอง", music:"สดใสร่าเริง", text:"edit", scenes:[], chars:[{name:"", look:""}], aiChar:false };
+
+  const opt = (el, items, key, after) => {
+    g(el).innerHTML = items.map(x => `<button class="opt" type="button" data-v="${esc(x.k)}" aria-pressed="${S[key] === x.k}">${esc(x.l)}</button>`).join("");
+    g(el).querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => { S[key] = b.dataset.v; if (after) after(); opt(el, items, key, after); update(); }));
+  };
+  function drawStyle(){
+    g("shStyle").innerHTML = STYLES.map(s => `<button type="button" class="gtype" data-k="${s.k}" aria-pressed="${S.style === s.k}"><span class="gi" aria-hidden="true">${s.ic}</span><b>${esc(s.l)}</b><small>${esc(s.d)}</small></button>`).join("");
+    g("shStyle").querySelectorAll(".gtype").forEach(b => b.addEventListener("click", () => { S.style = b.dataset.k; drawStyle(); update(); }));
+    g("shStyleCustomWrap").hidden = S.style !== "custom";
+  }
+
+  // scenes
+  function defaultRole(i, n){ return n === 1 ? "hook" : i === 0 ? "hook" : i === n - 1 ? "end" : "body"; }
+  function setCount(n){
+    n = Math.max(1, Math.min(10, n || 1));
+    const old = S.scenes;
+    S.scenes = [...Array(n)].map((_, i) => ({ sec: old[i] ? old[i].sec : +S.secAll, role: defaultRole(i, n), roleSet: old[i] && old[i].roleSet && i < n - 1 && i > 0 ? old[i].roleSet : false }));
+    S.scenes.forEach((s, i) => { if (old[i] && old[i].roleSet && i > 0 && i < n - 1) s.role = old[i].role; });
+    g("shScenes").value = n;
+  }
+  function drawBoard(){
+    const total = S.scenes.reduce((a, s) => a + s.sec, 0);
+    let t = 0;
+    g("shBoard").innerHTML = S.scenes.map((s, i) => {
+      const r = ROLES.find(x => x.k === s.role), from = t; t += s.sec;
+      return `<div class="sb-card" style="--rc:${r.c}"><div class="sb-frame ${S.ratio === "9:16" ? "v" : S.ratio === "1:1" ? "sq" : "h"}"><span>ฉาก ${i + 1}</span></div>
+        <button type="button" class="sb-role" data-i="${i}" aria-label="เปลี่ยนบทบาทฉาก ${i + 1}">${r.l}</button>
+        <div class="sb-time">${from}–${t} วิ</div>
+        <div class="tl-min"><button class="rm" type="button" data-d="-1" data-i="${i}" aria-label="ลดเวลาฉาก ${i + 1}">−</button><input type="number" min="2" max="60" value="${s.sec}" data-i="${i}" aria-label="วินาทีฉาก ${i + 1}"><button class="rm" type="button" data-d="1" data-i="${i}" aria-label="เพิ่มเวลาฉาก ${i + 1}">+</button></div></div>`;
+    }).join("");
+    g("shBoard").querySelectorAll(".sb-role").forEach(b => b.addEventListener("click", () => {
+      const s = S.scenes[+b.dataset.i], k = ROLES.findIndex(x => x.k === s.role);
+      s.role = ROLES[(k + 1) % 3].k; s.roleSet = true; update();
+    }));
+    g("shBoard").querySelectorAll("input").forEach(e => e.addEventListener("change", () => { S.scenes[+e.dataset.i].sec = Math.max(2, Math.min(60, +e.value || 2)); update(); }));
+    g("shBoard").querySelectorAll("button[data-d]").forEach(b => b.addEventListener("click", () => { const s = S.scenes[+b.dataset.i]; s.sec = Math.max(2, Math.min(60, s.sec + +b.dataset.d)); update(); }));
+    g("shBar").innerHTML = S.scenes.map(s => `<i style="flex:${s.sec};background:${ROLES.find(x => x.k === s.role).c}"></i>`).join("");
+    g("shTotal").textContent = `${S.scenes.length} ฉาก รวม ${total} วินาที`;
+    const w = [];
+    if (!S.scenes.some(s => s.role === "hook")) w.push("ยังไม่มีฉาก Hook ผู้ชมอาจเลื่อนผ่านก่อนดูเนื้อหา");
+    if (S.scenes[0] && S.scenes[0].role !== "hook") w.push("ฉากแรกไม่ใช่ Hook ควรเปิดด้วยสิ่งที่ทำให้หยุดดูภายในไม่กี่วินาทีแรก");
+    if (S.scenes.some(s => s.sec > 10)) w.push("บางฉากยาวเกิน 10 วินาที ตรวจว่าเครื่องมือสร้างวิดีโอที่ใช้สร้างคลิปยาวเท่านี้ได้หรือไม่");
+    g("shWarn").innerHTML = w.map(x => `<p class="note" style="color:var(--warn-ink);margin-top:6px">${esc(x)}</p>`).join("");
+  }
+
+  // characters
+  function drawChars(){
+    if (S.aiChar){ g("shChars").innerHTML = `<div class="alert" style="margin-bottom:12px">AI จะออกแบบตัวละครหลักให้เหมาะกับหัวข้อและกลุ่มผู้ชม แล้วล็อกลักษณะไว้ใน Master Prompt <button class="link" type="button" id="shManual" style="background:none;border:none;cursor:pointer;padding:0">กำหนดตัวละครเอง</button></div>`;
+      g("shManual").addEventListener("click", () => { S.aiChar = false; if (!S.chars.length) S.chars = [{name:"", look:""}]; drawChars(); update(); });
+      g("shAddChar").hidden = true; g("shAiChar").hidden = true; return; }
+    g("shAddChar").hidden = S.chars.length >= 3; g("shAiChar").hidden = false;
+    g("shChars").innerHTML = S.chars.length ? S.chars.map((c, i) => `<div class="topic"><div class="topic-head"><b><span class="dot" style="background:${["#1E3A5F","#0F6E56","#B45309"][i]}">${String.fromCharCode(65 + i)}</span>ตัวละคร ${String.fromCharCode(65 + i)}</b><button class="rm" type="button" data-rm="${i}" aria-label="ลบตัวละคร ${String.fromCharCode(65 + i)}">ลบ</button></div>
+      <div class="field" style="margin-bottom:8px"><label for="shCn${i}">ชื่อ</label><input id="shCn${i}" data-cn="${i}" value="${esc(c.name)}" placeholder="น้องมะปราง"></div>
+      <div class="field" style="margin:0"><label for="shCl${i}">ลักษณะ</label><textarea id="shCl${i}" data-cl="${i}" placeholder="เด็กหญิงอายุ 8 ปี ผมยาวมัดหางม้าสีดำ ติดกิ๊บรูปดาวสีเหลือง เสื้อยืดสีฟ้าอ่อน กางเกงยีนส์ขาสั้น รองเท้าผ้าใบสีขาว ร่าเริงช่างสงสัย">${esc(c.look)}</textarea></div></div>`).join("")
+      : `<p class="note" style="margin-bottom:12px">ไม่มีตัวละคร คลิปจะเน้นภาพสิ่งของ สถานที่ หรือบรรยากาศ</p>`;
+    g("shChars").querySelectorAll("[data-cn]").forEach(e => e.addEventListener("input", () => { S.chars[+e.dataset.cn].name = e.value; update(); }));
+    g("shChars").querySelectorAll("[data-cl]").forEach(e => e.addEventListener("input", () => { S.chars[+e.dataset.cl].look = e.value; update(); }));
+    g("shChars").querySelectorAll("[data-rm]").forEach(b => b.addEventListener("click", () => { S.chars.splice(+b.dataset.rm, 1); drawChars(); update(); }));
+  }
+  g("shAddChar").addEventListener("click", () => { if (S.chars.length < 3){ S.chars.push({name:"", look:""}); drawChars(); update(); g("shCn" + (S.chars.length - 1)).focus(); } });
+  g("shAiChar").addEventListener("click", () => { S.aiChar = true; drawChars(); update(); });
+
+  function prompt(){
+    const st = STYLES.find(x => x.k === S.style), styleTxt = S.style === "custom" ? (val("shStyleCustom") || "[สไตล์ภาพ]") : `${st.l} (${st.t})`;
+    const total = S.scenes.reduce((a, s) => a + s.sec, 0), chars = S.chars.filter(c => c.name.trim() || c.look.trim());
+    const voiceTxt = {vo:"เสียงบรรยาย (VOICEOVER) ภาษาไทย", talk:"ตัวละครพูดภาษาไทย", mix:"เสียงบรรยายภาษาไทยสลับกับตัวละครพูด", none:"ไม่มีเสียงพูด ใช้ภาพ ดนตรี และเสียงประกอบเล่าเรื่อง"}[S.voice];
+    const L = [];
+    L.push("คุณคือผู้กำกับและนักเขียนบทคลิปสั้นเชิงสาระ ผู้เชี่ยวชาญการเขียน Prompt สำหรับเครื่องมือสร้างภาพและวิดีโอ AI สร้างชุดงานผลิตคลิปสั้นตามข้อกำหนดด้านล่างให้ครบทุกส่วน", "");
+    L.push("ข้อมูลคลิป");
+    L.push(`- หัวข้อ: ${val("shTopic") || "[หัวข้อ]"}`);
+    if (val("shAud")) L.push(`- กลุ่มผู้ชม: ${val("shAud")}`);
+    L.push(`- แพลตฟอร์ม: ${S.plat}  อัตราส่วนภาพ ${S.ratio}`);
+    L.push(`- ความยาวรวม ${total} วินาที จำนวน ${S.scenes.length} ฉาก`);
+    let t = 0;
+    S.scenes.forEach((s, i) => { const r = ROLES.find(x => x.k === s.role); L.push(`  ฉากที่ ${i + 1}: ${t}–${t + s.sec} วินาที (${s.sec} วินาที) บทบาท ${r.l}`); t += s.sec; });
+    L.push(`- สไตล์ภาพ: ${styleTxt}`, `- อารมณ์และแสง: ${S.mood}`);
+    L.push(`- เสียงพูด: ${voiceTxt}${S.voice !== "none" ? " น้ำเสียง" + S.tone : ""}`);
+    L.push(`- ดนตรีประกอบ: ${S.music}`, `- เสียงประกอบบรรยากาศ: ${g("shSfx").checked ? "มี ระบุรายฉาก" : "ไม่มี"}`);
+    L.push(`- ข้อความบนจอ: ${S.text === "edit" ? "ระบุข้อความรายฉากไว้ใน Storyboard เพื่อใส่เองตอนตัดต่อ ห้ามใส่ตัวอักษรใด ๆ ใน Image Prompt และ Motion Prompt" : S.text === "ai" ? "ให้แสดงในวิดีโอ ระบุข้อความภาษาไทยสั้นที่สุดไว้ใน Motion Prompt" : "ไม่มี ห้ามใส่ตัวอักษรในภาพ"}`);
+    if (val("shPlace")) L.push(`- สถานที่หลัก: ${val("shPlace")}`);
+    if (val("shCta")) L.push(`- คำชวนท้ายคลิป: ${val("shCta")}`);
+    if (val("shTool")) L.push(`- เครื่องมือสร้างวิดีโอที่ใช้: ${val("shTool")} เขียน Motion Prompt ให้เหมาะกับเครื่องมือนี้`);
+    L.push("", "ข้อมูลสำคัญที่ต้องสื่อ (ใช้เฉพาะข้อมูลนี้ ห้ามเติมตัวเลข ข้อเท็จจริง หรือคำพูดของบุคคลขึ้นเอง)", val("shFacts") || "[ข้อมูลสำคัญ]", "");
+    if (S.aiChar) L.push("ตัวละคร: ออกแบบตัวละครหลัก 1–2 ตัวที่เหมาะกับหัวข้อและกลุ่มผู้ชม");
+    else if (chars.length){
+      L.push("ตัวละครที่กำหนด");
+      chars.forEach((c, i) => L.push(`- ตัวละคร ${String.fromCharCode(65 + i)}${c.name.trim() ? " ชื่อ " + c.name.trim() : ""}: ${c.look.trim() || "[ให้คุณออกแบบรายละเอียดให้ครบ]"}`));
+    } else L.push("ตัวละคร: ไม่มีตัวละครหลัก เน้นภาพสิ่งของ สถานที่ และบรรยากาศ");
+    if (g("shRef").checked && (S.aiChar || chars.length)) L.push("ผู้ใช้มีภาพอ้างอิงตัวละครจะแนบไปในเครื่องมือสร้างภาพ ให้ระบุใน Image Prompt ทุกฉากว่าใช้ภาพอ้างอิงตัวละครเพื่อรักษาใบหน้าและเครื่องแต่งกาย");
+    if (val("shExtra")) L.push("", "ความต้องการเพิ่มเติม: " + val("shExtra"));
+    L.push("");
+
+    const hasChar = S.aiChar || chars.length;
+    L.push("ส่งผลลัพธ์ตามลำดับต่อไปนี้", "");
+    L.push("ส่วนที่ 1 Master Prompt (ใช้ล็อกความต่อเนื่องของทั้งคลิป)");
+    L.push("เขียนเป็นภาษาอังกฤษในกรอบโค้ด เพื่อคัดลอกไปใช้ซ้ำได้ทุกฉาก ประกอบด้วย");
+    if (hasChar) L.push("- CHARACTER LOCK ของตัวละครแต่ละตัว มีรหัส เช่น [CHAR-A] ระบุ อายุ เพศ รูปหน้า สีผิว ทรงผมและสีผม ดวงตา ความสูงหรือรูปร่าง เครื่องแต่งกายทุกชิ้นพร้อมสี อุปกรณ์ประจำตัว และบุคลิก ใช้ถ้อยคำที่เจาะจงและไม่กำกวม");
+    L.push("- STYLE LOCK ระบุสไตล์ภาพ ชุดสีหลัก 3–5 สี แสง มุมเลนส์ และพื้นผิว ให้เหมือนกันทุกฉาก");
+    if (val("shPlace")) L.push("- LOCATION LOCK ระบุองค์ประกอบของสถานที่หลักที่ต้องเหมือนกันทุกฉาก");
+    L.push("- NEGATIVE ระบุสิ่งที่ห้ามเกิด เช่น ใบหน้าเปลี่ยน สีเสื้อเปลี่ยน มือหรือนิ้วผิดรูป ตัวอักษรหรือลายน้ำที่ไม่ได้กำหนด", "");
+    if (hasChar){
+      L.push("ส่วนที่ 2 Character Reference Sheet Prompt");
+      L.push("Prompt ภาษาอังกฤษสำหรับสร้างภาพอ้างอิงตัวละครแต่ละตัว 1 ภาพ แสดงมุมด้านหน้า ด้านข้าง และด้านหลัง บนพื้นหลังสีเรียบ ใช้ CHARACTER LOCK ทุกคำ เพื่อให้ผู้ใช้สร้างภาพนี้ก่อนแล้วนำไปแนบเป็นภาพอ้างอิงในทุกฉาก", "");
+    }
+    const n = hasChar ? 3 : 2;
+    L.push(`ส่วนที่ ${n} Storyboard เป็นตาราง`);
+    L.push("คอลัมน์: ฉาก / เวลา / บทบาท / ภาพที่เห็น / มุมกล้องและการเคลื่อนกล้อง / การกระทำ / บทพูดหรือ VOICEOVER ภาษาไทย / ข้อความบนจอ / เสียงประกอบและดนตรี");
+    L.push(`ฉาก Hook ต้องทำให้ผู้ชมหยุดดูภายใน 3 วินาทีแรก ฉากสาระเรียงประเด็นจากข้อมูลที่ให้ไว้ ฉากสรุปปิดด้วยประโยคสรุปหนึ่งประโยค${val("shCta") ? "และคำชวนท้ายคลิปที่กำหนด" : ""}`, "");
+    L.push(`ส่วนที่ ${n + 1} Image Prompt รายฉาก (ภาษาอังกฤษ ในกรอบโค้ด ฉากละ 1 กรอบ)`);
+    L.push(`ภาพเฟรมแรกของแต่ละฉาก อัตราส่วน ${S.ratio} ทุก Prompt ต้องขึ้นต้นด้วย STYLE LOCK${hasChar ? " และ CHARACTER LOCK ของตัวละครที่ปรากฏในฉากนั้นแบบคำต่อคำ ห้ามย่อหรือเปลี่ยนถ้อยคำ" : ""} แล้วจึงตามด้วยรายละเอียดเฉพาะฉาก`, "");
+    L.push(`ส่วนที่ ${n + 2} Motion Prompt พร้อมเสียงรายฉาก (ภาษาอังกฤษ ในกรอบโค้ด ฉากละ 1 กรอบ ยกเว้นบทพูดภาษาไทย)`);
+    L.push("แต่ละฉากระบุ: ใช้ Image Prompt ของฉากนั้นเป็นเฟรมแรก ความยาวตามที่กำหนด แบ่งช่วงเวลาภายในฉาก การเคลื่อนไหวของตัวละคร การเคลื่อนกล้อง");
+    if (S.voice !== "none") L.push(`บทพูดภาษาไทยในเครื่องหมายคำพูด ระบุผู้พูด น้ำเสียง${S.tone} และการขยับปากให้ตรงคำพูดเมื่อเป็นตัวละครพูด`);
+    L.push(`ดนตรี${S.music === "ไม่มีดนตรี" ? " ไม่มี" : "แนว" + S.music}${g("shSfx").checked ? " และเสียงประกอบบรรยากาศ" : ""} และย้ำ CHARACTER LOCK กับ STYLE LOCK ท้ายทุก Motion Prompt`, "");
+    L.push(`ส่วนที่ ${n + 3} ชื่อคลิป แคปชัน และแฮชแท็ก 5–8 คำที่เหมาะกับ ${S.plat}`, "");
+    L.push(`ส่วนที่ ${n + 4} ลำดับการนำไปใช้ อธิบายสั้น ๆ ว่าควรสร้างภาพอ้างอิง ภาพรายฉาก และวิดีโอรายฉากตามลำดับใด แล้วต่อคลิปอย่างไร`, "");
+    L.push("กฎที่ต้องปฏิบัติ");
+    L.push("1. ใช้เฉพาะข้อมูลสำคัญที่ให้ไว้ ห้ามสร้างตัวเลข ข้อเท็จจริง หรือคำกล่าวอ้างเพิ่ม หากข้อมูลไม่พอสำหรับจำนวนฉาก ให้แจ้งผู้ใช้แทนการแต่งเติม");
+    L.push("2. บทพูดของแต่ละฉากต้องอ่านออกเสียงทันภายในเวลาของฉากนั้น หากยาวเกิน ให้ตัดให้สั้นลง");
+    L.push("3. ลักษณะตัวละคร เครื่องแต่งกาย สี และสไตล์ภาพต้องเหมือนเดิมทุกฉาก ห้ามเปลี่ยนแม้แต่รายละเอียดเล็ก");
+    L.push("4. แต่ละ Image Prompt และ Motion Prompt ต้องสมบูรณ์ในตัว ใช้งานได้โดยไม่ต้องอ่านฉากอื่น");
+    L.push("5. เนื้อหาเหมาะสม ไม่มีความรุนแรง ไม่ล้อเลียน และไม่ใช้ใบหน้าบุคคลจริงที่ไม่ได้รับอนุญาต");
+    return L.join("\n");
+  }
+
+  function update(){
+    g("shToneWrap").hidden = S.voice === "none";
+    g("shTextHint").textContent = S.text === "edit" ? "เครื่องมือสร้างวิดีโอมักแสดงตัวอักษรภาษาไทยผิดเพี้ยน การใส่ข้อความเองตอนตัดต่อจะได้ข้อความถูกต้องแน่นอนกว่า" : S.text === "ai" ? "ตรวจตัวอักษรภาษาไทยในวิดีโอทุกฉาก หากผิดเพี้ยนให้ตัดออกแล้วใส่เองตอนตัดต่อ" : "";
+    g("shErr").hidden = true;
+    drawBoard();
+    g("shOut").textContent = prompt();
+  }
+  function guard(){
+    const miss = [["shTopic","หัวข้อ"],["shFacts","ข้อมูลสำคัญ"]].filter(([id]) => !val(id));
+    if (miss.length){
+      const msg = "กรอกข้อมูลก่อน: " + miss.map(x => x[1]).join(", "); g("shErr").textContent = msg; g("shErr").hidden = false; toast(msg);
+      const f = g(miss[0][0]); f.scrollIntoView({behavior: reduced ? "auto" : "smooth", block:"center"}); setTimeout(() => f.focus({preventScroll:true}), 300); return false;
+    }
+    return true;
+  }
+
+  opt("shPlat", PLATS, "plat"); opt("shRatio", RATIOS, "ratio");
+  opt("shSecAll", SECS, "secAll", () => { S.scenes.forEach(s => s.sec = +S.secAll); });
+  opt("shMood", MOODS, "mood"); opt("shVoice", VOICES, "voice"); opt("shTone", TONES, "tone"); opt("shMusic", MUSIC, "music"); opt("shText", TEXTS, "text");
+  drawStyle(); setCount(4); drawChars();
+  g("shScenes").addEventListener("change", () => { setCount(+g("shScenes").value); update(); });
+  g("shMinus").addEventListener("click", () => { setCount(S.scenes.length - 1); update(); });
+  g("shPlus").addEventListener("click", () => { setCount(S.scenes.length + 1); update(); });
+  ["shTopic","shFacts","shAud","shCta","shPlace","shStyleCustom","shTool","shExtra"].forEach(id => g(id).addEventListener("input", update));
+  ["shSfx","shRef"].forEach(id => g(id).addEventListener("change", update));
+  g("shCopy").addEventListener("click", () => { if (guard()) copyText(prompt(), "คัดลอก Prompt แล้ว"); });
+  g("shDl").addEventListener("click", () => { if (guard()) download("shorts-storyboard-prompt.txt", prompt()); });
   update();
 })();
 
