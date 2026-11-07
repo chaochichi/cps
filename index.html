@@ -513,6 +513,11 @@ dialog.cmdk{width:min(640px,calc(100vw - 24px));align-self:start;margin-top:12vh
 .sb-card .tl-min input{width:42px;padding:3px}
 .sb-card .tl-min .rm{padding:1px 6px}
 
+.cv-picks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.field .cv-pick,.cv-pick{display:flex;flex-direction:row;margin:0;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--line);border-radius:12px;cursor:pointer;background:var(--surface,transparent)}
+.cv-pick input[type=color]{width:40px;height:40px;border:0;padding:0;background:none;border-radius:8px;cursor:pointer;flex:none}
+.cv-pick span{display:flex;flex-direction:column;line-height:1.3;min-width:0}
+.cv-pick small{color:var(--muted);font-size:.8rem;overflow-wrap:anywhere}
 footer{border-top:1px solid var(--line);padding:28px 0 36px;color:var(--muted);font-size:14px}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
@@ -1147,8 +1152,20 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <div class="box">
         <h2>5. สไตล์และชุดสี</h2>
         <div class="group"><b>สไตล์ภาพ</b><div class="opts" id="cvStyle"></div></div>
+        <div class="group" id="cvFontWrap"><b>ลักษณะตัวอักษรหัวเรื่อง</b><div class="gtypes" id="cvFont" role="group" aria-label="ลักษณะตัวอักษรหัวเรื่อง"></div>
+          <div class="field" id="cvFontCustomWrap" hidden style="margin-top:10px"><label for="cvFontCustom">อธิบายลักษณะตัวอักษรหัวเรื่องที่ต้องการ</label>
+            <textarea id="cvFontCustom" rows="3" placeholder="เช่น ตัวอักษรไทยแบบมีหัว ตัวหนา สีทองแดงเงาวาว ขอบสีครีม มีลายผ้าไหมไทยจาง ๆ ในตัวอักษร"></textarea>
+            <p class="hint" style="margin-top:6px">บรรยายลักษณะที่มองเห็น ได้แก่ แบบมีหัวหรือไม่มีหัว ความหนา สี ผิววัสดุ ขอบ เงา และลวดลาย ไม่ควรใช้ชื่อฟอนต์ เพราะเครื่องมือสร้างภาพไม่รู้จักชื่อฟอนต์ไทย</p></div>
+          <p class="hint" id="cvFontHint" style="margin-top:8px"></p></div>
         <div class="group"><b>ชุดสี</b><div class="swatches" id="cvPalette"></div></div>
-        <div class="field" id="cvPalCustomWrap" hidden><label for="cvPalCustom">ชุดสีที่ต้องการ</label><input id="cvPalCustom" placeholder="ม่วงอ่อน ขาว และเงิน"></div>
+        <div class="field" id="cvPalCustomWrap" hidden><label>เลือกสีที่ต้องการ</label>
+          <div class="cv-picks">
+            <label class="cv-pick"><input type="color" id="cvC1" value="#1E2A4A"><span><b>สีหลัก</b><small id="cvC1n"></small></span></label>
+            <label class="cv-pick"><input type="color" id="cvC2" value="#F5ECD7"><span><b>สีพื้นหลัง</b><small id="cvC2n"></small></span></label>
+            <label class="cv-pick"><input type="color" id="cvC3" value="#C9A227"><span><b>สีเน้น</b><small id="cvC3n"></small></span></label>
+            <label class="cv-pick"><input type="color" id="cvC4" value="#4A2C1D"><span><b>สีตัวอักษร</b><small id="cvC4n"></small></span></label>
+          </div>
+          <p class="hint" style="margin-top:6px">ระบบใส่ทั้งชื่อสีไทยที่ใกล้เคียงและรหัสสีลงใน Prompt เครื่องมือสร้างภาพอาจให้สีใกล้เคียง ไม่ตรงรหัสทุกจุด</p></div>
       </div>
 
       <div class="box">
@@ -1158,12 +1175,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
           <div class="field" id="cvPoseCustomWrap" hidden><label for="cvPoseCustom">ท่าทางที่ต้องการ</label><input id="cvPoseCustom" placeholder="นั่งที่โต๊ะทำงาน มองกล้อง"></div>
         </div>
         <div class="group"><b>จำนวนโลโก้จากภาพอ้างอิง</b><div class="opts" id="cvLogos"></div></div>
-        <p class="note">ใช้ภาพบุคคลของตนเองหรือที่ได้รับอนุญาต และใช้โลโก้หน่วยงานตามระเบียบของหน่วยงานนั้น</p>
+        <p class="note">ใช้ภาพบุคคลของตนเองหรือที่ได้รับอนุญาต และใช้โลโก้หน่วยงานตามระเบียบของหน่วยงานนั้น เครื่องมือสร้างภาพจะวาดโลโก้ขึ้นใหม่ตามที่เห็น ตัวอักษรในโลโก้จึงมักเพี้ยน สำหรับเอกสารราชการควรวางไฟล์โลโก้ต้นฉบับทับภายหลังใน Canva หรือ PowerPoint</p>
       </div>
 
       <div class="box">
         <h2>7. รายละเอียดเพิ่มเติม</h2>
-        <div class="field"><label for="cvExtra">สิ่งที่ต้องการเพิ่มเติม</label><textarea id="cvExtra" placeholder="ความต้องการอื่น เช่น ใส่ภาพอาคารเรียนของโรงเรียนจากภาพอ้างอิงเป็นฉากหลัง"></textarea></div>
+        <div class="field"><label for="cvExtra">สิ่งที่ต้องการเพิ่มเติม</label><p class="hint" style="margin:-2px 0 6px">ลักษณะตัวอักษรให้เลือกจากส่วนที่ 5 แทนการพิมพ์ที่นี่ และไม่ต้องระบุความละเอียด เช่น 16K เพราะเครื่องมือสร้างภาพไม่ได้สร้างตามตัวเลขนั้น</p><textarea id="cvExtra" placeholder="ความต้องการอื่น เช่น ใส่ภาพอาคารเรียนของโรงเรียนจากภาพอ้างอิงเป็นฉากหลัง"></textarea></div>
       </div>
     </div>
 
@@ -3316,11 +3333,34 @@ $$("[data-surprise]").forEach(b => b.addEventListener("click", () => surprise(b)
     {k:"green", l:"เขียวธรรมชาติ ครีม น้ำตาลอ่อน", c:["#3E7C3A","#F5EFDF","#A67C52","#2D4A22"], tx:"เขียวเข้ม", txc:"#2D4A22", bg:"#F5EFDF"},
     {k:"pastel", l:"ชมพูพาสเทล ม่วงอ่อน ขาว", c:["#F2B5C4","#D9C9F0","#FFFFFF","#5B3A73"], tx:"ม่วงเข้ม", txc:"#5B3A73", bg:"#FBF1F5"},
     {k:"orange", l:"ส้มอบอุ่น ครีม น้ำตาล", c:["#E07A2F","#FBEBD3","#8B5A2B","#4A2A12"], tx:"น้ำตาลเข้ม", txc:"#4A2A12", bg:"#FBEBD3"},
-    {k:"custom", l:"กำหนดเอง", c:["#CBD5E1","#E2E8F0","#94A3B8","#334155"], tx:"สีเข้มที่ตัดกับพื้นหลัง", txc:"#334155", bg:"#F1F5F9"}
+    {k:"custom", l:"กำหนดเอง", c:["#CBD5E1","#E2E8F0","#94A3B8","#334155"], tx:"เข้มที่ตัดกับพื้นหลัง", txc:"#334155", bg:"#F1F5F9"}
   ];
   const MODES = [{k:"full", l:"ใส่ข้อความครบ"},{k:"space", l:"เว้นพื้นที่ข้อความ"}];
   const LOGOS = [0,1,2,3].map(n => ({k:String(n), l: n ? n + " โลโก้" : "ไม่มี"}));
-  const S = { doc:"pa", ratio:"a4p", layout:"center", mode:"full", field:"gen", style:"cine", pal:"teal", logos:"1" };
+  const FONTS = [
+    {k:"thai", ic:"🏛️", l:"ลายไทยทองนูน", d:"หรูหรา สง่างาม เป็นทางการ",
+     th:"ตัวอักษรไทยแบบมีหัว ตัวหนา ขนาดใหญ่ที่สุดในภาพ ทำเป็นตัวอักษร 3 มิตินูน ผิวโลหะสีทองไล่เฉดเงาวาว ขอบเส้นสีน้ำตาลเข้ม มีเงาตกกระทบด้านหลัง ประดับลายกนกเส้นบางรอบชื่อเรื่อง วางบนแถบป้ายโค้งลายไทย",
+     en:"bold Thai headline with traditional looped letterforms, embossed 3D metallic gold lettering, dark brown outline, soft drop shadow, fine Thai kanok ornament around the title, ornate curved Thai banner"},
+    {k:"digital", ic:"💠", l:"ดิจิทัลเรืองแสง", d:"เทคโนโลยี ล้ำสมัย",
+     th:"ตัวอักษรไทยตัวหนาแบบทันสมัย ขนาดใหญ่ที่สุดในภาพ ทำเป็นตัวอักษร 3 มิติผิวโลหะสีเงินฟ้า ขอบเส้นสีน้ำเงินเข้ม มีแสงเรืองสีฟ้าอ่อนรอบตัวอักษร และเส้นวงจรดิจิทัลบาง ๆ ต่อออกจากปลายตัวอักษร",
+     en:"bold modern Thai headline, 3D chrome-blue metallic lettering, deep navy outline, soft cyan neon glow, thin circuit-line accents extending from the letters"},
+    {k:"script", ic:"✒️", l:"ตัวประดิษฐ์หรูหรา", d:"อ่อนช้อย พรีเมียม",
+     th:"ตัวอักษรไทยแบบประดิษฐ์ ปลายเส้นตวัดอ่อนช้อย ขนาดใหญ่ที่สุดในภาพ สีทองฟอยล์แวววาว ขอบเส้นบางสีเข้ม มีประกายแสงเล็ก ๆ บนเส้นตัวอักษร",
+     en:"elegant decorative Thai calligraphic headline, graceful flowing stroke ends, shiny gold foil texture, thin dark outline, subtle sparkle highlights"},
+    {k:"bold3d", ic:"🔷", l:"ตัวหนา 3 มิติ", d:"โดดเด่น มีพลัง",
+     th:"ตัวอักษรไทยแบบไม่มีหัว ตัวหนามาก ขนาดใหญ่ที่สุดในภาพ ทำเป็นตัวอักษร 3 มิติยื่นออกมามีความหนา สีหลักของชุดสีไล่เฉด ขอบเส้นสีขาว และเงาตกกระทบชัดเจน",
+     en:"extra-bold modern Thai sans-serif headline, chunky extruded 3D letters with visible depth, gradient fill in the main palette color, white outline, strong drop shadow"},
+    {k:"cute", ic:"🎈", l:"การ์ตูนน่ารัก", d:"สดใส เหมาะงานเด็ก",
+     th:"ตัวอักษรไทยตัวกลมมนแบบการ์ตูน ขนาดใหญ่ที่สุดในภาพ ทำเป็นตัวอักษรพองนูนผิวมันวาว หลากสีสดใส ขอบเส้นสีขาวหนา",
+     en:"playful rounded bubbly Thai cartoon headline, glossy inflated 3D letters, bright multicolor fill, thick white outline"},
+    {k:"plain", ic:"📄", l:"เรียบทางการ", d:"อ่านง่ายที่สุด", th:"", en:""},
+    {k:"custom", ic:"✏️", l:"กำหนดเอง", d:"บรรยายลักษณะเอง", th:"", en:""}
+  ];
+  const S = { doc:"pa", ratio:"a4p", layout:"center", mode:"full", field:"gen", style:"cine", pal:"teal", logos:"1", font:"thai" };
+  function drawFont(){
+    g("cvFont").innerHTML = FONTS.map(f => `<button type="button" class="gtype" data-k="${f.k}" aria-pressed="${S.font === f.k}"><span class="gi" aria-hidden="true">${f.ic}</span><b>${esc(f.l)}</b><small>${esc(f.d)}</small></button>`).join("");
+    g("cvFont").querySelectorAll(".gtype").forEach(b => b.addEventListener("click", () => { S.font = b.dataset.k; drawFont(); update(); }));
+  }
 
   function opts(el, items, key, after){
     g(el).innerHTML = items.map(x => `<button class="opt" type="button" data-v="${x.k}" aria-pressed="${S[key] === x.k}">${esc(x.l)}</button>`).join("");
@@ -3328,21 +3368,41 @@ $$("[data-surprise]").forEach(b => b.addEventListener("click", () => surprise(b)
   }
   const fillDoc = () => { const d = DOCS.find(x => x.k === S.doc); g("cvTitle").value = d.t.map(l => l.replace("{ปี}", val("cvYear") || "....")).join("\n"); };
   const fillField = () => { const f = FIELDS.find(x => x.k === S.field); g("cvScene").value = f.sc; g("cvSymbol").value = f.sy; };
+  const CNAMES = [["ขาว","#FFFFFF"],["ครีม","#F5ECD7"],["เบจ","#E8D9B5"],["เทาอ่อน","#D1D5DB"],["เงิน","#B8BCC4"],["เทา","#6B7280"],["ดำ","#151515"],
+    ["น้ำตาลเข้ม","#4A2C1D"],["น้ำตาล","#8B5A2B"],["ทอง","#C9A227"],["เหลือง","#FACC15"],["ส้ม","#F97316"],["แดง","#DC2626"],["แดงเลือดหมู","#7F1D1D"],
+    ["ชมพูอ่อน","#F9C6D3"],["ชมพู","#EC4899"],["ม่วงอ่อน","#D8C8F0"],["ม่วง","#7C3AED"],["ม่วงเข้ม","#4C1D95"],["กรมท่า","#1E2A4A"],["น้ำเงิน","#1D4ED8"],
+    ["ฟ้า","#38BDF8"],["ฟ้าอ่อน","#BAE6FD"],["ฟ้าอมเขียว","#14B8A6"],["เขียวอ่อน","#A7F3D0"],["เขียว","#16A34A"],["เขียวเข้ม","#14532D"],["เขียวมะกอก","#6B7C3A"]];
+  function rgb(h){ const n = parseInt(h.slice(1), 16); return [n >> 16, n >> 8 & 255, n & 255]; }
+  function cname(h){
+    const [r, gg, b] = rgb(h); let best = CNAMES[0], d = 1e9;
+    CNAMES.forEach(c => { const [r2, g2, b2] = rgb(c[1]); const rm = (r + r2) / 2;
+      const e = (2 + rm / 256) * (r - r2) ** 2 + 4 * (gg - g2) ** 2 + (2 + (255 - rm) / 256) * (b - b2) ** 2; if (e < d){ d = e; best = c; } });
+    return best[0];
+  }
+  function syncCustomPal(){
+    const cs = ["cvC1","cvC2","cvC3","cvC4"].map(id => g(id).value.toUpperCase());
+    cs.forEach((c, i) => g("cvC" + (i + 1) + "n").textContent = cname(c) + " " + c);
+    const p = PALETTES.find(x => x.k === "custom");
+    p.c = [cs[0], cs[1], cs[2], cs[3]]; p.bg = cs[1]; p.txc = cs[3];
+    p.tx = `${cname(cs[3])} (${cs[3]})`;
+    p.l = `${cname(cs[0])} (${cs[0]}) ${cname(cs[1])} (${cs[1]}) ${cname(cs[2])} (${cs[2]})`;
+  }
   function drawPalette(){
-    g("cvPalette").innerHTML = PALETTES.map(p => `<button type="button" class="sw" data-v="${p.k}" aria-pressed="${S.pal === p.k}" aria-label="${esc(p.l)}"><span class="sw-c">${p.c.map(c => `<i style="background:${c}"></i>`).join("")}</span><small>${esc(p.l)}</small></button>`).join("");
+    syncCustomPal();
+    g("cvPalette").innerHTML = PALETTES.map(p => { const lb = p.k === "custom" ? "กำหนดเอง" : p.l; return `<button type="button" class="sw" data-v="${p.k}" aria-pressed="${S.pal === p.k}" aria-label="${esc(lb)}"><span class="sw-c">${p.c.map(c => `<i style="background:${c}"></i>`).join("")}</span><small>${esc(lb)}</small></button>`; }).join("");
     g("cvPalette").querySelectorAll(".sw").forEach(b => b.addEventListener("click", () => { S.pal = b.dataset.v; drawPalette(); update(); }));
     g("cvPalCustomWrap").hidden = S.pal !== "custom";
   }
 
   function prompt(){
     const doc = DOCS.find(x => x.k === S.doc), r = RATIOS.find(x => x.k === S.ratio), st = STYLES.find(x => x.k === S.style), pal = PALETTES.find(x => x.k === S.pal);
-    const palTxt = S.pal === "custom" ? (val("cvPalCustom") || "[ชุดสีที่ต้องการ]") : pal.l;
+    const palTxt = pal.l;
     const person = S.layout !== "symbol", nLogo = +S.logos, full = S.mode === "full";
     const pose = val("cvPose") === "กำหนดเอง" ? (val("cvPoseCustom") || "ท่าทางสุภาพและมั่นใจ") : val("cvPose");
     const title = val("cvTitle").split("\n").map(x => x.trim()).filter(Boolean);
     const scene = val("cvScene") || "[ฉากกิจกรรม]", symbol = val("cvSymbol") || "[สัญลักษณ์ประกอบ]";
     const L = [];
-    L.push(`สร้างภาพปก${doc.d} ระดับพรีเมียม ${r.line} สไตล์ ${st.head} โทน${palTxt} ${st.mood}`, "");
+    L.push(`สร้างภาพปก${doc.d} ระดับพรีเมียม ${r.line} สไตล์ ${st.head} ${/^โทน/.test(palTxt) ? "" : "โทน"}${palTxt} ${st.mood}`, "");
     // references
     if (person || nLogo){
       L.push("ใช้ภาพที่แนบเป็นภาพอ้างอิง ตามลำดับดังนี้");
@@ -3356,8 +3416,22 @@ $$("[data-surprise]").forEach(b => b.addEventListener("click", () => surprise(b)
     const logoTxt = nLogo ? `วางโลโก้หน่วยงานจากภาพอ้างอิง${nLogo > 1 ? ` ${nLogo} โลโก้เรียงในแถวเดียวขนาดเท่ากัน` : ""} ` : "";
     if (full){
       L.push(`ด้านบน${align === "กึ่งกลาง" ? "กึ่งกลาง" : "ซ้าย"}${logoTxt ? logoTxt + "และ" : ""}ใส่ข้อความ${align === "กึ่งกลาง" ? "" : "จัด" + align}:`);
-      title.forEach(t => L.push(`“${t}”`));
-      L.push(`ตัวอักษรสี${pal.tx} เรียบหรู อ่านชัด หัวเรื่องบรรทัดแรกใหญ่ที่สุด`, "");
+      const font = FONTS.find(f => f.k === S.font);
+      if (font.k === "plain"){
+        title.forEach(t => L.push(`“${t}”`));
+        L.push(`ตัวอักษรสี${pal.tx} เรียบหรู อ่านชัด หัวเรื่องบรรทัดแรกใหญ่ที่สุด`, "");
+      } else {
+        L.push(`“${title[0] || "[หัวเรื่อง]"}”`);
+        if (font.k === "custom") L.push(`หัวเรื่องบรรทัดนี้: ${val("cvFontCustom") || "ตัวอักษรไทยตัวหนา ขนาดใหญ่ที่สุดในภาพ ตกแต่งให้โดดเด่นสวยงาม"} โดยให้มีขนาดใหญ่ที่สุดในภาพ`);
+        else L.push(`หัวเรื่องบรรทัดนี้: ${font.th}`, `(Title typography: ${font.en})`);
+        L.push("การตกแต่งต้องไม่ทำให้รูปตัวอักษร สระ และวรรณยุกต์ผิดเพี้ยน");
+        if (title.length > 1){
+          L.push("", "ใต้หัวเรื่องใส่ข้อความบรรทัดรอง:");
+          title.slice(1).forEach(t => L.push(`“${t}”`));
+          L.push(`ข้อความบรรทัดรองใช้ตัวอักษรไทยหนาปานกลาง สี${pal.tx} อ่านชัด ไม่ตกแต่ง เพื่อให้หัวเรื่องเด่นที่สุด`);
+        }
+        L.push("");
+      }
     } else {
       L.push(`ด้านบน${logoTxt ? logoTxt + "และ" : ""}เว้นพื้นที่ว่างพื้นเรียบสำหรับพิมพ์หัวเรื่องภายหลัง ${title.length} บรรทัด ห้ามใส่ตัวอักษรหรือตัวอักษรจำลองใด ๆ`, "");
     }
@@ -3369,7 +3443,7 @@ $$("[data-surprise]").forEach(b => b.addEventListener("click", () => surprise(b)
     if (person) L.push("รักษาเอกลักษณ์ของบุคคลให้ใกล้เคียงภาพอ้างอิงมากที่สุด ได้แก่ รูปหน้า ดวงตา จมูก ริมฝีปาก ทรงผม สีผิว อายุ และเครื่องแต่งกาย");
     L.push("");
     // scene
-    if (st.blend === "double" && person) L.push(`ใช้เทคนิค Cinematic Double Exposure ผสมช่วงล่างของภาพบุคคลกับฉากการจัดการเรียนรู้แบบไร้รอยต่อ: ${scene}`);
+    if (st.blend === "double" && person) L.push(`ใช้เทคนิค Cinematic Double Exposure โดยให้ภาพฉากการจัดการเรียนรู้ซ้อนอยู่ภายในเงาร่างช่วงลำตัวและช่วงล่างของบุคคล แล้วค่อย ๆ ละลายต่อเนื่องออกสู่ฉากหลังแบบไร้รอยต่อ ไม่แยกเป็นภาพด้านข้าง: ${scene}`);
     else L.push(`ฉากหลังช่วงล่างของภาพเป็น ${scene} แสดงอย่างนุ่มนวลกลมกลืน ไม่แย่งความเด่นของ${person ? "บุคคล" : "สัญลักษณ์หลัก"}`);
     if (person) L.push(`ด้านล่างซ้ายมี${symbol}`);
     L.push("");
@@ -3383,15 +3457,16 @@ $$("[data-surprise]").forEach(b => b.addEventListener("click", () => surprise(b)
       L.push("");
     }
     L.push(`คุณภาพ ${st.q}`, "");
-    if (val("cvExtra")) L.push("ความต้องการเพิ่มเติม: " + val("cvExtra"), "");
+    if (val("cvExtra")) L.push("ความต้องการเพิ่มเติม (หากขัดกับข้อกำหนดข้างต้น ให้ยึดข้อนี้): " + val("cvExtra"), "");
     // rules
     const rules = [];
     rules.push(person ? (S.layout === "team" ? "เน้นภาพหมู่เป็นจุดเด่นที่สุด" : "เน้นบุคคลเป็นจุดเด่นที่สุด") : "เน้นสัญลักษณ์หลักเป็นจุดเด่นที่สุด");
     if (st.blend === "double" && person) rules.push("ภาพกิจกรรมต้องหลอมรวมแบบ Double Exposure ไม่มีกรอบสี่เหลี่ยม");
-    if (person) rules.push("ห้ามข้อความหรือกราฟิกบังใบหน้า", "ห้ามเปลี่ยนใบหน้าบุคคล", "ห้ามมือหรือนิ้วผิดรูป");
+    if (person) rules.push("ห้ามข้อความหรือกราฟิกบังใบหน้า", "ห้ามเปลี่ยนใบหน้าบุคคล", "ห้ามมือหรือนิ้วผิดรูป", "ห้ามเพิ่มเหรียญ แถบเครื่องราชอิสริยาภรณ์ ป้ายชื่อ หรือเครื่องหมายบนเครื่องแต่งกายที่ไม่มีในภาพอ้างอิง");
+    rules.push("หน้าจออุปกรณ์และสิ่งของในภาพห้ามแสดงโลโก้ แบรนด์สินค้า หรือตัวละครของโปรแกรมใด ๆ");
     rules.push(nLogo ? "ห้ามสร้างโลโก้เพิ่มเติมนอกจากที่แนบ" : "ห้ามสร้างโลโก้หรือตราสัญลักษณ์ของหน่วยงานใด ๆ");
     if (full) rules.push("ข้อความภาษาไทยต้องถูกต้องทุกตัวอักษร สระ และวรรณยุกต์ ใช้ตามที่กำหนดเท่านั้น ห้ามเพิ่มคำขวัญหรือข้อความอื่น");
-    rules.push("ห้ามใส่ลายน้ำหรือข้อความภาษาอังกฤษที่ไม่ได้กำหนด", "จัดองค์ประกอบให้สะอาด ไม่รก");
+    rules.push("ห้ามใส่ลายน้ำหรือข้อความภาษาอังกฤษที่ไม่ได้กำหนด", S.font !== "plain" && full ? "จัดองค์ประกอบให้สะอาด ไม่รก โดยให้หัวเรื่องที่ตกแต่งเป็นจุดเด่นรองจาก" + (person ? "บุคคล" : "สัญลักษณ์หลัก") : "จัดองค์ประกอบให้สะอาด ไม่รก");
     L.push(rules.join(" "));
     return L.join("\n");
   }
@@ -3422,6 +3497,13 @@ $$("[data-surprise]").forEach(b => b.addEventListener("click", () => surprise(b)
     g("cvAuthorWrap").hidden = !g("cvAuthorOn").checked;
     g("cvPersonWrap").hidden = S.layout === "symbol";
     g("cvPoseCustomWrap").hidden = val("cvPose") !== "กำหนดเอง";
+    g("cvFontWrap").hidden = S.mode !== "full";
+    g("cvFontCustomWrap").hidden = S.font !== "custom";
+    const t1 = (val("cvTitle").split("\n").map(x => x.trim()).filter(Boolean));
+    const longSub = t1.slice(1).some(x => x.length > 45);
+    g("cvFontHint").textContent = (S.font === "plain" ? "ตัวอักษรเรียบอ่านง่าย AI สะกดถูกง่ายที่สุด" : "ระบบตกแต่งเฉพาะหัวเรื่องบรรทัดแรก บรรทัดรองคงแบบอ่านง่าย ควรสร้าง 3–4 ภาพแล้วเลือกภาพที่ดีที่สุด")
+      + ((t1[0] || "").length > 25 ? " หัวเรื่องบรรทัดแรกยาว การตกแต่งอาจได้ผลน้อยลง ควรให้บรรทัดแรกสั้น" : "")
+      + (longSub ? " บางบรรทัดรองยาวเกิน 45 ตัวอักษร ควรแยกเป็น 2 บรรทัด" : "");
     g("cvModeHint").textContent = S.mode === "full" ? "AI จะใส่ข้อความทั้งหมดลงบนปก ควรตรวจคำสะกดภาษาไทยทุกตำแหน่ง" : "AI สร้างเฉพาะภาพและการจัดวาง แล้วคุณพิมพ์ข้อความเองใน Canva หรือ PowerPoint ได้ข้อความถูกต้องแน่นอนกว่า";
     g("cvErr").hidden = true;
     drawPreview();
@@ -3443,9 +3525,10 @@ $$("[data-surprise]").forEach(b => b.addEventListener("click", () => surprise(b)
   opts("cvField", FIELDS, "field", fillField);
   opts("cvStyle", STYLES, "style");
   opts("cvLogos", LOGOS, "logos");
-  drawPalette(); fillDoc(); fillField();
+  ["cvC1","cvC2","cvC3","cvC4"].forEach(id => g(id).addEventListener("input", () => { drawPalette(); update(); }));
+  drawPalette(); drawFont(); fillDoc(); fillField();
   g("cvYear").addEventListener("input", () => { fillDoc(); update(); });
-  ["cvTitle","cvName","cvPos","cvSchool","cvArea","cvScene","cvSymbol","cvPalCustom","cvPoseCustom","cvExtra"].forEach(id => g(id).addEventListener("input", update));
+  ["cvTitle","cvName","cvPos","cvSchool","cvArea","cvScene","cvSymbol","cvPoseCustom","cvExtra","cvFontCustom"].forEach(id => g(id).addEventListener("input", update));
   ["cvAuthorOn","cvPose"].forEach(id => g(id).addEventListener("change", update));
   g("cvCopy").addEventListener("click", () => { if (guard()) copyText(prompt(), "คัดลอก Prompt ภาพปกแล้ว"); });
   g("cvDl").addEventListener("click", () => { if (guard()) download("cover-prompt.txt", prompt()); });
