@@ -2152,7 +2152,7 @@ const Paid = (() => {
     if (!tok) return openLogin();
     const st = me ? (me.status === "member" ? "สมาชิก" : me.status === "suspended" ? "ถูกระงับ" : "ทดลองใช้ (ยังไม่เป็นสมาชิก)") : "-";
     el("acctBody").innerHTML = `<p><b>${h(tok.name)}</b><br><span class="note">${h(tok.email)}</span></p>
-      <p>สถานะ: <b>${st}</b>${me && me.since ? "<br><span class='note'>เป็นสมาชิกตั้งแต่ " + h(dt(me.since)) + "</span>" : ""}</p>`;
+      <p>สถานะ: <b>${st}</b>${me && me.admin ? " · ผู้ดูแลระบบ" : ""}${me && me.since ? "<br><span class='note'>เป็นสมาชิกตั้งแต่ " + h(dt(me.since)) + "</span>" : ""}</p>`;
     el("acctAdmin").hidden = !(me && me.admin);
     showDlg("acctDlg");
   }
