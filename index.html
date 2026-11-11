@@ -576,6 +576,39 @@ dialog.cmdk{width:min(640px,calc(100vw - 24px));align-self:start;margin-top:12vh
 #authGBtn{margin-top:16px;min-height:44px;display:grid;justify-items:center}
 @media (min-width:1241px){.nav a{padding:8px 7px;font-size:14px}.top .wrap{gap:10px}.cmd-btn{padding:0 10px}}
 
+/* ===== admin ===== */
+.adm-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+.adm-stat{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:14px 16px;display:grid;gap:2px}
+.adm-stat b{font-size:26px;font-family:var(--f-display);color:var(--ink)}
+.adm-stat span{font-size:13px;color:var(--muted)}
+.adm-stat.warn{border-color:var(--amber);background:var(--warn-bg)}
+.adm-stat.ok b{color:var(--teal-ink)}
+.adm-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.adm-tabs{display:flex;gap:6px}
+.adm-tabs button{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 16px;border-radius:999px;font:inherit;cursor:pointer}
+.adm-tabs button[aria-selected="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+#admFilter{margin-bottom:14px}
+#admList{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+#admList > p, #admList > .adm-tbl{grid-column:1/-1}
+.adm-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px 18px}
+.adm-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.adm-amt{font-size:28px;font-family:var(--f-display);color:var(--teal-ink);margin:6px 0}
+.adm-amt small{font-size:14px;color:var(--muted)}
+.adm-dl{margin:0 0 12px;display:grid;gap:6px;font-size:14px}
+.adm-dl div{display:grid;grid-template-columns:110px minmax(0,1fr);gap:8px}
+.adm-dl dt{color:var(--muted)}.adm-dl dd{margin:0;overflow-wrap:anywhere}.adm-dl small{color:var(--muted)}
+.adm-card .row{display:flex;gap:8px;flex-wrap:wrap}
+.adm-st{font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--paper);border:1px solid var(--line);white-space:nowrap}
+.adm-st.review{background:var(--warn-bg);color:var(--warn-ink);border-color:transparent}
+.adm-st.approved,.adm-st.member{background:var(--mark);color:var(--teal-ink);border-color:transparent}
+.adm-st.rejected,.adm-st.suspended{background:#FDE8E6;color:var(--danger);border-color:transparent}
+.adm-tbl{overflow:auto;border:1px solid var(--line);border-radius:var(--r-md);background:var(--card)}
+.adm-tbl table{border-collapse:collapse;width:100%;font-size:14px;min-width:680px}
+.adm-tbl th,.adm-tbl td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+.adm-tbl th{background:var(--paper);font-weight:600}
+.adm-tbl small{color:var(--muted)}
+.adm-tbl select{font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--card);color:var(--ink)}
+
 footer{border-top:1px solid var(--line);padding:28px 0 36px;color:var(--muted);font-size:14px}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
@@ -1502,6 +1535,35 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   </div></div>
 </section>
 
+<!-- ================= ADMIN ================= -->
+<section class="view" data-view="admin" aria-label="หลังบ้านผู้ดูแล">
+  <div class="page-hero"><div class="wrap">
+    <h1>หลังบ้านผู้ดูแล</h1>
+    <p>ตรวจคำสั่งซื้อ อนุมัติสมาชิก และจัดการสถานะผู้ใช้</p>
+  </div></div>
+  <div class="sec" style="padding-top:28px"><div class="wrap">
+    <div class="box" id="admGate"></div>
+    <div id="admMain" hidden>
+      <div class="adm-stats" id="admStats"></div>
+      <div class="adm-bar">
+        <div class="adm-tabs" id="admTabs" role="tablist">
+          <button role="tab" data-tab="orders" aria-selected="true">คำสั่งซื้อ</button>
+          <button role="tab" data-tab="members" aria-selected="false">สมาชิก</button>
+        </div>
+        <button class="btn btn-line btn-sm" id="admReload">โหลดข้อมูลใหม่</button>
+      </div>
+      <div class="opts" id="admFilter">
+        <button class="opt" data-f="review" aria-pressed="true">รอตรวจ</button><button class="opt" data-f="pending" aria-pressed="false">รอโอน</button>
+        <button class="opt" data-f="approved" aria-pressed="false">อนุมัติ</button><button class="opt" data-f="rejected" aria-pressed="false">ปฏิเสธ</button>
+        <button class="opt" data-f="all" aria-pressed="false">ทั้งหมด</button>
+      </div>
+      <div class="field" id="admSearch" hidden><label for="admQ">ค้นหาชื่อหรืออีเมล</label><input id="admQ" autocomplete="off"></div>
+      <div id="admList"></div>
+      <p class="note" style="margin-top:16px">ขั้นตอนตรวจ: เปิดแอปธนาคาร ตรวจว่ามีเงินเข้าตรงยอดรวมเศษสตางค์ แล้วจึงกดอนุมัติ ห้ามอนุมัติจากภาพสลิปอย่างเดียว</p>
+    </div>
+  </div></div>
+</section>
+
 <!-- ================= HOW ================= -->
 <section class="view" data-view="how" aria-label="วิธีใช้งาน">
   <div class="page-hero"><div class="wrap"><h1>วิธีใช้งาน</h1><p>ใช้ได้ทันทีโดยไม่ต้องสมัครสมาชิก</p></div></div>
@@ -1587,9 +1649,28 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <div id="acctBody"></div>
     <div class="row">
       <button class="btn btn-primary btn-sm" id="acctMember">หน้าสมาชิก</button>
+      <button class="btn btn-line btn-sm" id="acctAdmin" hidden>หลังบ้านผู้ดูแล</button>
       <button class="btn btn-line btn-sm" id="acctOut">ออกจากระบบ</button>
       <button class="btn btn-line btn-sm" data-close="acctDlg">ปิด</button>
     </div>
+  </div>
+</dialog>
+
+<dialog class="paid-dlg" id="admDecDlg" aria-labelledby="admDecTitle">
+  <div class="in">
+    <h2 id="admDecTitle"></h2>
+    <div id="admDecBody"></div>
+    <div class="row"><button class="btn btn-primary btn-sm" id="admDecGo"></button><button class="btn btn-line btn-sm" data-close="admDecDlg">ยกเลิก</button></div>
+  </div>
+</dialog>
+
+<dialog class="paid-dlg" id="admSlipDlg" aria-labelledby="admSlipTitle" style="width:min(560px,calc(100vw - 24px))">
+  <div class="in">
+    <h2 id="admSlipTitle">สลิปการโอน</h2>
+    <p class="note" id="admSlipNote"></p>
+    <img id="admSlipImg" alt="ภาพสลิป" style="max-width:100%;max-height:70vh;display:block;margin:10px auto;border-radius:8px">
+    <p class="note">สลิปเป็นเพียงหลักฐานประกอบ ต้องตรวจยอดเงินเข้าในแอปธนาคารก่อนอนุมัติทุกครั้ง</p>
+    <div class="row"><button class="btn btn-line btn-sm" data-close="admSlipDlg">ปิด</button></div>
   </div>
 </dialog>
 
@@ -2044,6 +2125,7 @@ const Paid = (() => {
       t.fixed ? loadFixed(k) : rerender(k);
     });
     if (raw === "member") renderMember();
+    if (typeof Admin !== "undefined") Admin.onView(raw);
     if (/^(privacy|terms|refund)$/.test(raw)){
       renderMember();
       const d = el(raw); if (d){ d.open = true; setTimeout(() => d.scrollIntoView({ block: "start" }), 50); }
@@ -2071,6 +2153,7 @@ const Paid = (() => {
     const st = me ? (me.status === "member" ? "สมาชิก" : me.status === "suspended" ? "ถูกระงับ" : "ทดลองใช้ (ยังไม่เป็นสมาชิก)") : "-";
     el("acctBody").innerHTML = `<p><b>${h(tok.name)}</b><br><span class="note">${h(tok.email)}</span></p>
       <p>สถานะ: <b>${st}</b>${me && me.since ? "<br><span class='note'>เป็นสมาชิกตั้งแต่ " + h(dt(me.since)) + "</span>" : ""}</p>`;
+    el("acctAdmin").hidden = !(me && me.admin);
     showDlg("acctDlg");
   }
 
@@ -2203,6 +2286,8 @@ const Paid = (() => {
     el("authBtn").addEventListener("click", () => tok ? openAcct() : openLogin());
     el("acctOut").addEventListener("click", () => { closeDlg("acctDlg"); logout(); toast("ออกจากระบบแล้ว"); });
     el("acctMember").addEventListener("click", () => { closeDlg("acctDlg"); location.hash = "#member"; });
+    el("acctAdmin").addEventListener("click", () => { closeDlg("acctDlg"); location.hash = "#admin"; });
+    if (typeof Admin !== "undefined") Admin.init();
     document.querySelectorAll("[data-close]").forEach(b => b.addEventListener("click", () => closeDlg(b.dataset.close)));
     if (!enabled()){ renderAll(); return; }
     tok = loadTok();
@@ -2215,6 +2300,124 @@ const Paid = (() => {
   }
 
   return { get, ready, register, onView, init, badges, api, refresh, me: () => me };
+})();
+
+/* ================= หน้าหลังบ้าน (ผู้ดูแล) ================= */
+const Admin = (() => {
+  const el = id => document.getElementById(id);
+  const h = s => esc(s == null ? "" : s);
+  const money = n => Number(n || 0).toLocaleString("th-TH", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const dt = s => { if (!s) return "-"; const d = new Date(s); return isNaN(d) ? h(s) : d.toLocaleString("th-TH", { dateStyle: "medium", timeStyle: "short" }); };
+  const ST = { review: "รอตรวจ", pending: "รอโอน", approved: "อนุมัติ", rejected: "ปฏิเสธ", expired: "หมดอายุ", cancelled: "ยกเลิก" };
+  const MS = { trial: "ผู้ทดลอง", member: "สมาชิก", suspended: "ระงับ" };
+  let tab = "orders", filter = "review", q = "", busy = false, act = null;
+
+  async function call(action, data){
+    const j = await Paid.api(action, data);
+    if (!j.ok) throw new Error(j.error || "ดำเนินการไม่สำเร็จ");
+    return j;
+  }
+  function gate(){
+    const me = Paid.me(), box = el("admGate");
+    const ok = !!(me && me.admin);
+    box.hidden = ok; el("admMain").hidden = !ok;
+    if (!ok) box.innerHTML = !me ? `<p>หน้านี้สำหรับผู้ดูแลระบบ กรุณาเข้าสู่ระบบด้วยบัญชี Google ที่ได้รับสิทธิ์</p><button class="btn btn-primary" id="admLogin">เข้าสู่ระบบ</button>` : `<p>บัญชี ${h(me.email)} ไม่มีสิทธิ์ผู้ดูแลระบบ</p>`;
+    const b = el("admLogin"); if (b) b.onclick = () => el("authBtn").click();
+    return ok;
+  }
+  async function load(){
+    if (!gate() || busy) return;
+    busy = true; el("admList").innerHTML = '<p class="note">กำลังโหลด ...</p>';
+    try {
+      const s = (await call("admin.summary")).summary;
+      el("admStats").innerHTML = [
+        ["รอตรวจ", s.review, "warn"], ["รอโอน", s.pending, ""], ["สมาชิก", s.members, "ok"], ["ผู้ทดลอง", s.trial, ""], ["ยอดรับที่อนุมัติ (บาท)", money(s.income), ""]
+      ].map(x => `<div class="adm-stat ${x[2]}"><b>${x[1]}</b><span>${x[0]}</span></div>`).join("");
+      if (tab === "orders") orders((await call("admin.orders", { status: filter })).orders);
+      else members((await call("admin.members", { q })).members);
+    } catch (e) { el("admList").innerHTML = `<p class="err">${h(e.message)}</p>`; }
+    busy = false;
+  }
+  function orders(list){
+    el("admList").innerHTML = list.length ? list.map(o => `
+      <article class="adm-card">
+        <div class="adm-top"><b>${h(o.id)}</b><span class="adm-st ${o.status}">${ST[o.status] || o.status}</span></div>
+        <div class="adm-amt">${money(o.amount)} <small>บาท</small></div>
+        <dl class="adm-dl">
+          <div><dt>ผู้สั่งซื้อ</dt><dd>${h(o.name)}<br><small>${h(o.email)}</small></dd></div>
+          <div><dt>สร้างเมื่อ</dt><dd>${dt(o.createdAt)}</dd></div>
+          ${o.sender ? `<div><dt>ข้อมูลแจ้งโอน</dt><dd>${h(o.sender)} · ${h(o.bank)}<br><small>โอนเมื่อ ${h(o.at.replace("T", " "))} · อ้างอิง ${h(o.ref)}</small></dd></div>` : ""}
+          ${o.reason ? `<div><dt>เหตุผลที่ปฏิเสธ</dt><dd>${h(o.reason)}</dd></div>` : ""}
+          ${o.by ? `<div><dt>ดำเนินการโดย</dt><dd>${h(o.by)}<br><small>${dt(o.doneAt)}</small></dd></div>` : ""}
+        </dl>
+        <div class="row">
+          ${o.hasSlip ? `<button class="btn btn-line btn-sm" data-slip="${h(o.id)}">ดูสลิป</button>` : ""}
+          ${o.status === "review" || o.status === "pending" ? `<button class="btn btn-primary btn-sm" data-ok="${h(o.id)}">อนุมัติ</button><button class="btn btn-line btn-sm" data-no="${h(o.id)}">ปฏิเสธ</button>` : ""}
+        </div>
+      </article>`).join("") : '<p class="note">ไม่มีรายการในสถานะนี้</p>';
+    const find = id => list.find(o => o.id === id);
+    el("admList").querySelectorAll("[data-slip]").forEach(b => b.onclick = () => slip(b.dataset.slip));
+    el("admList").querySelectorAll("[data-ok]").forEach(b => b.onclick = () => decide(find(b.dataset.ok), true));
+    el("admList").querySelectorAll("[data-no]").forEach(b => b.onclick = () => decide(find(b.dataset.no), false));
+  }
+  function members(list){
+    el("admList").innerHTML = `<div class="adm-tbl"><table><thead><tr><th>ผู้ใช้</th><th>สถานะ</th><th>เป็นสมาชิกเมื่อ</th><th>เข้าใช้ล่าสุด</th><th>เปลี่ยนสถานะ</th></tr></thead><tbody>${
+      list.length ? list.map(m => `<tr><td>${h(m.name)}<br><small>${h(m.email)}</small></td><td><span class="adm-st ${m.status}">${MS[m.status]}</span></td><td>${m.since ? dt(m.since) : "-"}</td><td>${dt(m.last)}</td>
+        <td><select data-mem="${h(m.email)}" aria-label="สถานะของ ${h(m.email)}">${Object.keys(MS).map(k => `<option value="${k}" ${k === m.status ? "selected" : ""}>${MS[k]}</option>`).join("")}</select></td></tr>`).join("")
+      : '<tr><td colspan="5">ไม่พบผู้ใช้</td></tr>'}</tbody></table></div>`;
+    el("admList").querySelectorAll("[data-mem]").forEach(s => s.onchange = async () => {
+      const prev = [...s.options].find(o => o.defaultSelected).value;
+      if (!confirm(`เปลี่ยนสถานะของ ${s.dataset.mem} เป็น "${MS[s.value]}"`)){ s.value = prev; return; }
+      try { await call("admin.member", { email: s.dataset.mem, status: s.value }); toast("เปลี่ยนสถานะแล้ว"); load(); }
+      catch (e) { toast(e.message); s.value = prev; }
+    });
+  }
+  async function slip(id){
+    el("admSlipImg").removeAttribute("src"); el("admSlipNote").textContent = "กำลังโหลดสลิป ...";
+    el("admSlipDlg").showModal();
+    try { const j = await call("admin.slip", { orderId: id }); el("admSlipImg").src = `data:${j.mime};base64,${j.data}`; el("admSlipNote").textContent = "คำสั่งซื้อ " + id; }
+    catch (e) { el("admSlipNote").textContent = e.message; }
+  }
+  function decide(o, approve){
+    act = { o, approve };
+    el("admDecTitle").textContent = approve ? "ยืนยันการอนุมัติ" : "ปฏิเสธคำสั่งซื้อ";
+    el("admDecBody").innerHTML = approve
+      ? `<p>คำสั่งซื้อ <b>${h(o.id)}</b> ของ ${h(o.name)}</p><div class="mb-amount"><span>ยอดที่ต้องเข้าบัญชี</span><b>${money(o.amount)}</b><span>บาท</span></div>
+         <label class="toggle"><input type="checkbox" id="admChk"> ข้าพเจ้าเปิดแอปธนาคารแล้ว และพบเงินเข้าตรงยอด ${money(o.amount)} บาทจริง</label>
+         <p class="note">ห้ามอนุมัติจากภาพสลิปอย่างเดียว เมื่ออนุมัติแล้ว ระบบจะเปิดสิทธิ์สมาชิกและส่งอีเมลแจ้งผู้ใช้ทันที</p>`
+      : `<p>คำสั่งซื้อ <b>${h(o.id)}</b> ยอด ${money(o.amount)} บาท</p>
+         <div class="field"><label for="admReason">เหตุผลที่ปฏิเสธ (ส่งถึงผู้ใช้ทางอีเมล)<span class="req">*</span></label><textarea id="admReason" maxlength="300">ไม่พบยอดเงินเข้าบัญชีตามที่แจ้ง</textarea></div>`;
+    el("admDecGo").textContent = approve ? "อนุมัติ" : "ปฏิเสธ";
+    el("admDecDlg").showModal();
+  }
+  async function go(){
+    if (!act) return;
+    const btn = el("admDecGo");
+    if (act.approve && !el("admChk").checked){ toast("กรุณายืนยันว่าตรวจยอดเงินในแอปธนาคารแล้ว"); return; }
+    const reason = act.approve ? "" : el("admReason").value.trim();
+    if (!act.approve && !reason){ toast("กรุณากรอกเหตุผลที่ปฏิเสธ"); return; }
+    btn.disabled = true;
+    try {
+      await call(act.approve ? "admin.approve" : "admin.reject", { orderId: act.o.id, reason });
+      el("admDecDlg").close(); toast(act.approve ? "อนุมัติแล้ว ระบบส่งอีเมลแจ้งผู้ใช้แล้ว" : "ปฏิเสธแล้ว"); load();
+    } catch (e) { toast(e.message); }
+    btn.disabled = false;
+  }
+  function init(){
+    el("admTabs").querySelectorAll("[data-tab]").forEach(b => b.onclick = () => {
+      tab = b.dataset.tab;
+      el("admTabs").querySelectorAll("[data-tab]").forEach(x => x.setAttribute("aria-selected", x === b));
+      el("admFilter").hidden = tab !== "orders"; el("admSearch").hidden = tab !== "members"; load();
+    });
+    el("admFilter").querySelectorAll("[data-f]").forEach(b => b.onclick = () => {
+      filter = b.dataset.f; el("admFilter").querySelectorAll("[data-f]").forEach(x => x.setAttribute("aria-pressed", x === b)); load();
+    });
+    let t; el("admQ").oninput = () => { clearTimeout(t); t = setTimeout(() => { q = el("admQ").value.trim(); load(); }, 400); };
+    el("admReload").onclick = load;
+    el("admDecGo").onclick = go;
+  }
+  function onView(raw){ if (raw === "admin") load(); }
+  return { init, onView, load };
 })();
 
 /* ================= theme & menu ================= */
@@ -2240,7 +2443,7 @@ function route(){
   const name = $$(".view").some(s => s.dataset.view === v) ? v : "home";
   if (name === "lesson" && window.lpMode) window.lpMode(raw === "lesson-info");
   $$(".view").forEach(s => s.classList.toggle("active", s.dataset.view === name));
-  const navName = raw === "lesson-info" ? "lesson-info" : name === "member" ? "" : name.startsWith("skill-") ? "skills" : (name === "trend" || name === "report" || name === "game" || name === "cover" || name === "research" || name === "shorts") ? "tools" : name;
+  const navName = raw === "lesson-info" ? "lesson-info" : (name === "member" || name === "admin") ? "" : name.startsWith("skill-") ? "skills" : (name === "trend" || name === "report" || name === "game" || name === "cover" || name === "research" || name === "shorts") ? "tools" : name;
   $$(".nav a").forEach(a => a.getAttribute("href") === "#" + navName ? a.setAttribute("aria-current","page") : a.removeAttribute("aria-current"));
   $("#nav").classList.remove("open"); $("#menuBtn").setAttribute("aria-expanded","false");
   window.scrollTo(0, 0);
