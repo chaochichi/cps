@@ -609,6 +609,9 @@ dialog.cmdk{width:min(640px,calc(100vw - 24px));align-self:start;margin-top:12vh
 .adm-tbl small{color:var(--muted)}
 .adm-tbl select{font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--card);color:var(--ink)}
 
+/* ซ่อนองค์ประกอบที่มีแอตทริบิวต์ hidden เสมอ แม้คลาสจะกำหนด display ไว้ */
+[hidden]{display:none !important}
+
 footer{border-top:1px solid var(--line);padding:28px 0 36px;color:var(--muted);font-size:14px}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
@@ -1466,8 +1469,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 <section class="view" data-view="member" aria-label="สมาชิก">
   <div class="page-hero"><div class="wrap">
     <h1>สมาชิก CHAO Prompt Studio</h1>
-    <p>ชำระครั้งเดียว ใช้เมนูสำหรับสมาชิกได้ครบทุกเมนู ตลอดอายุการให้บริการของเว็บไซต์</p>
-    <div class="mb-price" id="mbPrice"></div>
+    <p>สำหรับสมาชิก VIP ใช้เมนูสำหรับสมาชิกได้ครบทุกเมนู</p>
+    <div class="mb-price" id="mbPrice" hidden></div>
   </div></div>
   <div class="sec" style="padding-top:36px"><div class="wrap mb">
     <div>
@@ -1483,22 +1486,17 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <p class="note" style="margin-top:10px">ผู้ที่ยังไม่เป็นสมาชิกเข้าสู่ระบบแล้วกรอกข้อมูลเพื่อดูตัวอย่างส่วนต้นของ Prompt ได้ทุกเมนู ส่วนเมนูอื่นของเว็บไซต์ใช้ได้ฟรี</p>
       </div>
       <div class="box">
-        <h2>ขั้นตอนการสมัคร</h2>
+        <h2>ขั้นตอนการเปิดสิทธิ์</h2>
         <ol class="mb-steps">
           <li>เข้าสู่ระบบด้วยบัญชี Google</li>
-          <li>กดสร้างคำสั่งซื้อ ระบบกำหนดยอดโอนที่มีเศษสตางค์เฉพาะของท่าน</li>
-          <li>โอนเงินให้ตรงยอด และตรวจชื่อผู้รับในแอปธนาคารก่อนกดยืนยัน</li>
-          <li>แจ้งการโอนพร้อมแนบภาพสลิป</li>
-          <li>ผู้พัฒนาตรวจรายการเดินบัญชี แล้วเปิดสิทธิ์และแจ้งผลทางอีเมล</li>
+          <li>แจ้งอีเมลที่ใช้เข้าสู่ระบบต่อแอดมินในกลุ่ม VIP</li>
+          <li>แอดมินเปิดสิทธิ์สมาชิก แล้วรีเฟรชหน้าเว็บเพื่อเริ่มใช้งาน</li>
         </ol>
       </div>
     </div>
     <div>
       <div class="box" id="mbPanel"></div>
-      <div class="box">
-        <h2>ช่องทางทางการ</h2>
-        <div id="mbOfficial"></div>
-      </div>
+      <div id="mbOfficial" hidden></div>
     </div>
   </div></div>
   <div class="sec" style="padding-top:0"><div class="wrap">
@@ -1506,28 +1504,20 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <h2>เงื่อนไขและนโยบาย</h2>
       <details id="terms"><summary>เงื่อนไขการใช้บริการ</summary>
         <ol>
-          <li>ค่าสมาชิกเป็นการชำระครั้งเดียว ให้สิทธิ์ใช้เมนูสำหรับสมาชิกตลอดอายุการให้บริการของเว็บไซต์ ผู้พัฒนาอาจปรับปรุง เพิ่ม หรือยุติเมนูใดเมนูหนึ่งได้ โดยจะแจ้งล่วงหน้าผ่านช่องทางทางการ</li>
+          <li>สิทธิ์สมาชิกเปิดให้เฉพาะสมาชิก VIP ผู้พัฒนาอาจปรับปรุง เพิ่ม หรือยุติเมนูใดเมนูหนึ่งได้ โดยจะแจ้งล่วงหน้าผ่านกลุ่ม VIP</li>
           <li>สิทธิ์สมาชิกผูกกับบัญชี Google หนึ่งบัญชี ไม่สามารถโอนสิทธิ์ให้บัญชีอื่น</li>
           <li>Prompt ที่สร้างขึ้นเป็นจุดเริ่มต้นของงาน ผู้ใช้ต้องตรวจสอบความถูกต้องของเนื้อหาที่ได้จากเครื่องมือ AI และรับผิดชอบการนำไปใช้ด้วยตนเอง</li>
           <li>ห้ามใช้ระบบในทางที่ผิดกฎหมาย หรือพยายามเข้าถึงระบบโดยไม่ได้รับอนุญาต ผู้พัฒนาอาจระงับบัญชีที่ฝ่าฝืน</li>
-          <li>การแจ้งโอนด้วยหลักฐานเท็จ ถือเป็นการกระทำผิดกฎหมาย ผู้พัฒนาจะระงับบัญชีและดำเนินการตามกฎหมาย</li>
         </ol>
       </details>
       <details id="privacy"><summary>นโยบายความเป็นส่วนตัว</summary>
         <ul>
-          <li><b>ข้อมูลที่เก็บ</b> ชื่อและอีเมลจากบัญชี Google วันเวลาที่เข้าใช้และเมนูที่ใช้ ข้อมูลการโอนเงินที่ท่านแจ้ง และภาพสลิป</li>
-          <li><b>วัตถุประสงค์</b> ยืนยันตัวตน เปิดสิทธิ์สมาชิก ตรวจสอบการชำระเงิน แจ้งผลทางอีเมล และป้องกันการใช้งานผิดปกติ</li>
+          <li><b>ข้อมูลที่เก็บ</b> ชื่อและอีเมลจากบัญชี Google วันเวลาที่เข้าใช้และเมนูที่ใช้</li>
+          <li><b>วัตถุประสงค์</b> ยืนยันตัวตน เปิดสิทธิ์สมาชิก และป้องกันการใช้งานผิดปกติ</li>
           <li><b>ข้อมูลที่ไม่เก็บ</b> รหัสผ่านบัญชี Google และข้อมูลที่ท่านกรอกในฟอร์มของแต่ละเมนู ซึ่งใช้สร้าง Prompt แล้วไม่ถูกบันทึก</li>
-          <li><b>ระยะเวลาเก็บ</b> ภาพสลิปลบอัตโนมัติหลังตรวจสอบเสร็จตามระยะเวลาที่ระบบกำหนด ข้อมูลสมาชิกเก็บตลอดระยะเวลาที่เป็นสมาชิก</li>
+          <li><b>ระยะเวลาเก็บ</b> ข้อมูลสมาชิกเก็บตลอดระยะเวลาที่เป็นสมาชิก</li>
           <li><b>การเปิดเผย</b> ไม่ขายหรือเปิดเผยข้อมูลแก่บุคคลอื่น เว้นแต่กฎหมายกำหนด</li>
           <li><b>สิทธิ์ของท่าน</b> ขอดู แก้ไข หรือลบข้อมูลของตนเองได้ ตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 ผ่านช่องทางทางการ</li>
-        </ul>
-      </details>
-      <details id="refund"><summary>นโยบายการคืนเงิน</summary>
-        <ul>
-          <li>โอนเงินแล้วแต่คำสั่งซื้อไม่ผ่านการตรวจสอบ หรือโอนเกินยอด ผู้พัฒนาจะติดต่อกลับเพื่อคืนเงินหรือดำเนินการให้ถูกต้อง</li>
-          <li>หลังเปิดสิทธิ์สมาชิกแล้ว ขอคืนเงินได้ภายใน 7 วัน ในกรณีที่เมนูสำหรับสมาชิกใช้งานไม่ได้จากความบกพร่องของระบบ และผู้พัฒนาแก้ไขไม่ได้</li>
-          <li>ติดต่อขอคืนเงินผ่านช่องทางทางการ โดยแจ้งเลขคำสั่งซื้อ</li>
         </ul>
       </details>
       <p class="note" style="margin-top:12px">ร่างเงื่อนไขนี้ควรได้รับการพิจารณาจากที่ประชุมหรือผู้รู้ด้านกฎหมายก่อนเปิดใช้จริง</p>
@@ -1547,19 +1537,19 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <div class="adm-stats" id="admStats"></div>
       <div class="adm-bar">
         <div class="adm-tabs" id="admTabs" role="tablist">
-          <button role="tab" data-tab="orders" aria-selected="true">คำสั่งซื้อ</button>
-          <button role="tab" data-tab="members" aria-selected="false">สมาชิก</button>
+          <button role="tab" data-tab="members" aria-selected="true">สมาชิก</button>
+          <button role="tab" data-tab="orders" aria-selected="false" hidden>คำสั่งซื้อ</button>
         </div>
         <button class="btn btn-line btn-sm" id="admReload">โหลดข้อมูลใหม่</button>
       </div>
-      <div class="opts" id="admFilter">
+      <div class="opts" id="admFilter" hidden>
         <button class="opt" data-f="review" aria-pressed="true">รอตรวจ</button><button class="opt" data-f="pending" aria-pressed="false">รอโอน</button>
         <button class="opt" data-f="approved" aria-pressed="false">อนุมัติ</button><button class="opt" data-f="rejected" aria-pressed="false">ปฏิเสธ</button>
         <button class="opt" data-f="all" aria-pressed="false">ทั้งหมด</button>
       </div>
-      <div class="field" id="admSearch" hidden><label for="admQ">ค้นหาชื่อหรืออีเมล</label><input id="admQ" autocomplete="off"></div>
+      <div class="field" id="admSearch"><label for="admQ">ค้นหาชื่อหรืออีเมลที่ผู้ใช้แจ้งในแชท</label><input id="admQ" autocomplete="off" placeholder="เช่น somchai@gmail.com"></div>
       <div id="admList"></div>
-      <p class="note" style="margin-top:16px">ขั้นตอนตรวจ: เปิดแอปธนาคาร ตรวจว่ามีเงินเข้าตรงยอดรวมเศษสตางค์ แล้วจึงกดอนุมัติ ห้ามอนุมัติจากภาพสลิปอย่างเดียว</p>
+      <p class="note" style="margin-top:16px">ขั้นตอน: รับอีเมลและหลักฐานการโอนจากแชท เปิดแอปธนาคารตรวจว่ามีเงินเข้าจริง ค้นหาอีเมลผู้ใช้ แล้วเปลี่ยนสถานะเป็น "สมาชิก" ห้ามเปลี่ยนสถานะจากภาพสลิปอย่างเดียว ผู้ใช้ต้องเข้าสู่ระบบด้วย Google ก่อนอย่างน้อยหนึ่งครั้ง จึงจะค้นหาเจอ</p>
     </div>
   </div></div>
 </section>
@@ -1593,7 +1583,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 </section>
 </main>
 
-<footer><div class="wrap"><span>© 2026 CHAO Prompt Studio · AI by CHAOCHAO</span><span><a href="#member">สมาชิก · ช่องทางทางการ · เงื่อนไขการใช้บริการ</a></span><span>Developer : KruChao ST</span></div></footer>
+<footer><div class="wrap"><span>© 2026 CHAO Prompt Studio · AI by CHAOCHAO</span><span><a href="#member">สมาชิก · เงื่อนไขการใช้บริการ · ความเป็นส่วนตัว</a></span><span>Developer : KruChao ST</span></div></footer>
 
 <dialog id="modal" aria-labelledby="mTitle">
   <div class="m-head">
@@ -2099,8 +2089,8 @@ const Paid = (() => {
     else if (s === "suspended") html = `<p>บัญชีนี้ถูกระงับการใช้งาน</p>`;
     else if (c && c.err && !stale) html = `<p>สร้าง Prompt ไม่สำเร็จ: ${h(c.err)}</p><button class="btn btn-line btn-sm" data-paid="retry">ลองอีกครั้ง</button>`;
     else if (s === "trial" && c && c.locked) html = `<div class="paid-fade" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-      <p><b>นี่คือตัวอย่างส่วนต้นของ Prompt</b> ยังมีอีกประมาณ ${c.more} บรรทัด สมัครสมาชิกเพื่อใช้ Prompt ฉบับเต็ม คัดลอกและดาวน์โหลดได้</p>
-      <a class="btn btn-primary btn-sm" href="#member">สมัครสมาชิก</a>`;
+      <p><b>นี่คือตัวอย่างส่วนต้นของ Prompt</b> ยังมีอีกประมาณ ${c.more} บรรทัด สมาชิก VIP ใช้ Prompt ฉบับเต็ม คัดลอกและดาวน์โหลดได้</p>
+      <a class="btn btn-primary btn-sm" href="#member">วิธีเปิดสิทธิ์สมาชิก</a>`;
     lock.innerHTML = html; lock.hidden = !html;
     lock.querySelectorAll("[data-paid]").forEach(b => b.onclick = () => b.dataset.paid === "login" ? openLogin() : (delete cache[tool], t.fixed ? loadFixed(tool) : rerender(tool)));
   }
@@ -2124,7 +2114,11 @@ const Paid = (() => {
       if (t.view !== (raw === "lesson-info" ? "lesson" : raw)) return;
       t.fixed ? loadFixed(k) : rerender(k);
     });
-    if (raw === "member") renderMember();
+    if (raw === "member"){
+      renderMember();
+      // ตรวจสถานะล่าสุดเมื่อเปิดหน้าสมาชิก (ไม่เกินทุก 15 วินาที)
+      if (tok && me && me.status !== "member" && Date.now() - (onView.t || 0) > 15000){ onView.t = Date.now(); refresh(); }
+    }
     if (typeof Admin !== "undefined") Admin.onView(raw);
     if (/^(privacy|terms|refund)$/.test(raw)){
       renderMember();
@@ -2176,52 +2170,20 @@ const Paid = (() => {
     el("mbPrice").innerHTML = !enabled() ? "ระบบสมาชิกยังไม่เปิดใช้งาน" : !pub ? "กำลังโหลด ..." : price ? `<b>${money(price).replace(/\.00$/, "")}</b> บาท <small>จ่ายครั้งเดียว</small>` : "รอประกาศราคา";
     el("mbOfficial").innerHTML = officialHTML();
     if (!enabled()){ p.innerHTML = `<p>ระบบสมาชิกยังไม่เปิดใช้งาน</p>`; return; }
-    if (!tok){ p.innerHTML = `<h3>เริ่มต้นสมัครสมาชิก</h3><p>เข้าสู่ระบบด้วยบัญชี Google ก่อน ระบบไม่เก็บรหัสผ่านของท่าน</p><button class="btn btn-primary" data-mb="login">เข้าสู่ระบบด้วย Google</button>`; bind(); return; }
+    if (!tok){ p.innerHTML = `<h3>เข้าสู่ระบบ</h3><p>เข้าสู่ระบบด้วยบัญชี Google ระบบไม่เก็บรหัสผ่านของท่าน</p><button class="btn btn-primary" data-mb="login">เข้าสู่ระบบด้วย Google</button>`; bind(); return; }
     if (!me){ p.innerHTML = `<p>กำลังโหลดข้อมูล ...</p>`; return; }
     if (me.status === "member"){ p.innerHTML = `<h3>ท่านเป็นสมาชิกแล้ว</h3><p>ใช้เมนูสำหรับสมาชิกได้ครบทุกเมนู${me.since ? " ตั้งแต่ " + h(dt(me.since)) : ""}</p>`; return; }
-    if (me.status === "suspended"){ p.innerHTML = `<h3>บัญชีถูกระงับ</h3><p>โปรดติดต่อผู้พัฒนาผ่านช่องทางทางการ</p>`; return; }
-    const o = me.order;
-    if (!o || o.status === "rejected" || o.status === "expired" || o.status === "cancelled"){
-      const why = o && o.status === "rejected" ? `<div class="mb-warn">คำสั่งซื้อ ${h(o.id)} ไม่ผ่านการตรวจสอบ: ${h(o.reason || "-")}</div>` : o && o.status === "expired" ? `<div class="mb-warn">คำสั่งซื้อ ${h(o.id)} หมดอายุแล้ว</div>` : "";
-      p.innerHTML = `${why}<h3>สร้างคำสั่งซื้อ</h3><p>ระบบจะกำหนดยอดโอนที่มีเศษสตางค์เฉพาะของท่าน เพื่อใช้ตรวจสอบรายการโอน</p>
-        <button class="btn btn-primary" data-mb="create" ${price ? "" : "disabled"}>${price ? "สร้างคำสั่งซื้อ" : "ยังไม่เปิดรับสมัคร"}</button>`;
-      bind(); return;
-    }
-    if (o.status === "review"){
-      p.innerHTML = `<h3>ได้รับการแจ้งโอนแล้ว</h3><p>คำสั่งซื้อ <b>${h(o.id)}</b> ยอด <b>${money(o.amount)}</b> บาท อยู่ระหว่างตรวจสอบรายการเดินบัญชี ระบบจะเปิดสิทธิ์ภายใน ${h(pub && pub.approveWithin || "24 ชั่วโมง")} และแจ้งผลทางอีเมล ${h(tok.email)}</p>
-        <button class="btn btn-line btn-sm" data-mb="reload">ตรวจสถานะล่าสุด</button>`;
-      bind(); return;
-    }
-    // pending payment
-    p.innerHTML = `<h3>โอนเงินตามรายละเอียดนี้</h3>
-      <div class="mb-amount"><span>ยอดที่ต้องโอน</span><b>${money(o.amount)}</b><span>บาท</span><button class="btn btn-line btn-sm" data-copy="${o.amount.toFixed ? o.amount.toFixed(2) : o.amount}">คัดลอกยอด</button></div>
-      <p class="note">โปรดโอนให้ตรงยอดนี้ทุกสตางค์ เพื่อให้ตรวจสอบได้รวดเร็ว · คำสั่งซื้อ ${h(o.id)} · โอนภายใน ${h(dt(o.expiresAt))}</p>
-      <dl class="mb-bank">
-        <div><dt>ธนาคาร</dt><dd>${h(o.bankName)}</dd></div>
-        <div><dt>ชื่อบัญชี</dt><dd><b>${h(o.accountName)}</b></dd></div>
-        <div><dt>เลขบัญชี / พร้อมเพย์</dt><dd><b class="mono">${h(o.accountNo)}</b> <button class="btn btn-line btn-sm" data-copy="${h(String(o.accountNo).replace(/[^0-9]/g, ""))}">คัดลอก</button></dd></div>
-      </dl>
-      <div class="mb-warn"><b>ก่อนกดยืนยันในแอปธนาคาร</b> ตรวจว่าชื่อผู้รับคือ <b>${h(o.accountName)}</b> เท่านั้น หากไม่ตรง ห้ามโอนและแจ้งผู้พัฒนาทันที</div>
-      <h3 style="margin-top:22px">แจ้งการโอนเงิน</h3>
-      <form id="mbForm" class="mb-form" onsubmit="return false">
-        <div class="field"><label for="mbAt">วันและเวลาที่โอนตามสลิป<span class="req">*</span></label><input id="mbAt" type="datetime-local" required></div>
-        <div class="field"><label for="mbSender">ชื่อบัญชีผู้โอน<span class="req">*</span></label><input id="mbSender" maxlength="100" required></div>
-        <div class="field"><label for="mbBank">ธนาคารผู้โอน<span class="req">*</span></label><select id="mbBank">${BANKS.map(x => `<option>${x}</option>`).join("")}</select></div>
-        <div class="field"><label for="mbRef">เลขที่อ้างอิงรายการ (ในสลิป)<span class="req">*</span></label><input id="mbRef" maxlength="40" autocomplete="off" required></div>
-        <div class="field"><label for="mbSlip">ภาพสลิป<span class="req">*</span></label><input id="mbSlip" type="file" accept="image/*" required></div>
-        <div class="err" id="mbErr" hidden></div>
-        <div class="row"><button class="btn btn-primary" data-mb="notify">ส่งแจ้งโอน</button><button class="btn btn-line" data-mb="cancel">ยกเลิกคำสั่งซื้อ</button></div>
-      </form>`;
-    bind();
+    if (me.status === "suspended"){ p.innerHTML = `<h3>บัญชีถูกระงับ</h3><p>โปรดติดต่อแอดมินในกลุ่ม VIP</p>`; return; }
+    // ผู้ทดลอง: แจ้งอีเมลต่อแอดมินในกลุ่ม VIP แล้วแอดมินเปิดสิทธิ์ที่หน้าหลังบ้าน
+    p.innerHTML = `<h3>ยังไม่ได้เปิดสิทธิ์สมาชิก</h3>
+      <p>บัญชีนี้อยู่ในสถานะ <b>ทดลองใช้</b> หากท่านเป็นสมาชิก VIP แล้ว โปรดแจ้งอีเมลนี้ต่อแอดมินในกลุ่ม VIP</p>
+      <div class="mb-amount"><span>อีเมลที่ใช้เข้าสู่ระบบ</span><b style="font-size:19px;overflow-wrap:anywhere">${h(me.email)}</b><button class="btn btn-line btn-sm" data-copy="${h(me.email)}">คัดลอกอีเมล</button></div>
+      <p class="note">เมื่อแอดมินเปิดสิทธิ์แล้ว กดปุ่มด้านล่างหรือรีเฟรชหน้าเว็บ เพื่อเริ่มใช้งานในฐานะสมาชิก</p>
+      <button class="btn btn-line btn-sm" data-mb="reload">ตรวจสถานะล่าสุด</button>`;
+    bind(); return;
   }
-  function officialHTML(){
-    const site = (pub && pub.siteUrl) || (location.origin + location.pathname);
-    const rows = [["เว็บไซต์", `<a href="${h(site)}" rel="noopener">${h(site)}</a>`]];
-    if (pub && pub.facebookUrl) rows.push(["เพจ Facebook", `<a href="${h(pub.facebookUrl)}" target="_blank" rel="noopener">${h(pub.facebookUrl)}</a>`]);
-    if (pub && pub.accountName) rows.push(["ชื่อบัญชีผู้รับเงิน", `<b>${h(pub.accountName)}</b> เท่านั้น`]);
-    return `<dl class="mb-bank">${rows.map(r => `<div><dt>${r[0]}</dt><dd>${r[1]}</dd></div>`).join("")}</dl>
-      <ul class="mb-list"><li>ชำระเงินผ่านหน้าสมาชิกของเว็บไซต์นี้เท่านั้น</li><li>ผู้พัฒนาไม่ทักไปขอให้โอนเงินทาง Messenger หรือ LINE</li><li>หากพบเว็บไซต์ เพจ หรือบัญชีที่แอบอ้าง โปรดแจ้งผู้พัฒนา และแจ้งความออนไลน์ได้ที่ thaipoliceonline.go.th หรือสายด่วน 1441</li></ul>`;
-  }
+  function officialHTML(){ return ""; }
+
   function bind(){
     const p = el("mbPanel");
     p.querySelectorAll("[data-copy]").forEach(b => b.onclick = () => copyText(b.dataset.copy, "คัดลอกแล้ว"));
@@ -2310,7 +2272,7 @@ const Admin = (() => {
   const dt = s => { if (!s) return "-"; const d = new Date(s); return isNaN(d) ? h(s) : d.toLocaleString("th-TH", { dateStyle: "medium", timeStyle: "short" }); };
   const ST = { review: "รอตรวจ", pending: "รอโอน", approved: "อนุมัติ", rejected: "ปฏิเสธ", expired: "หมดอายุ", cancelled: "ยกเลิก" };
   const MS = { trial: "ผู้ทดลอง", member: "สมาชิก", suspended: "ระงับ" };
-  let tab = "orders", filter = "review", q = "", busy = false, act = null;
+  let tab = "members", filter = "review", q = "", busy = false, act = null;
 
   async function call(action, data){
     const j = await Paid.api(action, data);
@@ -2331,7 +2293,7 @@ const Admin = (() => {
     try {
       const s = (await call("admin.summary")).summary;
       el("admStats").innerHTML = [
-        ["รอตรวจ", s.review, "warn"], ["รอโอน", s.pending, ""], ["สมาชิก", s.members, "ok"], ["ผู้ทดลอง", s.trial, ""], ["ยอดรับที่อนุมัติ (บาท)", money(s.income), ""]
+        ["สมาชิก", s.members, "ok"], ["ผู้ทดลอง", s.trial, ""], ["ระงับ", s.suspended, ""]
       ].map(x => `<div class="adm-stat ${x[2]}"><b>${x[1]}</b><span>${x[0]}</span></div>`).join("");
       if (tab === "orders") orders((await call("admin.orders", { status: filter })).orders);
       else members((await call("admin.members", { q })).members);
@@ -2367,7 +2329,8 @@ const Admin = (() => {
       : '<tr><td colspan="5">ไม่พบผู้ใช้</td></tr>'}</tbody></table></div>`;
     el("admList").querySelectorAll("[data-mem]").forEach(s => s.onchange = async () => {
       const prev = [...s.options].find(o => o.defaultSelected).value;
-      if (!confirm(`เปลี่ยนสถานะของ ${s.dataset.mem} เป็น "${MS[s.value]}"`)){ s.value = prev; return; }
+      const msg = s.value === "member" ? `ยืนยันเปลี่ยน ${s.dataset.mem} เป็น "สมาชิก"\n\nตรวจในแอปธนาคารแล้วว่ามีเงินเข้าบัญชีจริง` : `เปลี่ยนสถานะของ ${s.dataset.mem} เป็น "${MS[s.value]}"`;
+      if (!confirm(msg)){ s.value = prev; return; }
       try { await call("admin.member", { email: s.dataset.mem, status: s.value }); toast("เปลี่ยนสถานะแล้ว"); load(); }
       catch (e) { toast(e.message); s.value = prev; }
     });
